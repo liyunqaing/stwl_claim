@@ -149,11 +149,11 @@
 <!-- 				</exclusion> -->
 <!-- 			</exclusions> -->
 		</dependency>
-		<!-- SpringBoot内嵌的Jetty服务器 -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.boot</groupId> -->
-<!-- 			<artifactId>spring-boot-starter-jetty</artifactId> -->
-<!-- 		</dependency> -->
+		 <!--SpringBoot内嵌的Jetty服务器-->
+ 		<dependency>
+ 			<groupId>org.springframework.boot</groupId>
+ 			<artifactId>spring-boot-starter-jetty</artifactId>
+ 		</dependency>
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
@@ -249,6 +249,13 @@
 		<!-- <groupId>commons-lang</groupId> -->
 		<!-- <artifactId>commons-lang</artifactId> -->
 		<!-- </dependency> -->
+
+		<dependency>
+			<groupId>com.adc</groupId>
+			<artifactId>mytest</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
