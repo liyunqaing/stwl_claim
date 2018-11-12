@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adc.da.sys.dao.Hpm05userEODao" >
+  <!-- Result Map-->
+  <resultMap id="BaseResultMap" type="com.adc.da.sys.entity.Hpm05userEO" >
+    <id column="userid" property="userid" />
+    <result column="companycode" property="companycode" />
+    <result column="companyname" property="companyname" />
+    <result column="createdate" property="createdate" />
+    <result column="createerid" property="createerid" />
+    <result column="departcode" property="departcode" />
+    <result column="email" property="email" />
+    <result column="failedtimes" property="failedtimes" />
+    <result column="ipaddr" property="ipaddr" />
+    <result column="jobcode" property="jobcode" />
+    <result column="jobname" property="jobname" />
+    <result column="lastlogin" property="lastlogin" />
+    <result column="lastreq" property="lastreq" />
+    <result column="usercode" property="usercode" />
+    <result column="online" property="online" />
+    <result column="paswd" property="paswd" />
+    <result column="pswupdatedate" property="pswupdatedate" />
+    <result column="py" property="py" />
+    <result column="relation" property="relation" />
+    <result column="remark" property="remark" />
+    <result column="roleid" property="roleid" />
+    <result column="rolename" property="rolename" />
+    <result column="sp1" property="sp1" />
+    <result column="sp10" property="sp10" />
+    <result column="sp11" property="sp11" />
+    <result column="sp12" property="sp12" />
+    <result column="sp2" property="sp2" />
+    <result column="sp3" property="sp3" />
+    <result column="sp4" property="sp4" />
+    <result column="sp5" property="sp5" />
+    <result column="sp6" property="sp6" />
+    <result column="sp7" property="sp7" />
+    <result column="sp8" property="sp8" />
+    <result column="sp9" property="sp9" />
+    <result column="status" property="status" />
+    <result column="updatedate" property="updatedate" />
+    <result column="updateerid" property="updateerid" />
+    <result column="username" property="username" />
+    <result column="usertype" property="usertype" />
+    <result column="fileid" property="fileid" />
+    <result column="signtype" property="signtype" />
+    <result column="ispaswd" property="ispaswd" />
+    <result column="approvepaswd" property="approvepaswd" />
+  </resultMap>
+
+  <!-- HPM05USER table all fields -->
+  <sql id="Base_Column_List" >
+     userid, companycode, companyname, createdate, createerid, departcode, email, failedtimes, ipaddr, jobcode, jobname, lastlogin, lastreq, usercode, online, paswd, pswupdatedate, py, relation, remark, roleid, rolename, sp1, sp10, sp11, sp12, sp2, sp3, sp4, sp5, sp6, sp7, sp8, sp9, status, updatedate, updateerid, username, usertype, fileid, signtype, ispaswd, approvepaswd
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="Base_Where_Clause">
+    where 1=1
+    <trim suffixOverrides="," >
+      <if test="userid != null" >
+        and userid ${useridOperator} #{userid}
+      </if>
+      <if test="companycode != null" >
+        and companycode ${companycodeOperator} #{companycode}
+      </if>
+      <if test="companyname != null" >
+        and companyname ${companynameOperator} #{companyname}
+      </if>
+      <if test="createdate != null" >
+        and createdate ${createdateOperator} #{createdate}
+      </if>
+      <if test="createdate1 != null" >
+        and createdate &gt;= #{createdate1}
+      </if>
+      <if test="createdate2 != null" >
+        and createdate &lt;= #{createdate2}
+      </if>
+      <if test="createerid != null" >
+        and createerid ${createeridOperator} #{createerid}
+      </if>
+      <if test="departcode != null" >
+        and departcode ${departcodeOperator} #{departcode}
+      </if>
+      <if test="email != null" >
+        and email ${emailOperator} #{email}
+      </if>
+      <if test="failedtimes != null" >
+        and failedtimes ${failedtimesOperator} #{failedtimes}
+      </if>
+      <if test="ipaddr != null" >
+        and ipaddr ${ipaddrOperator} #{ipaddr}
+      </if>
+      <if test="jobcode != null" >
+        and jobcode ${jobcodeOperator} #{jobcode}
+      </if>
+      <if test="jobname != null" >
+        and jobname ${jobnameOperator} #{jobname}
+      </if>
+      <if test="lastlogin != null" >
+        and lastlogin ${lastloginOperator} #{lastlogin}
+      </if>
+      <if test="lastlogin1 != null" >
+        and lastlogin &gt;= #{lastlogin1}
+      </if>
+      <if test="lastlogin2 != null" >
+        and lastlogin &lt;= #{lastlogin2}
+      </if>
+      <if test="lastreq != null" >
+        and lastreq ${lastreqOperator} #{lastreq}
+      </if>
+      <if test="lastreq1 != null" >
+        and lastreq &gt;= #{lastreq1}
+      </if>
+      <if test="lastreq2 != null" >
+        and lastreq &lt;= #{lastreq2}
+      </if>
+      <if test="usercode != null" >
+        and usercode ${usercodeOperator} #{usercode}
+      </if>
+      <if test="online != null" >
+        and online ${onlineOperator} #{online}
+      </if>
+      <if test="paswd != null" >
+        and paswd ${paswdOperator} #{paswd}
+      </if>
+      <if test="pswupdatedate != null" >
+        and pswupdatedate ${pswupdatedateOperator} #{pswupdatedate}
+      </if>
+      <if test="pswupdatedate1 != null" >
+        and pswupdatedate &gt;= #{pswupdatedate1}
+      </if>
+      <if test="pswupdatedate2 != null" >
+        and pswupdatedate &lt;= #{pswupdatedate2}
+      </if>
+      <if test="py != null" >
+        and py ${pyOperator} #{py}
+      </if>
+      <if test="relation != null" >
+        and relation ${relationOperator} #{relation}
+      </if>
+      <if test="remark != null" >
+        and remark ${remarkOperator} #{remark}
+      </if>
+      <if test="roleid != null" >
+        and roleid ${roleidOperator} #{roleid}
+      </if>
+      <if test="rolename != null" >
+        and rolename ${rolenameOperator} #{rolename}
+      </if>
+      <if test="sp1 != null" >
+        and sp1 ${sp1Operator} #{sp1}
+      </if>
+      <if test="sp10 != null" >
+        and sp10 ${sp10Operator} #{sp10}
+      </if>
+      <if test="sp101 != null" >
+        and sp10 &gt;= #{sp101}
+      </if>
+      <if test="sp102 != null" >
+        and sp10 &lt;= #{sp102}
+      </if>
+      <if test="sp11 != null" >
+        and sp11 ${sp11Operator} #{sp11}
+      </if>
+      <if test="sp12 != null" >
+        and sp12 ${sp12Operator} #{sp12}
+      </if>
+      <if test="sp2 != null" >
+        and sp2 ${sp2Operator} #{sp2}
+      </if>
+      <if test="sp3 != null" >
+        and sp3 ${sp3Operator} #{sp3}
+      </if>
+      <if test="sp4 != null" >
+        and sp4 ${sp4Operator} #{sp4}
+      </if>
+      <if test="sp5 != null" >
+        and sp5 ${sp5Operator} #{sp5}
+      </if>
+      <if test="sp6 != null" >
+        and sp6 ${sp6Operator} #{sp6}
+      </if>
+      <if test="sp7 != null" >
+        and sp7 ${sp7Operator} #{sp7}
+      </if>
+      <if test="sp8 != null" >
+        and sp8 ${sp8Operator} #{sp8}
+      </if>
+      <if test="sp9 != null" >
+        and sp9 ${sp9Operator} #{sp9}
+      </if>
+      <if test="sp91 != null" >
+        and sp9 &gt;= #{sp91}
+      </if>
+      <if test="sp92 != null" >
+        and sp9 &lt;= #{sp92}
+      </if>
+      <if test="status != null" >
+        and status ${statusOperator} #{status}
+      </if>
+      <if test="updatedate != null" >
+        and updatedate ${updatedateOperator} #{updatedate}
+      </if>
+      <if test="updatedate1 != null" >
+        and updatedate &gt;= #{updatedate1}
+      </if>
+      <if test="updatedate2 != null" >
+        and updatedate &lt;= #{updatedate2}
+      </if>
+      <if test="updateerid != null" >
+        and updateerid ${updateeridOperator} #{updateerid}
+      </if>
+      <if test="username != null" >
+        and username ${usernameOperator} #{username}
+      </if>
+      <if test="usertype != null" >
+        and usertype ${usertypeOperator} #{usertype}
+      </if>
+      <if test="fileid != null" >
+        and fileid ${fileidOperator} #{fileid}
+      </if>
+      <if test="signtype != null" >
+        and signtype ${signtypeOperator} #{signtype}
+      </if>
+      <if test="ispaswd != null" >
+        and ispaswd ${ispaswdOperator} #{ispaswd}
+      </if>
+      <if test="approvepaswd != null" >
+        and approvepaswd ${approvepaswdOperator} #{approvepaswd}
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 插入记录 -->
+  <insert id="insert" parameterType="com.adc.da.sys.entity.Hpm05userEO" >
+    <!-- <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="userid">
+        SELECT SEQ_HPM05USER.NEXTVAL FROM DUAL
+    </selectKey> -->
+    insert into HPM05USER(<include refid="Base_Column_List" />)
+    values (#{userid, jdbcType=INTEGER}, #{companycode, jdbcType=VARCHAR}, #{companyname, jdbcType=VARCHAR}, #{createdate, jdbcType=TIMESTAMP}, #{createerid, jdbcType=INTEGER}, #{departcode, jdbcType=VARCHAR}, #{email, jdbcType=VARCHAR}, #{failedtimes, jdbcType=INTEGER}, #{ipaddr, jdbcType=VARCHAR}, #{jobcode, jdbcType=VARCHAR}, #{jobname, jdbcType=VARCHAR}, #{lastlogin, jdbcType=TIMESTAMP}, #{lastreq, jdbcType=TIMESTAMP}, #{usercode, jdbcType=VARCHAR}, #{online, jdbcType=VARCHAR}, #{paswd, jdbcType=VARCHAR}, #{pswupdatedate, jdbcType=TIMESTAMP}, #{py, jdbcType=VARCHAR}, #{relation, jdbcType=VARCHAR}, #{remark, jdbcType=VARCHAR}, #{roleid, jdbcType=VARCHAR}, #{rolename, jdbcType=VARCHAR}, #{sp1, jdbcType=VARCHAR}, #{sp10, jdbcType=TIMESTAMP}, #{sp11, jdbcType=VARCHAR}, #{sp12, jdbcType=VARCHAR}, #{sp2, jdbcType=VARCHAR}, #{sp3, jdbcType=VARCHAR}, #{sp4, jdbcType=VARCHAR}, #{sp5, jdbcType=VARCHAR}, #{sp6, jdbcType=VARCHAR}, #{sp7, jdbcType=INTEGER}, #{sp8, jdbcType=INTEGER}, #{sp9, jdbcType=TIMESTAMP}, #{status, jdbcType=VARCHAR}, #{updatedate, jdbcType=TIMESTAMP}, #{updateerid, jdbcType=INTEGER}, #{username, jdbcType=VARCHAR}, #{usertype, jdbcType=VARCHAR}, #{fileid, jdbcType=INTEGER}, #{signtype, jdbcType=VARCHAR}, #{ispaswd, jdbcType=VARCHAR}, #{approvepaswd, jdbcType=VARCHAR})
+  </insert>
+
+  <!-- 动态插入记录 主键是序列 -->
+  <insert id="insertSelective" parameterType="com.adc.da.sys.entity.Hpm05userEO" >
+        <!-- <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="userid">
+        SELECT SEQ_HPM05USER.NEXTVAL FROM DUAL
+    </selectKey> -->
+        insert into HPM05USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+                <if test="userid != null" >userid,</if>
+                <if test="companycode != null" >companycode,</if>
+                <if test="companyname != null" >companyname,</if>
+                <if test="createdate != null" >createdate,</if>
+                <if test="createerid != null" >createerid,</if>
+                <if test="departcode != null" >departcode,</if>
+                <if test="email != null" >email,</if>
+                <if test="failedtimes != null" >failedtimes,</if>
+                <if test="ipaddr != null" >ipaddr,</if>
+                <if test="jobcode != null" >jobcode,</if>
+                <if test="jobname != null" >jobname,</if>
+                <if test="lastlogin != null" >lastlogin,</if>
+                <if test="lastreq != null" >lastreq,</if>
+                <if test="usercode != null" >usercode,</if>
+                <if test="online != null" >online,</if>
+                <if test="paswd != null" >paswd,</if>
+                <if test="pswupdatedate != null" >pswupdatedate,</if>
+                <if test="py != null" >py,</if>
+                <if test="relation != null" >relation,</if>
+                <if test="remark != null" >remark,</if>
+                <if test="roleid != null" >roleid,</if>
+                <if test="rolename != null" >rolename,</if>
+                <if test="sp1 != null" >sp1,</if>
+                <if test="sp10 != null" >sp10,</if>
+                <if test="sp11 != null" >sp11,</if>
+                <if test="sp12 != null" >sp12,</if>
+                <if test="sp2 != null" >sp2,</if>
+                <if test="sp3 != null" >sp3,</if>
+                <if test="sp4 != null" >sp4,</if>
+                <if test="sp5 != null" >sp5,</if>
+                <if test="sp6 != null" >sp6,</if>
+                <if test="sp7 != null" >sp7,</if>
+                <if test="sp8 != null" >sp8,</if>
+                <if test="sp9 != null" >sp9,</if>
+                <if test="status != null" >status,</if>
+                <if test="updatedate != null" >updatedate,</if>
+                <if test="updateerid != null" >updateerid,</if>
+                <if test="username != null" >username,</if>
+                <if test="usertype != null" >usertype,</if>
+                <if test="fileid != null" >fileid,</if>
+                <if test="signtype != null" >signtype,</if>
+                <if test="ispaswd != null" >ispaswd,</if>
+                <if test="approvepaswd != null" >approvepaswd,</if>
+            </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+                <if test="userid != null" >#{userid, jdbcType=INTEGER},</if>
+                <if test="companycode != null" >#{companycode, jdbcType=VARCHAR},</if>
+                <if test="companyname != null" >#{companyname, jdbcType=VARCHAR},</if>
+                <if test="createdate != null" >#{createdate, jdbcType=TIMESTAMP},</if>
+                <if test="createerid != null" >#{createerid, jdbcType=INTEGER},</if>
+                <if test="departcode != null" >#{departcode, jdbcType=VARCHAR},</if>
+                <if test="email != null" >#{email, jdbcType=VARCHAR},</if>
+                <if test="failedtimes != null" >#{failedtimes, jdbcType=INTEGER},</if>
+                <if test="ipaddr != null" >#{ipaddr, jdbcType=VARCHAR},</if>
+                <if test="jobcode != null" >#{jobcode, jdbcType=VARCHAR},</if>
+                <if test="jobname != null" >#{jobname, jdbcType=VARCHAR},</if>
+                <if test="lastlogin != null" >#{lastlogin, jdbcType=TIMESTAMP},</if>
+                <if test="lastreq != null" >#{lastreq, jdbcType=TIMESTAMP},</if>
+                <if test="usercode != null" >#{usercode, jdbcType=VARCHAR},</if>
+                <if test="online != null" >#{online, jdbcType=VARCHAR},</if>
+                <if test="paswd != null" >#{paswd, jdbcType=VARCHAR},</if>
+                <if test="pswupdatedate != null" >#{pswupdatedate, jdbcType=TIMESTAMP},</if>
+                <if test="py != null" >#{py, jdbcType=VARCHAR},</if>
+                <if test="relation != null" >#{relation, jdbcType=VARCHAR},</if>
+                <if test="remark != null" >#{remark, jdbcType=VARCHAR},</if>
+                <if test="roleid != null" >#{roleid, jdbcType=VARCHAR},</if>
+                <if test="rolename != null" >#{rolename, jdbcType=VARCHAR},</if>
+                <if test="sp1 != null" >#{sp1, jdbcType=VARCHAR},</if>
+                <if test="sp10 != null" >#{sp10, jdbcType=TIMESTAMP},</if>
+                <if test="sp11 != null" >#{sp11, jdbcType=VARCHAR},</if>
+                <if test="sp12 != null" >#{sp12, jdbcType=VARCHAR},</if>
+                <if test="sp2 != null" >#{sp2, jdbcType=VARCHAR},</if>
+                <if test="sp3 != null" >#{sp3, jdbcType=VARCHAR},</if>
+                <if test="sp4 != null" >#{sp4, jdbcType=VARCHAR},</if>
+                <if test="sp5 != null" >#{sp5, jdbcType=VARCHAR},</if>
+                <if test="sp6 != null" >#{sp6, jdbcType=VARCHAR},</if>
+                <if test="sp7 != null" >#{sp7, jdbcType=INTEGER},</if>
+                <if test="sp8 != null" >#{sp8, jdbcType=INTEGER},</if>
+                <if test="sp9 != null" >#{sp9, jdbcType=TIMESTAMP},</if>
+                <if test="status != null" >#{status, jdbcType=VARCHAR},</if>
+                <if test="updatedate != null" >#{updatedate, jdbcType=TIMESTAMP},</if>
+                <if test="updateerid != null" >#{updateerid, jdbcType=INTEGER},</if>
+                <if test="username != null" >#{username, jdbcType=VARCHAR},</if>
+                <if test="usertype != null" >#{usertype, jdbcType=VARCHAR},</if>
+                <if test="fileid != null" >#{fileid, jdbcType=INTEGER},</if>
+                <if test="signtype != null" >#{signtype, jdbcType=VARCHAR},</if>
+                <if test="ispaswd != null" >#{ispaswd, jdbcType=VARCHAR},</if>
+                <if test="approvepaswd != null" >#{approvepaswd, jdbcType=VARCHAR},</if>
+            </trim>
+  </insert>
+
+  <!-- 根据pk，修改记录-->
+  <update id="updateByPrimaryKey" parameterType="com.adc.da.sys.entity.Hpm05userEO" >
+    update HPM05USER
+       set  companycode = #{companycode},
+            companyname = #{companyname},
+            createdate = #{createdate},
+            createerid = #{createerid},
+            departcode = #{departcode},
+            email = #{email},
+            failedtimes = #{failedtimes},
+            ipaddr = #{ipaddr},
+            jobcode = #{jobcode},
+            jobname = #{jobname},
+            lastlogin = #{lastlogin},
+            lastreq = #{lastreq},
+            usercode = #{usercode},
+            online = #{online},
+            paswd = #{paswd},
+            pswupdatedate = #{pswupdatedate},
+            py = #{py},
+            relation = #{relation},
+            remark = #{remark},
+            roleid = #{roleid},
+            rolename = #{rolename},
+            sp1 = #{sp1},
+            sp10 = #{sp10},
+            sp11 = #{sp11},
+            sp12 = #{sp12},
+            sp2 = #{sp2},
+            sp3 = #{sp3},
+            sp4 = #{sp4},
+            sp5 = #{sp5},
+            sp6 = #{sp6},
+            sp7 = #{sp7},
+            sp8 = #{sp8},
+            sp9 = #{sp9},
+            status = #{status},
+            updatedate = #{updatedate},
+            updateerid = #{updateerid},
+            username = #{username},
+            usertype = #{usertype},
+            fileid = #{fileid},
+            signtype = #{signtype},
+            ispaswd = #{ispaswd},
+            approvepaswd = #{approvepaswd}
+     where  userid = #{userid}
+  </update>
+
+  <!-- 修改记录，只修改只不为空的字段 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.adc.da.sys.entity.Hpm05userEO" >
+    update HPM05USER
+    <set >
+      <if test="companycode != null" >
+        companycode = #{companycode},
+      </if>
+      <if test="companyname != null" >
+        companyname = #{companyname},
+      </if>
+      <if test="createdate != null" >
+        createdate = #{createdate},
+      </if>
+      <if test="createerid != null" >
+        createerid = #{createerid},
+      </if>
+      <if test="departcode != null" >
+        departcode = #{departcode},
+      </if>
+      <if test="email != null" >
+        email = #{email},
+      </if>
+      <if test="failedtimes != null" >
+        failedtimes = #{failedtimes},
+      </if>
+      <if test="ipaddr != null" >
+        ipaddr = #{ipaddr},
+      </if>
+      <if test="jobcode != null" >
+        jobcode = #{jobcode},
+      </if>
+      <if test="jobname != null" >
+        jobname = #{jobname},
+      </if>
+      <if test="lastlogin != null" >
+        lastlogin = #{lastlogin},
+      </if>
+      <if test="lastreq != null" >
+        lastreq = #{lastreq},
+      </if>
+      <if test="usercode != null" >
+        usercode = #{usercode},
+      </if>
+      <if test="online != null" >
+        online = #{online},
+      </if>
+      <if test="paswd != null" >
+        paswd = #{paswd},
+      </if>
+      <if test="pswupdatedate != null" >
+        pswupdatedate = #{pswupdatedate},
+      </if>
+      <if test="py != null" >
+        py = #{py},
+      </if>
+      <if test="relation != null" >
+        relation = #{relation},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+      <if test="roleid != null" >
+        roleid = #{roleid},
+      </if>
+      <if test="rolename != null" >
+        rolename = #{rolename},
+      </if>
+      <if test="sp1 != null" >
+        sp1 = #{sp1},
+      </if>
+      <if test="sp10 != null" >
+        sp10 = #{sp10},
+      </if>
+      <if test="sp11 != null" >
+        sp11 = #{sp11},
+      </if>
+      <if test="sp12 != null" >
+        sp12 = #{sp12},
+      </if>
+      <if test="sp2 != null" >
+        sp2 = #{sp2},
+      </if>
+      <if test="sp3 != null" >
+        sp3 = #{sp3},
+      </if>
+      <if test="sp4 != null" >
+        sp4 = #{sp4},
+      </if>
+      <if test="sp5 != null" >
+        sp5 = #{sp5},
+      </if>
+      <if test="sp6 != null" >
+        sp6 = #{sp6},
+      </if>
+      <if test="sp7 != null" >
+        sp7 = #{sp7},
+      </if>
+      <if test="sp8 != null" >
+        sp8 = #{sp8},
+      </if>
+      <if test="sp9 != null" >
+        sp9 = #{sp9},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="updatedate != null" >
+        updatedate = #{updatedate},
+      </if>
+      <if test="updateerid != null" >
+        updateerid = #{updateerid},
+      </if>
+      <if test="username != null" >
+        username = #{username},
+      </if>
+      <if test="usertype != null" >
+        usertype = #{usertype},
+      </if>
+      <if test="fileid != null" >
+        fileid = #{fileid},
+      </if>
+      <if test="signtype != null" >
+        signtype = #{signtype},
+      </if>
+      <if test="ispaswd != null" >
+        ispaswd = #{ispaswd},
+      </if>
+      <if test="approvepaswd != null" >
+        approvepaswd = #{approvepaswd},
+      </if>
+    </set>
+     where userid = #{userid}
+  </update>
+
+  <!-- 根据id查询 HPM05USER -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select <include refid="Base_Column_List" /> 
+      from HPM05USER
+     where userid = #{value}
+
+  </select>
+
+  <!-- 删除记录 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from HPM05USER
+     where userid = #{value}
+
+  </delete>
+
+  <!-- HPM05USER 列表总数-->
+  <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
+    select count(1) from HPM05USER
+    <include refid="Base_Where_Clause"/>
+  </select>
+
+  <!-- 查询HPM05USER列表 -->
+  <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+		select <include refid="Base_Column_List" /> from HPM05USER
+			<include refid="Base_Where_Clause"/>
+			<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+				${pager.orderCondition}
+			</if>
+			offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
+  </select>
+
+  <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+    select <include refid="Base_Column_List"/> from HPM05USER
+    <include refid="Base_Where_Clause"/>
+    <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+		${pager.orderCondition}
+    </if>
+  </select>
+
+</mapper>
