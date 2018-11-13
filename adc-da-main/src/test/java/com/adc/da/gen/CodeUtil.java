@@ -17,9 +17,9 @@ public class CodeUtil {
 
 
 
-        entityPackage = "sys";
+        entityPackage = "newkeypart";
 
-        DbCodeGenerateFactory.codeGenerate("HPM05USER", entityPackage);
+        DbCodeGenerateFactory.codeGenerate("newkeypart", entityPackage);
 //        DbCodeGenerateFactory.codeGenerate("TS_ROLE", entityPackage);
 //        DbCodeGenerateFactory.codeGenerate("TS_MENU", entityPackage);
 

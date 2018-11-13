@@ -40,11 +40,11 @@
 			<version>1.0.0</version>
 		</dependency>
 		<!-- 登录组件 -->
- 		<dependency>
- 			<groupId>com.adc</groupId>
- 			<artifactId>adc-da-login</artifactId>
- 			<version>2.2.9</version>
- 		</dependency>
+ 		<!--<dependency>-->
+ 			<!--<groupId>com.adc</groupId>-->
+ 			<!--<artifactId>adc-da-login</artifactId>-->
+ 			<!--<version>2.2.9</version>-->
+ 		<!--</dependency>-->
 
  		<dependency>
  			<groupId>com.adc</groupId>

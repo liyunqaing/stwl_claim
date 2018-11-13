@@ -348,11 +348,11 @@
 			</dependency>
 
 
-			<dependency>
-				<groupId>org.apache.poi</groupId>
-				<artifactId>poi</artifactId>
-				<version>3.13</version>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>org.apache.poi</groupId>-->
+				<!--<artifactId>poi</artifactId>-->
+				<!--<version>3.13</version>-->
+			<!--</dependency>-->
 
 			<dependency>
 				<groupId>com.google.guava</groupId>
