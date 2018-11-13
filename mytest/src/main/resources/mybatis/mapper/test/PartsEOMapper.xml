@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adc.da.test.dao.PartsEODao" >
+  <!-- Result Map-->
+  <resultMap id="BaseResultMap" type="com.adc.da.test.entity.PartsEO" >
+    <id column="id" property="id" />
+    <result column="parts" property="parts" />
+    <result column="partsName" property="partsName" />
+    <result column="announcement" property="announcement" />
+    <result column="c3" property="c3" />
+    <result column="ep" property="ep" />
+    <result column="c3_certificate" property="c3Certificate" />
+    <result column="print_way" property="printWay" />
+    <result column="parts_cname" property="partsCname" />
+    <result column="parts_num" property="partsNum" />
+    <result column="parts_ename" property="partsEname" />
+    <result column="vpps" property="vpps" />
+    <result column="upc" property="upc" />
+    <result column="fna" property="fna" />
+    <result column="engineer_eng" property="engineerEng" />
+    <result column="director_eng" property="directorEng" />
+  </resultMap>
+
+  <!-- parts table all fields -->
+  <sql id="Base_Column_List" >
+     id, parts, partsName, announcement, c3, ep, c3_certificate, print_way, parts_cname, parts_num, parts_ename, vpps, upc, fna, engineer_eng, director_eng
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="Base_Where_Clause">
+    where 1=1
+    <trim suffixOverrides="," >
+      <if test="id != null" >
+        and id ${idOperator} #{id}
+      </if>
+      <if test="parts != null" >
+        and parts ${partsOperator} #{parts}
+      </if>
+      <if test="partsName != null" >
+        and partsName ${partsNameOperator} #{partsName}
+      </if>
+      <if test="announcement != null" >
+        and announcement ${announcementOperator} #{announcement}
+      </if>
+      <if test="c3 != null" >
+        and c3 ${c3Operator} #{c3}
+      </if>
+      <if test="ep != null" >
+        and ep ${epOperator} #{ep}
+      </if>
+      <if test="c3Certificate != null" >
+        and c3_certificate ${c3CertificateOperator} #{c3Certificate}
+      </if>
+      <if test="printWay != null" >
+        and print_way ${printWayOperator} #{printWay}
+      </if>
+      <if test="partsCname != null" >
+        and parts_cname ${partsCnameOperator} #{partsCname}
+      </if>
+      <if test="partsNum != null" >
+        and parts_num ${partsNumOperator} #{partsNum}
+      </if>
+      <if test="partsEname != null" >
+        and parts_ename ${partsEnameOperator} #{partsEname}
+      </if>
+      <if test="vpps != null" >
+        and vpps ${vppsOperator} #{vpps}
+      </if>
+      <if test="upc != null" >
+        and upc ${upcOperator} #{upc}
+      </if>
+      <if test="fna != null" >
+        and fna ${fnaOperator} #{fna}
+      </if>
+      <if test="engineerEng != null" >
+        and engineer_eng ${engineerEngOperator} #{engineerEng}
+      </if>
+      <if test="directorEng != null" >
+        and director_eng ${directorEngOperator} #{directorEng}
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 插入记录 -->
+  <insert id="insert" parameterType="com.adc.da.test.entity.PartsEO" >
+    <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+        SELECT SEQ_parts.NEXTVAL FROM DUAL
+    </selectKey> -->
+    insert into parts(<include refid="Base_Column_List" />)
+    values (#{id, jdbcType=VARCHAR}, #{parts, jdbcType=VARCHAR}, #{partsName, jdbcType=VARCHAR}, #{announcement, jdbcType=VARCHAR}, #{c3, jdbcType=VARCHAR}, #{ep, jdbcType=VARCHAR}, #{c3Certificate, jdbcType=VARCHAR}, #{printWay, jdbcType=VARCHAR}, #{partsCname, jdbcType=VARCHAR}, #{partsNum, jdbcType=VARCHAR}, #{partsEname, jdbcType=VARCHAR}, #{vpps, jdbcType=VARCHAR}, #{upc, jdbcType=VARCHAR}, #{fna, jdbcType=VARCHAR}, #{engineerEng, jdbcType=VARCHAR}, #{directorEng, jdbcType=VARCHAR})
+  </insert>
+
+  <!-- 动态插入记录 主键是序列 -->
+  <insert id="insertSelective" parameterType="com.adc.da.test.entity.PartsEO" >
+        <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+        SELECT SEQ_parts.NEXTVAL FROM DUAL
+    </selectKey> -->
+        insert into parts
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+                <if test="id != null" >id,</if>
+                <if test="parts != null" >parts,</if>
+                <if test="partsName != null" >partsName,</if>
+                <if test="announcement != null" >announcement,</if>
+                <if test="c3 != null" >c3,</if>
+                <if test="ep != null" >ep,</if>
+                <if test="c3Certificate != null" >c3_certificate,</if>
+                <if test="printWay != null" >print_way,</if>
+                <if test="partsCname != null" >parts_cname,</if>
+                <if test="partsNum != null" >parts_num,</if>
+                <if test="partsEname != null" >parts_ename,</if>
+                <if test="vpps != null" >vpps,</if>
+                <if test="upc != null" >upc,</if>
+                <if test="fna != null" >fna,</if>
+                <if test="engineerEng != null" >engineer_eng,</if>
+                <if test="directorEng != null" >director_eng,</if>
+            </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+                <if test="id != null" >#{id, jdbcType=VARCHAR},</if>
+                <if test="parts != null" >#{parts, jdbcType=VARCHAR},</if>
+                <if test="partsName != null" >#{partsName, jdbcType=VARCHAR},</if>
+                <if test="announcement != null" >#{announcement, jdbcType=VARCHAR},</if>
+                <if test="c3 != null" >#{c3, jdbcType=VARCHAR},</if>
+                <if test="ep != null" >#{ep, jdbcType=VARCHAR},</if>
+                <if test="c3Certificate != null" >#{c3Certificate, jdbcType=VARCHAR},</if>
+                <if test="printWay != null" >#{printWay, jdbcType=VARCHAR},</if>
+                <if test="partsCname != null" >#{partsCname, jdbcType=VARCHAR},</if>
+                <if test="partsNum != null" >#{partsNum, jdbcType=VARCHAR},</if>
+                <if test="partsEname != null" >#{partsEname, jdbcType=VARCHAR},</if>
+                <if test="vpps != null" >#{vpps, jdbcType=VARCHAR},</if>
+                <if test="upc != null" >#{upc, jdbcType=VARCHAR},</if>
+                <if test="fna != null" >#{fna, jdbcType=VARCHAR},</if>
+                <if test="engineerEng != null" >#{engineerEng, jdbcType=VARCHAR},</if>
+                <if test="directorEng != null" >#{directorEng, jdbcType=VARCHAR},</if>
+            </trim>
+  </insert>
+
+  <!-- 根据pk，修改记录-->
+  <update id="updateByPrimaryKey" parameterType="com.adc.da.test.entity.PartsEO" >
+    update parts
+       set  parts = #{parts},
+            partsName = #{partsName},
+            announcement = #{announcement},
+            c3 = #{c3},
+            ep = #{ep},
+            c3_certificate = #{c3Certificate},
+            print_way = #{printWay},
+            parts_cname = #{partsCname},
+            parts_num = #{partsNum},
+            parts_ename = #{partsEname},
+            vpps = #{vpps},
+            upc = #{upc},
+            fna = #{fna},
+            engineer_eng = #{engineerEng},
+            director_eng = #{directorEng}
+     where  id = #{id}
+  </update>
+
+  <!-- 修改记录，只修改只不为空的字段 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.adc.da.test.entity.PartsEO" >
+    update parts
+    <set >
+      <if test="parts != null" >
+        parts = #{parts},
+      </if>
+      <if test="partsName != null" >
+        partsName = #{partsName},
+      </if>
+      <if test="announcement != null" >
+        announcement = #{announcement},
+      </if>
+      <if test="c3 != null" >
+        c3 = #{c3},
+      </if>
+      <if test="ep != null" >
+        ep = #{ep},
+      </if>
+      <if test="c3Certificate != null" >
+        c3_certificate = #{c3Certificate},
+      </if>
+      <if test="printWay != null" >
+        print_way = #{printWay},
+      </if>
+      <if test="partsCname != null" >
+        parts_cname = #{partsCname},
+      </if>
+      <if test="partsNum != null" >
+        parts_num = #{partsNum},
+      </if>
+      <if test="partsEname != null" >
+        parts_ename = #{partsEname},
+      </if>
+      <if test="vpps != null" >
+        vpps = #{vpps},
+      </if>
+      <if test="upc != null" >
+        upc = #{upc},
+      </if>
+      <if test="fna != null" >
+        fna = #{fna},
+      </if>
+      <if test="engineerEng != null" >
+        engineer_eng = #{engineerEng},
+      </if>
+      <if test="directorEng != null" >
+        director_eng = #{directorEng},
+      </if>
+    </set>
+     where id = #{id}
+  </update>
+
+  <!-- 根据id查询 parts -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List" /> 
+      from parts
+     where id = #{value}
+
+  </select>
+
+  <!-- 删除记录 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from parts
+     where id = #{value}
+
+  </delete>
+
+  <!-- parts 列表总数-->
+  <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
+    select count(1) from parts
+    <include refid="Base_Where_Clause"/>
+  </select>
+
+  <!-- 查询parts列表 -->
+  <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+		select <include refid="Base_Column_List" /> from parts
+			<include refid="Base_Where_Clause"/>
+			<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+				${pager.orderCondition}
+			</if>
+			offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
+  </select>
+
+  <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+    select <include refid="Base_Column_List"/> from parts
+    <include refid="Base_Where_Clause"/>
+    <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+		${pager.orderCondition}
+    </if>
+  </select>
+
+</mapper>

@@ -249,6 +249,13 @@
 		<!-- <groupId>commons-lang</groupId> -->
 		<!-- <artifactId>commons-lang</artifactId> -->
 		<!-- </dependency> -->
+
+		<dependency>
+			<groupId>com.adc</groupId>
+			<artifactId>mytest</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

@@ -48,6 +48,7 @@
 		<module>demo</module>
 		<module>stwl-claim-sys</module>
 		<module>stwl-claim-ssologin</module>
+		<module>mytest</module>
 	</modules>
 
 	<repositories>
