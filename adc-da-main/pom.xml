@@ -40,11 +40,11 @@
 			<version>1.0.0</version>
 		</dependency>
 		<!-- 登录组件 -->
- 		<dependency>
- 			<groupId>com.adc</groupId>
- 			<artifactId>adc-da-login</artifactId>
- 			<version>2.2.9</version>
- 		</dependency>
+ 		<!--<dependency>-->
+ 			<!--<groupId>com.adc</groupId>-->
+ 			<!--<artifactId>adc-da-login</artifactId>-->
+ 			<!--<version>2.2.9</version>-->
+ 		<!--</dependency>-->
 
  		<dependency>
  			<groupId>com.adc</groupId>
@@ -149,11 +149,11 @@
 <!-- 				</exclusion> -->
 <!-- 			</exclusions> -->
 		</dependency>
-		<!-- SpringBoot内嵌的Jetty服务器 -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.boot</groupId> -->
-<!-- 			<artifactId>spring-boot-starter-jetty</artifactId> -->
-<!-- 		</dependency> -->
+		 <!--SpringBoot内嵌的Jetty服务器-->
+ 		<dependency>
+ 			<groupId>org.springframework.boot</groupId>
+ 			<artifactId>spring-boot-starter-jetty</artifactId>
+ 		</dependency>
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
