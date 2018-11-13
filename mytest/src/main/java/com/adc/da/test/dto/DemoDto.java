@@ -1,4 +1,4 @@
-package com.adc.da.test.entity;
+package com.adc.da.test.dto;
 
 import com.adc.da.base.entity.BaseEntity;
 import com.adc.da.excel.annotation.Excel;
@@ -10,10 +10,12 @@ import com.adc.da.excel.annotation.Excel;
  * <b>日期：</b> 2018-11-09 <br>
  * <b>版权所有：<b>版权归北京卡达克数据技术中心所有。<br>
  */
-public class DemoEO extends BaseEntity {
-
+public class DemoDto extends BaseEntity {
+    @Excel(name = "ID",orderNum = "1")
     private String id;
+    @Excel(name = "姓名",orderNum = "2")
     private String uername;
+    @Excel(name = "密码",orderNum = "3")
     private String password;
 
     /**

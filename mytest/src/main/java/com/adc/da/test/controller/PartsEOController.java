@@ -36,6 +36,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+* @Description:   _使用poi-ooxml完成Excel导入数据库
+* @Author:         yueben
+* @CreateDate:     2018/11/13 17:12
+*/
 @RestController
 @RequestMapping("/${restPath}/test/parts")
 @Api(description = "|PartsEO|")
@@ -46,25 +51,28 @@ public class PartsEOController extends BaseController<PartsEO>{
     @Autowired
     private PartsEOService partsEOService;
 
+    /**
+    * @Description:   _Excel导入数据库
+    * @Author:         yueben
+    * @CreateDate:     2018/11/13 17:24
+    */
     @PostMapping("/excelUp")
     public ResponseMessage excelUp() throws Exception {
         //文件路径
         String filepath = "C:\\Users\\11544\\Desktop\\关键件表 CN180C_河西工厂_201809.xlsx";
-        //获得Excel对象
+        //获得Excel对象，HSSFWorkbook只能操作Excel2003的文件（.xls），要操作Excel2007（.xlsx）的文件需要用poi-ooxml依赖中的XSSFWorkbook
         //HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(new String(filepath.getBytes(), "utf-8")));
         XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(new String(filepath.getBytes(), "utf-8")));
         //获取Excel中的第一张表
-        //HSSFSheet sh1 = wb.getSheetAt(0);
         XSSFSheet sh1 = wb.getSheetAt(0);
 
 
         //获取文件数据行数
         int allrows = sh1.getPhysicalNumberOfRows();
-
+        //从Excel表格中第七行开始读取
         for (int i = 7; i < allrows; i++) {
             int cellNum = 1;
             //获取行对象
-            //HSSFRow row = sh1.getRow(i);
             XSSFRow row = sh1.getRow(i);
             if(row == null){
                 break;
@@ -76,7 +84,7 @@ public class PartsEOController extends BaseController<PartsEO>{
             pe.setId(i - 4 + "");
             pe.setParts(getValue(row.getCell(cellNum++)));
             pe.setPartsName(getValue(row.getCell(cellNum++)));
-            cellNum++;//跳过表格中的空格
+            cellNum++;//跳过合并的单元格
             pe.setAnnouncement(getValue(row.getCell(cellNum++)));
             pe.setC3(getValue(row.getCell(cellNum++)));
             pe.setEp(getValue(row.getCell(cellNum++)));
@@ -101,9 +109,12 @@ public class PartsEOController extends BaseController<PartsEO>{
 
     //转换数据类型
     public String getValue(XSSFCell cell){
-
+        //判断单元格数据类型，进行处理
 	    switch (cell.getCellType()){
             case XSSFCell.CELL_TYPE_STRING:
+                Integer asc = Integer.valueOf(cell.getStringCellValue().charAt(0));
+                //判断是否是特殊字符
+                if(asc == 9679) return "是";
                 return cell.getStringCellValue()==null?"":cell.getStringCellValue();
             case XSSFCell.CELL_TYPE_NUMERIC:
                 return cell.getNumericCellValue()+"";

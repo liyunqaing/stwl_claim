@@ -26,7 +26,12 @@ import io.swagger.annotations.Api;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+/**
+* @Description:   _通过itextpdf完成pdf的导出
+ *                 _poi完成Excel的导出
+* @Author:         yueben
+* @CreateDate:     2018/11/13 17:15
+*/
 @RestController
 @RequestMapping("/${restPath}/test/demo")
 @Api(description = "|DemoEO|")
@@ -37,8 +42,13 @@ public class DemoEOController extends BaseController<DemoEO>{
     @Autowired
     private DemoEOService demoEOService;
 
+    /**
+    * @Description:   _导出数据库数据到pdf
+    * @Author:         yueben
+    * @CreateDate:     2018/11/13 22:15
+    */
    @GetMapping("/pdf")
-    public void downpdf(HttpServletRequest request , HttpServletResponse response) throws Exception{
+    public void downpdf(HttpServletResponse response) throws Exception{
        //设置响应头部，声明文件为附件进行下载
        response.setHeader("Content-type", "application/pdf;charset=utf-8");
        response.setHeader("content-disposition", "attachment;filename=Pdf.pdf");
@@ -52,7 +62,7 @@ public class DemoEOController extends BaseController<DemoEO>{
        document.open();
 
        //设置标题
-       Paragraph p = new Paragraph("user_message");
+       Paragraph p = new Paragraph("user_message\n");
        p.setAlignment(Element.ALIGN_CENTER);
        document.add(p);
 
@@ -74,10 +84,15 @@ public class DemoEOController extends BaseController<DemoEO>{
         System.out.println("输出pdf:");
    }
 
+   /**
+   * @Description:   _导出数据库数据到excel
+   * @Author:         yueben
+   * @CreateDate:     2018/11/13 22:16
+   */
    @GetMapping("/excel")
     public void getExcel(HttpServletResponse response) throws Exception{
        //设置响应头部，声明文件为附件进行下载
-       String filename = "我的_Excel.xlsx";
+       String filename = new String("我的_Excel.xlsx".getBytes("gbk"),"utf-8");
        filename = URLEncoder.encode(filename,"utf-8");
        response.setHeader("Content-type", "application/pdf;charset=utf-8");
        response.setHeader("content-disposition", "attachment;filename="+filename);
