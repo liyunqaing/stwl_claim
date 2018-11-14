@@ -32,7 +32,7 @@ public class VoController extends BaseController<DemoVo> {
     private DemoEOService demoEOService;
 
     /**
-    * @Description:   _多表查询
+    * @Description:   _多表模糊查询，生成代码的分页查询不好使，已修改了sql语句拼写
     * @Author:         yueben
     * @CreateDate:     2018/11/14 20:38
     */

@@ -144,7 +144,7 @@ public class DemoEOController extends BaseController<DemoEO>{
    }
 
    /**
-   * @Description:   _模糊查询分页
+   * @Description:   _模糊查询分页,生成代码的分页查询不好使，已修改了sql语句拼写
    * @Author:         yueben
    * @CreateDate:     2018/11/14 13:50
    */

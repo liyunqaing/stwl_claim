@@ -132,7 +132,7 @@
         <if test="password != null" >
             and password LIKE '%'+#{password}+'%'
         </if>
-        ORDER BY id offset ${pager.pageOffset} rows fetch  next ${pager.pageSize} rows only
+        ORDER BY id offset ${(page-1)*pageSize} rows fetch  next ${pageSize} rows only
     </select>
 
   <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
@@ -161,7 +161,7 @@
         <if test="partsName != null" >
             and partsName LIKE '%'+#{partsName}+'%'
         </if>
-        ORDER BY creat_time offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
+        ORDER BY creat_time offset ${(page-1)*pageSize} rows fetch next ${pageSize} rows only
     </select>
 
 </mapper>

@@ -42,7 +42,7 @@ public class DemoEOService extends BaseService<DemoEO, String> {
     }
 
     public List<DemoEO> fuzzyQuery(BasePage page){
-        return dao.queryByList(page);
+        return dao.fuzzyQuery(page);
     }
 
     public List<DemoVo> fuzzyVoQuery(BasePage basePage){
