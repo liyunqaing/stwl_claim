@@ -28,7 +28,7 @@
 		<dependency>
 			<groupId>com.adc</groupId>
 			<artifactId>adc-da-excel</artifactId>
-			<version>2.0.0</version>
+			<version>2.0.3</version>
 		</dependency>
 		<!-- poi -->
 		<dependency>

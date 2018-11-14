@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adc.da.hero.dao.HeroEODao">
+    <!-- Result Map-->
+    <resultMap id="BaseResultMap" type="com.adc.da.hero.entity.HeroEO">
+        <id column="hid" property="hid"/>
+        <result column="hname" property="hname"/>
+        <result column="hability" property="hability"/>
+    </resultMap>
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO HERO
+        (hid,hname,hability)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.hid},
+            #{item.hname},
+            #{item.hability})
+        </foreach>
+    </insert>
+    <!-- 查询Hero详情 刘笑天 20181112-->
+    <select id="selectHeroByHid" resultType="com.adc.da.hero.entity.HeroEO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM HERO WHERE hid = #{hid}
+    </select>
+    <!-- hero table all fields -->
+    <sql id="Base_Column_List">
+     hid, hname, hability
+  </sql>
+
+    <!-- 查询条件 -->
+    <sql id="Base_Where_Clause">
+        where 1=1
+        <trim suffixOverrides=",">
+            <if test="hid != null">
+                and hid ${hidOperator} #{hid}
+            </if>
+            <if test="hname != null">
+                and hname ${hnameOperator} #{hname}
+            </if>
+            <if test="hability != null">
+                and hability ${habilityOperator} #{hability}
+            </if>
+        </trim>
+    </sql>
+
+    <!-- 插入记录 -->
+    <insert id="insert" parameterType="com.adc.da.hero.entity.HeroEO">
+        <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="hid">
+            SELECT SEQ_hero.NEXTVAL FROM DUAL
+        </selectKey> -->
+        insert into hero(<include refid="Base_Column_List"/>)
+        values (#{hid, jdbcType=VARCHAR}, #{hname, jdbcType=VARCHAR}, #{hability, jdbcType=VARCHAR})
+    </insert>
+
+    <!-- 动态插入记录 主键是序列 -->
+    <insert id="insertSelective" parameterType="com.adc.da.hero.entity.HeroEO">
+        <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="hid">
+        SELECT SEQ_hero.NEXTVAL FROM DUAL
+    </selectKey> -->
+        insert into hero
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hid != null">hid,</if>
+            <if test="hname != null">hname,</if>
+            <if test="hability != null">hability,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hid != null">#{hid, jdbcType=VARCHAR},</if>
+            <if test="hname != null">#{hname, jdbcType=VARCHAR},</if>
+            <if test="hability != null">#{hability, jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+
+    <!-- 根据pk，修改记录-->
+    <update id="updateByPrimaryKey" parameterType="com.adc.da.hero.entity.HeroEO">
+    update hero
+       set  hname = #{hname},
+            hability = #{hability}
+     where  hid = #{hid}
+  </update>
+
+    <!-- 修改记录，只修改只不为空的字段 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.adc.da.hero.entity.HeroEO">
+        update hero
+        <set>
+            <if test="hname != null">
+                hname = #{hname},
+            </if>
+            <if test="hability != null">
+                hability = #{hability},
+            </if>
+        </set>
+        where hid = #{hid}
+    </update>
+
+    <!-- 根据id查询 hero -->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from hero
+        where hid = #{value}
+
+    </select>
+
+    <!-- 删除记录 -->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from hero
+     where hid = #{value}
+
+  </delete>
+
+    <!-- hero 列表总数-->
+    <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
+        select count(1) from hero
+        <include refid="Base_Where_Clause"/>
+    </select>
+
+    <!-- 查询hero列表 -->
+    <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+        select
+        <include refid="Base_Column_List"/>
+        from hero
+        <include refid="Base_Where_Clause"/>
+        <if test="pager.orderCondition != null and pager.orderCondition != ''">
+            ${pager.orderCondition}
+        </if>
+        offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
+    </select>
+
+    <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+        select
+        <include refid="Base_Column_List"/>
+        from hero
+        <include refid="Base_Where_Clause"/>
+        <if test="pager.orderCondition != null and pager.orderCondition != ''">
+            ${pager.orderCondition}
+        </if>
+    </select>
+
+</mapper>
