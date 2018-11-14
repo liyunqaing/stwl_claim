@@ -189,7 +189,7 @@ public class Excel_Pdf_IO {
 //    }
 
     /**
-    * @Description:   _上传Excel文件存放到数据库
+    * @Description:   _上传Excel文件存放到数据库,只适用于  关键件表CN180C_河西工厂_201809.xlsx 这张表
     * @Author:         yueben
     * @CreateDate:     2018/11/13 21:49
     */
@@ -210,6 +210,7 @@ public class Excel_Pdf_IO {
         int allrows = sh1.getPhysicalNumberOfRows();
         //从Excel表格中第七行开始读取
         for (int i = 7; i < allrows; i++) {
+            //读取单元格的列序号
             int cellNum = 1;
             //获取行对象
             XSSFRow row = sh1.getRow(i);
@@ -273,5 +274,4 @@ public class Excel_Pdf_IO {
             default: return "";
         }
     }
-
 }

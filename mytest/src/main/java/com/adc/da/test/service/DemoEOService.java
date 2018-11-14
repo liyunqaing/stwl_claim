@@ -1,5 +1,7 @@
 package com.adc.da.test.service;
 
+import com.adc.da.base.page.BasePage;
+import com.adc.da.test.entity.DemoVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,4 +41,11 @@ public class DemoEOService extends BaseService<DemoEO, String> {
         return dao.queryAll();
     }
 
+    public List<DemoEO> fuzzyQuery(BasePage page){
+        return dao.queryByList(page);
+    }
+
+    public List<DemoVo> fuzzyVoQuery(BasePage basePage){
+        return dao.fuzzyVoQuery(basePage);
+    }
 }

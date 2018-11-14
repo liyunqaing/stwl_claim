@@ -4,10 +4,15 @@ package com.adc.da.test.controller;
 import java.net.URLEncoder;
 import java.util.List;
 
+import com.adc.da.test.page.DemoEOPage;
+import com.adc.da.util.http.PageInfo;
+import com.adc.da.util.http.ResponseMessage;
+import com.adc.da.util.http.Result;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import io.swagger.annotations.ApiOperation;
 import org.apache.poi.hssf.usermodel.*;
 
 import org.slf4j.Logger;
@@ -81,11 +86,10 @@ public class DemoEOController extends BaseController<DemoEO>{
        }
        document.add(table);
        document.close();
-        System.out.println("输出pdf:");
    }
 
    /**
-   * @Description:   _导出数据库数据到excel
+   * @Description:   _使用poi导出数据库数据到excel
    * @Author:         yueben
    * @CreateDate:     2018/11/13 22:16
    */
@@ -135,8 +139,19 @@ public class DemoEOController extends BaseController<DemoEO>{
            row.createCell(1).setCellValue(d.getUername());
            row.createCell(2).setCellValue(d.getPassword());
        }
-
+        //文件响应给前台下载
        wb.write(response.getOutputStream());
    }
 
+   /**
+   * @Description:   _模糊查询分页
+   * @Author:         yueben
+   * @CreateDate:     2018/11/14 13:50
+   */
+    @ApiOperation(value = "模糊查询分页")
+    @GetMapping("/fuzzy")
+    public ResponseMessage<PageInfo<DemoEO>> fuzzyQuery(DemoEOPage page) throws Exception{
+        List<DemoEO> demoEOS = demoEOService.fuzzyQuery(page);
+        return Result.success(getPageInfo(page.getPager(),demoEOS));
+    }
 }

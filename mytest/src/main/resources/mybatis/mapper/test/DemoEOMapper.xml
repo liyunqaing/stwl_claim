@@ -8,10 +8,23 @@
     <result column="password" property="password" />
   </resultMap>
 
+    <resultMap id="VoMap" type="com.adc.da.test.entity.DemoVo" >
+        <id column="a_id" property="id" />
+        <result column="uername" property="uername" />
+        <result column="password" property="password" />
+        <result column="parts" property="parts" />
+        <result column="partsName" property="partsName" />
+        <result column="creat_time" property="creatTime" />
+    </resultMap>
+
   <!-- demo table all fields -->
   <sql id="Base_Column_List" >
      id, uername, password
   </sql>
+
+    <sql id="vo_Column_List" >
+        a.a_id, uername, password,parts,partsName,creat_time
+    </sql>
 
   <!-- 查询条件 -->
   <sql id="Base_Where_Clause">
@@ -106,8 +119,21 @@
 			<if test="pager.orderCondition != null and pager.orderCondition != ''" >
 				${pager.orderCondition}
 			</if>
-			offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
+            ORDER BY idoffset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
   </select>
+
+    <!-- 模糊查询分页 -->
+    <select id="fuzzyQuery" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+        select <include refid="Base_Column_List" /> from demo
+        WHERE 1=1
+        <if test="uername != null" >
+            and uername LIKE '%'+#{uername}+'%'
+        </if>
+        <if test="password != null" >
+            and password LIKE '%'+#{password}+'%'
+        </if>
+        ORDER BY id offset ${pager.pageOffset} rows fetch  next ${pager.pageSize} rows only
+    </select>
 
   <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
     select <include refid="Base_Column_List"/> from demo
@@ -119,6 +145,23 @@
 
     <select id="queryAll" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/> from demo
+    </select>
+
+    <select id="fuzzyVoQuery" resultMap="VoMap" parameterType="com.adc.da.base.page.BasePage">
+        SELECT <include refid="vo_Column_List" />
+        FROM a LEFT JOIN demo on demo.id = a.a_user_id
+        LEFT JOIN parts on a.a_par_id = parts.id
+        WHERE 1=1
+        <if test="uername != null" >
+            and uername LIKE '%'+#{uername}+'%'
+        </if>
+        <if test="parts != null" >
+            and parts LIKE '%'+#{parts}+'%'
+        </if>
+        <if test="partsName != null" >
+            and partsName LIKE '%'+#{partsName}+'%'
+        </if>
+        ORDER BY creat_time offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
     </select>
 
 </mapper>
