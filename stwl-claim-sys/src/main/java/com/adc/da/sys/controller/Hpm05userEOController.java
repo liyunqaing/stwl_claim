@@ -2,6 +2,7 @@ package com.adc.da.sys.controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,9 @@ import com.adc.da.util.http.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/${restPath}/sys/hpm05user")
@@ -79,4 +83,18 @@ public class Hpm05userEOController extends BaseController<Hpm05userEO>{
         return Result.success();
     }
 
+
+    /**
+     * @Description: xls上传导出图片
+     * @Param: [file, request]
+     * @return: com.adc.da.util.http.ResponseMessage<java.util.Map<java.lang.String,java.lang.String>>
+     * @Author: cuiyuxin
+     * @Date: 2018/11/14
+     */
+    @ApiOperation(value = "|ImageUpload|xls上传 ")
+    @PostMapping("XlsUpload")
+    public ResponseMessage<Map<String,String>> XlsUpload(@RequestParam(value = "file") MultipartFile file, HttpServletRequest request) throws IOException {
+        hpm05userEOService.Xlsupload(file,request);
+        return Result.success(null);
+    }
 }

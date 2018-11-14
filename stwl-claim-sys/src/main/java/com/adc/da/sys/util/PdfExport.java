@@ -22,6 +22,8 @@ public class PdfExport {
     private static Font headFont;
     //Dom操作对象
     private static Document document;
+    //图片操作对象
+    private static Image image;
     //设置中文
     private static BaseFont bfChinese;
     //初始化导出PDF格式编码（避免中文到处失败）
@@ -57,8 +59,8 @@ public class PdfExport {
      * @param contentList  文本内容
      * @param CONTENT_SIZE  文本文字大小
      * @param TABLE_SIZE    表单长度
-     * @param TABLE_POSITION  表格在整个A4的位置
-     * @param CONTENT_POSITION   文本在对应表格背景下位置
+     * @param TABLE_POSITION  表格在整个A4的位置0是靠左1是剧中2是靠右
+     * @param CONTENT_POSITION   文本在对应表格背景下位置0是靠左1是剧中2是靠右
      * @param IS_BORDER  是否含有边框
      * @param Color    单元格背景颜色
      * @param TABLE_LONG  表格长度
@@ -92,6 +94,22 @@ public class PdfExport {
         //Step 5—Close the Document.
 
     }
+    //打开图片对象流
+
+    /**
+     * xf
+     * @param imgFilePath 文件路径
+     * @param scaleX  横向位置
+     * @param scaleY  竖向位置
+     * @throws Exception
+     */
+    public void PdfExportImage(String imgFilePath,int scaleX,int scaleY) throws Exception{
+        //读取一个图片
+        this.image=Image.getInstance(imgFilePath);
+        this.image.setAbsolutePosition(scaleX, scaleY);
+        this.document.add(this.image);
+    }
+
 
     /**
      *
