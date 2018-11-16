@@ -1,5 +1,6 @@
 package com.adc.da.sys.service;
 
+import com.adc.da.sys.util.ExcelToPicture;
 import com.adc.da.sys.util.Md5Encrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.adc.da.base.service.BaseService;
 import com.adc.da.sys.dao.Hpm05userEODao;
 import com.adc.da.sys.entity.Hpm05userEO;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 
 /**
@@ -38,5 +43,16 @@ public class Hpm05userEOService extends BaseService<Hpm05userEO, Integer> {
         hpm05userEO.setPaswd(Md5Encrypt.generatePassword(hpm05userEO.getPaswd()));
         dao.insertSelective(hpm05userEO);
         return hpm05userEO;
+    }
+    /**
+     * @Description: xls导出图片
+     * @Param: [path]
+     * @return: void
+     * @Author: cuiyuxin
+     * @Date: 2018/11/14
+     */
+    public void Xlsupload(MultipartFile file, HttpServletRequest request) throws IOException {
+        ExcelToPicture etp=new ExcelToPicture("D:\\img\\pic");
+        etp.excelToPicture(file,request);
     }
 }

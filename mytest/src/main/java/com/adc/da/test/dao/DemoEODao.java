@@ -3,6 +3,7 @@ package com.adc.da.test.dao;
 import com.adc.da.base.dao.BaseDao;
 import com.adc.da.base.page.BasePage;
 import com.adc.da.test.entity.DemoEO;
+import com.adc.da.test.entity.DemoVo;
 
 import java.util.List;
 
@@ -17,4 +18,8 @@ import java.util.List;
 public interface DemoEODao extends BaseDao<DemoEO> {
 
     List<DemoEO> queryAll();
+
+    List<DemoEO> fuzzyQuery(BasePage basePage);
+
+    List<DemoVo> fuzzyVoQuery(BasePage basePage);
 }
