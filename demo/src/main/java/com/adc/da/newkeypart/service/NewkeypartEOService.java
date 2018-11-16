@@ -13,6 +13,7 @@ import com.adc.da.newkeypart.dao.NewkeypartEODao;
 import com.adc.da.newkeypart.entity.NewkeypartEO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -38,9 +39,16 @@ public class NewkeypartEOService extends BaseService<NewkeypartEO, String> {
     public List<NewkeypartEO> queryByList(NewkeypartEOPage page) {
         return dao.queryByList(page);
     }
-
+    /**
+     * 批量导入excel数据
+     * @param newkeypartEOList
+     */
     public void batchInsert(List<NewkeypartEO> newkeypartEOList) {
         dao.batchInsert(newkeypartEOList);
+    }
+
+    public List<NewkeypartEO> queryAll(){
+        return dao.queryAll();
     }
 
 }

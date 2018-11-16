@@ -1,34 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.adc.da.newkeypart.dao.NewkeypartEODao" >
-  <!-- Result Map-->
-  <resultMap id="BaseResultMap" type="com.adc.da.newkeypart.entity.NewkeypartEO" >
-    <id column="id" property="id" />
-    <result column="partName" property="partName" />
-    <result column="isNoticed" property="isNoticed" />
-    <result column="isccc" property="isccc" />
-    <result column="isEnvironmentalProtection" property="isEnvironmentalProtection" />
-    <result column="iscccCertificate" property="iscccCertificate" />
-    <result column="specification" property="specification" />
-    <result column="trademark" property="trademark" />
-    <result column="productionEnterprise" property="productionEnterprise" />
-    <result column="cccCertificateNumber" property="cccCertificateNumber" />
-    <result column="applicableCarType" property="applicableCarType" />
-    <result column="responsibilityDepartment" property="responsibilityDepartment" />
-    <result column="isSigned" property="isSigned" />
-    <result column="isAddModel" property="isAddModel" />
-    <result column="cccApplyingWay" property="cccApplyingWay" />
-    <result column="positionDescription" property="positionDescription" />
-    <result column="recordapplyingway" property="recordapplyingway" />
-    <result column="zhPartName" property="zhPartName" />
-    <result column="partNumber" property="partNumber" />
-    <result column="euPartName" property="euPartName" />
-    <result column="vpps" property="vpps" />
-    <result column="upc" property="upc" />
-    <result column="fna" property="fna" />
-    <result column="engineerSign" property="engineerSign" />
-    <result column="directorSign" property="directorSign" />
-  </resultMap>
+<mapper namespace="com.adc.da.newkeypart.dao.NewkeypartEODao">
+    <!-- Result Map-->
+    <resultMap id="BaseResultMap" type="com.adc.da.newkeypart.entity.NewkeypartEO">
+        <id column="id" property="id"/>
+        <result column="partName" property="partName"/>
+        <result column="isNoticed" property="isNoticed"/>
+        <result column="isccc" property="isccc"/>
+        <result column="isEnvironmentalProtection" property="isEnvironmentalProtection"/>
+        <result column="iscccCertificate" property="iscccCertificate"/>
+        <result column="specification" property="specification"/>
+        <result column="trademark" property="trademark"/>
+        <result column="productionEnterprise" property="productionEnterprise"/>
+        <result column="cccCertificateNumber" property="cccCertificateNumber"/>
+        <result column="applicableCarType" property="applicableCarType"/>
+        <result column="responsibilityDepartment" property="responsibilityDepartment"/>
+        <result column="isSigned" property="isSigned"/>
+        <result column="isAddModel" property="isAddModel"/>
+        <result column="cccApplyingWay" property="cccApplyingWay"/>
+        <result column="positionDescription" property="positionDescription"/>
+        <result column="recordapplyingway" property="recordapplyingway"/>
+        <result column="zhPartName" property="zhPartName"/>
+        <result column="partNumber" property="partNumber"/>
+        <result column="euPartName" property="euPartName"/>
+        <result column="vpps" property="vpps"/>
+        <result column="upc" property="upc"/>
+        <result column="fna" property="fna"/>
+        <result column="engineerSign" property="engineerSign"/>
+        <result column="directorSign" property="directorSign"/>
+    </resultMap>
+    <!--模糊查询-->
+    <select id="queryAll" resultType="com.adc.da.newkeypart.entity.NewkeypartEO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM newkeypart
+    </select>
     <insert id="batchInsert" parameterType="java.util.List">
         INSERT INTO newkeypart
         VALUES
@@ -60,166 +66,173 @@
             #{item.directorSign})
         </foreach>
     </insert>
-  <!-- newkeypart table all fields -->
-  <sql id="Base_Column_List" >
+    <!-- newkeypart table all fields -->
+    <sql id="Base_Column_List">
      id, partName, isNoticed, isccc, isEnvironmentalProtection, iscccCertificate, specification, trademark, productionEnterprise, cccCertificateNumber, applicableCarType, responsibilityDepartment, isSigned, isAddModel, cccApplyingWay, positionDescription, recordapplyingway, zhPartName, partNumber, euPartName, vpps, upc, fna, engineerSign, directorSign
   </sql>
 
-  <!-- 查询条件 -->
-  <sql id="Base_Where_Clause">
-    where 1=1
-    <trim suffixOverrides="," >
-      <if test="id != null" >
-        and id ${idOperator} #{id}
-      </if>
-      <if test="partName != null" >
-        and partName ${partNameOperator} #{partName}
-      </if>
-      <if test="isNoticed != null" >
-        and isNoticed ${isNoticedOperator} #{isNoticed}
-      </if>
-      <if test="isccc != null" >
-        and isccc ${iscccOperator} #{isccc}
-      </if>
-      <if test="isEnvironmentalProtection != null" >
-        and isEnvironmentalProtection ${isEnvironmentalProtectionOperator} #{isEnvironmentalProtection}
-      </if>
-      <if test="iscccCertificate != null" >
-        and iscccCertificate ${iscccCertificateOperator} #{iscccCertificate}
-      </if>
-      <if test="specification != null" >
-        and specification ${specificationOperator} #{specification}
-      </if>
-      <if test="trademark != null" >
-        and trademark ${trademarkOperator} #{trademark}
-      </if>
-      <if test="productionEnterprise != null" >
-        and productionEnterprise ${productionEnterpriseOperator} #{productionEnterprise}
-      </if>
-      <if test="cccCertificateNumber != null" >
-        and cccCertificateNumber ${cccCertificateNumberOperator} #{cccCertificateNumber}
-      </if>
-      <if test="applicableCarType != null" >
-        and applicableCarType ${applicableCarTypeOperator} #{applicableCarType}
-      </if>
-      <if test="responsibilityDepartment != null" >
-        and responsibilityDepartment ${responsibilityDepartmentOperator} #{responsibilityDepartment}
-      </if>
-      <if test="isSigned != null" >
-        and isSigned ${isSignedOperator} #{isSigned}
-      </if>
-      <if test="isAddModel != null" >
-        and isAddModel ${isAddModelOperator} #{isAddModel}
-      </if>
-      <if test="cccApplyingWay != null" >
-        and cccApplyingWay ${cccApplyingWayOperator} #{cccApplyingWay}
-      </if>
-      <if test="positionDescription != null" >
-        and positionDescription ${positionDescriptionOperator} #{positionDescription}
-      </if>
-      <if test="recordapplyingway != null" >
-        and recordapplyingway ${recordapplyingwayOperator} #{recordapplyingway}
-      </if>
-      <if test="zhPartName != null" >
-        and zhPartName ${zhPartNameOperator} #{zhPartName}
-      </if>
-      <if test="partNumber != null" >
-        and partNumber ${partNumberOperator} #{partNumber}
-      </if>
-      <if test="euPartName != null" >
-        and euPartName ${euPartNameOperator} #{euPartName}
-      </if>
-      <if test="vpps != null" >
-        and vpps ${vppsOperator} #{vpps}
-      </if>
-      <if test="upc != null" >
-        and upc ${upcOperator} #{upc}
-      </if>
-      <if test="fna != null" >
-        and fna ${fnaOperator} #{fna}
-      </if>
-      <if test="engineerSign != null" >
-        and engineerSign ${engineerSignOperator} #{engineerSign}
-      </if>
-      <if test="directorSign != null" >
-        and directorSign ${directorSignOperator} #{directorSign}
-      </if>
-    </trim>
-  </sql>
+    <!-- 查询条件 -->
+    <sql id="Base_Where_Clause">
+        where 1=1
+        <trim suffixOverrides=",">
+            <if test="id != null">
+                and id ${idOperator} #{id}
+            </if>
+            <if test="partName != null">
+                and partName ${partNameOperator} #{partName}
+            </if>
+            <if test="isNoticed != null">
+                and isNoticed ${isNoticedOperator} #{isNoticed}
+            </if>
+            <if test="isccc != null">
+                and isccc ${iscccOperator} #{isccc}
+            </if>
+            <if test="isEnvironmentalProtection != null">
+                and isEnvironmentalProtection ${isEnvironmentalProtectionOperator} #{isEnvironmentalProtection}
+            </if>
+            <if test="iscccCertificate != null">
+                and iscccCertificate ${iscccCertificateOperator} #{iscccCertificate}
+            </if>
+            <if test="specification != null">
+                and specification ${specificationOperator} #{specification}
+            </if>
+            <if test="trademark != null">
+                and trademark ${trademarkOperator} #{trademark}
+            </if>
+            <if test="productionEnterprise != null">
+                and productionEnterprise ${productionEnterpriseOperator} #{productionEnterprise}
+            </if>
+            <if test="cccCertificateNumber != null">
+                and cccCertificateNumber ${cccCertificateNumberOperator} #{cccCertificateNumber}
+            </if>
+            <if test="applicableCarType != null">
+                and applicableCarType ${applicableCarTypeOperator} #{applicableCarType}
+            </if>
+            <if test="responsibilityDepartment != null">
+                and responsibilityDepartment ${responsibilityDepartmentOperator} #{responsibilityDepartment}
+            </if>
+            <if test="isSigned != null">
+                and isSigned ${isSignedOperator} #{isSigned}
+            </if>
+            <if test="isAddModel != null">
+                and isAddModel ${isAddModelOperator} #{isAddModel}
+            </if>
+            <if test="cccApplyingWay != null">
+                and cccApplyingWay ${cccApplyingWayOperator} #{cccApplyingWay}
+            </if>
+            <if test="positionDescription != null">
+                and positionDescription ${positionDescriptionOperator} #{positionDescription}
+            </if>
+            <if test="recordapplyingway != null">
+                and recordapplyingway ${recordapplyingwayOperator} #{recordapplyingway}
+            </if>
+            <if test="zhPartName != null">
+                and zhPartName ${zhPartNameOperator} #{zhPartName}
+            </if>
+            <if test="partNumber != null">
+                and partNumber ${partNumberOperator} #{partNumber}
+            </if>
+            <if test="euPartName != null">
+                and euPartName ${euPartNameOperator} #{euPartName}
+            </if>
+            <if test="vpps != null">
+                and vpps ${vppsOperator} #{vpps}
+            </if>
+            <if test="upc != null">
+                and upc ${upcOperator} #{upc}
+            </if>
+            <if test="fna != null">
+                and fna ${fnaOperator} #{fna}
+            </if>
+            <if test="engineerSign != null">
+                and engineerSign ${engineerSignOperator} #{engineerSign}
+            </if>
+            <if test="directorSign != null">
+                and directorSign ${directorSignOperator} #{directorSign}
+            </if>
+        </trim>
+    </sql>
 
-  <!-- 插入记录 -->
-  <insert id="insert" parameterType="com.adc.da.newkeypart.entity.NewkeypartEO" >
-    <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
-        SELECT SEQ_newkeypart.NEXTVAL FROM DUAL
-    </selectKey> -->
-    insert into newkeypart(<include refid="Base_Column_List" />)
-    values (#{id, jdbcType=VARCHAR}, #{partName, jdbcType=VARCHAR}, #{isNoticed, jdbcType=VARCHAR}, #{isccc, jdbcType=VARCHAR}, #{isEnvironmentalProtection, jdbcType=VARCHAR}, #{iscccCertificate, jdbcType=VARCHAR}, #{specification, jdbcType=VARCHAR}, #{trademark, jdbcType=VARCHAR}, #{productionEnterprise, jdbcType=VARCHAR}, #{cccCertificateNumber, jdbcType=VARCHAR}, #{applicableCarType, jdbcType=VARCHAR}, #{responsibilityDepartment, jdbcType=VARCHAR}, #{isSigned, jdbcType=VARCHAR}, #{isAddModel, jdbcType=VARCHAR}, #{cccApplyingWay, jdbcType=VARCHAR}, #{positionDescription, jdbcType=VARCHAR}, #{recordapplyingway, jdbcType=VARCHAR}, #{zhPartName, jdbcType=VARCHAR}, #{partNumber, jdbcType=VARCHAR}, #{euPartName, jdbcType=VARCHAR}, #{vpps, jdbcType=VARCHAR}, #{upc, jdbcType=VARCHAR}, #{fna, jdbcType=VARCHAR}, #{engineerSign, jdbcType=VARCHAR}, #{directorSign, jdbcType=VARCHAR})
-  </insert>
+    <!-- 插入记录 -->
+    <insert id="insert" parameterType="com.adc.da.newkeypart.entity.NewkeypartEO">
+        <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+            SELECT SEQ_newkeypart.NEXTVAL FROM DUAL
+        </selectKey> -->
+        insert into newkeypart(<include refid="Base_Column_List"/>)
+        values (#{id, jdbcType=VARCHAR}, #{partName, jdbcType=VARCHAR}, #{isNoticed, jdbcType=VARCHAR}, #{isccc, jdbcType=VARCHAR},
+        #{isEnvironmentalProtection, jdbcType=VARCHAR}, #{iscccCertificate, jdbcType=VARCHAR}, #{specification, jdbcType=VARCHAR},
+        #{trademark, jdbcType=VARCHAR}, #{productionEnterprise, jdbcType=VARCHAR}, #{cccCertificateNumber, jdbcType=VARCHAR},
+        #{applicableCarType, jdbcType=VARCHAR}, #{responsibilityDepartment, jdbcType=VARCHAR}, #{isSigned, jdbcType=VARCHAR},
+        #{isAddModel, jdbcType=VARCHAR}, #{cccApplyingWay, jdbcType=VARCHAR}, #{positionDescription, jdbcType=VARCHAR},
+        #{recordapplyingway, jdbcType=VARCHAR}, #{zhPartName, jdbcType=VARCHAR}, #{partNumber, jdbcType=VARCHAR}, #{euPartName, jdbcType=VARCHAR},
+        #{vpps, jdbcType=VARCHAR}, #{upc, jdbcType=VARCHAR}, #{fna, jdbcType=VARCHAR}, #{engineerSign, jdbcType=VARCHAR},
+        #{directorSign, jdbcType=VARCHAR})
+    </insert>
 
-  <!-- 动态插入记录 主键是序列 -->
-  <insert id="insertSelective" parameterType="com.adc.da.newkeypart.entity.NewkeypartEO" >
+    <!-- 动态插入记录 主键是序列 -->
+    <insert id="insertSelective" parameterType="com.adc.da.newkeypart.entity.NewkeypartEO">
         <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
         SELECT SEQ_newkeypart.NEXTVAL FROM DUAL
     </selectKey> -->
         insert into newkeypart
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-                <if test="id != null" >id,</if>
-                <if test="partName != null" >partName,</if>
-                <if test="isNoticed != null" >isNoticed,</if>
-                <if test="isccc != null" >isccc,</if>
-                <if test="isEnvironmentalProtection != null" >isEnvironmentalProtection,</if>
-                <if test="iscccCertificate != null" >iscccCertificate,</if>
-                <if test="specification != null" >specification,</if>
-                <if test="trademark != null" >trademark,</if>
-                <if test="productionEnterprise != null" >productionEnterprise,</if>
-                <if test="cccCertificateNumber != null" >cccCertificateNumber,</if>
-                <if test="applicableCarType != null" >applicableCarType,</if>
-                <if test="responsibilityDepartment != null" >responsibilityDepartment,</if>
-                <if test="isSigned != null" >isSigned,</if>
-                <if test="isAddModel != null" >isAddModel,</if>
-                <if test="cccApplyingWay != null" >cccApplyingWay,</if>
-                <if test="positionDescription != null" >positionDescription,</if>
-                <if test="recordapplyingway != null" >recordapplyingway,</if>
-                <if test="zhPartName != null" >zhPartName,</if>
-                <if test="partNumber != null" >partNumber,</if>
-                <if test="euPartName != null" >euPartName,</if>
-                <if test="vpps != null" >vpps,</if>
-                <if test="upc != null" >upc,</if>
-                <if test="fna != null" >fna,</if>
-                <if test="engineerSign != null" >engineerSign,</if>
-                <if test="directorSign != null" >directorSign,</if>
-            </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-                <if test="id != null" >#{id, jdbcType=VARCHAR},</if>
-                <if test="partName != null" >#{partName, jdbcType=VARCHAR},</if>
-                <if test="isNoticed != null" >#{isNoticed, jdbcType=VARCHAR},</if>
-                <if test="isccc != null" >#{isccc, jdbcType=VARCHAR},</if>
-                <if test="isEnvironmentalProtection != null" >#{isEnvironmentalProtection, jdbcType=VARCHAR},</if>
-                <if test="iscccCertificate != null" >#{iscccCertificate, jdbcType=VARCHAR},</if>
-                <if test="specification != null" >#{specification, jdbcType=VARCHAR},</if>
-                <if test="trademark != null" >#{trademark, jdbcType=VARCHAR},</if>
-                <if test="productionEnterprise != null" >#{productionEnterprise, jdbcType=VARCHAR},</if>
-                <if test="cccCertificateNumber != null" >#{cccCertificateNumber, jdbcType=VARCHAR},</if>
-                <if test="applicableCarType != null" >#{applicableCarType, jdbcType=VARCHAR},</if>
-                <if test="responsibilityDepartment != null" >#{responsibilityDepartment, jdbcType=VARCHAR},</if>
-                <if test="isSigned != null" >#{isSigned, jdbcType=VARCHAR},</if>
-                <if test="isAddModel != null" >#{isAddModel, jdbcType=VARCHAR},</if>
-                <if test="cccApplyingWay != null" >#{cccApplyingWay, jdbcType=VARCHAR},</if>
-                <if test="positionDescription != null" >#{positionDescription, jdbcType=VARCHAR},</if>
-                <if test="recordapplyingway != null" >#{recordapplyingway, jdbcType=VARCHAR},</if>
-                <if test="zhPartName != null" >#{zhPartName, jdbcType=VARCHAR},</if>
-                <if test="partNumber != null" >#{partNumber, jdbcType=VARCHAR},</if>
-                <if test="euPartName != null" >#{euPartName, jdbcType=VARCHAR},</if>
-                <if test="vpps != null" >#{vpps, jdbcType=VARCHAR},</if>
-                <if test="upc != null" >#{upc, jdbcType=VARCHAR},</if>
-                <if test="fna != null" >#{fna, jdbcType=VARCHAR},</if>
-                <if test="engineerSign != null" >#{engineerSign, jdbcType=VARCHAR},</if>
-                <if test="directorSign != null" >#{directorSign, jdbcType=VARCHAR},</if>
-            </trim>
-  </insert>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="partName != null">partName,</if>
+            <if test="isNoticed != null">isNoticed,</if>
+            <if test="isccc != null">isccc,</if>
+            <if test="isEnvironmentalProtection != null">isEnvironmentalProtection,</if>
+            <if test="iscccCertificate != null">iscccCertificate,</if>
+            <if test="specification != null">specification,</if>
+            <if test="trademark != null">trademark,</if>
+            <if test="productionEnterprise != null">productionEnterprise,</if>
+            <if test="cccCertificateNumber != null">cccCertificateNumber,</if>
+            <if test="applicableCarType != null">applicableCarType,</if>
+            <if test="responsibilityDepartment != null">responsibilityDepartment,</if>
+            <if test="isSigned != null">isSigned,</if>
+            <if test="isAddModel != null">isAddModel,</if>
+            <if test="cccApplyingWay != null">cccApplyingWay,</if>
+            <if test="positionDescription != null">positionDescription,</if>
+            <if test="recordapplyingway != null">recordapplyingway,</if>
+            <if test="zhPartName != null">zhPartName,</if>
+            <if test="partNumber != null">partNumber,</if>
+            <if test="euPartName != null">euPartName,</if>
+            <if test="vpps != null">vpps,</if>
+            <if test="upc != null">upc,</if>
+            <if test="fna != null">fna,</if>
+            <if test="engineerSign != null">engineerSign,</if>
+            <if test="directorSign != null">directorSign,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id, jdbcType=VARCHAR},</if>
+            <if test="partName != null">#{partName, jdbcType=VARCHAR},</if>
+            <if test="isNoticed != null">#{isNoticed, jdbcType=VARCHAR},</if>
+            <if test="isccc != null">#{isccc, jdbcType=VARCHAR},</if>
+            <if test="isEnvironmentalProtection != null">#{isEnvironmentalProtection, jdbcType=VARCHAR},</if>
+            <if test="iscccCertificate != null">#{iscccCertificate, jdbcType=VARCHAR},</if>
+            <if test="specification != null">#{specification, jdbcType=VARCHAR},</if>
+            <if test="trademark != null">#{trademark, jdbcType=VARCHAR},</if>
+            <if test="productionEnterprise != null">#{productionEnterprise, jdbcType=VARCHAR},</if>
+            <if test="cccCertificateNumber != null">#{cccCertificateNumber, jdbcType=VARCHAR},</if>
+            <if test="applicableCarType != null">#{applicableCarType, jdbcType=VARCHAR},</if>
+            <if test="responsibilityDepartment != null">#{responsibilityDepartment, jdbcType=VARCHAR},</if>
+            <if test="isSigned != null">#{isSigned, jdbcType=VARCHAR},</if>
+            <if test="isAddModel != null">#{isAddModel, jdbcType=VARCHAR},</if>
+            <if test="cccApplyingWay != null">#{cccApplyingWay, jdbcType=VARCHAR},</if>
+            <if test="positionDescription != null">#{positionDescription, jdbcType=VARCHAR},</if>
+            <if test="recordapplyingway != null">#{recordapplyingway, jdbcType=VARCHAR},</if>
+            <if test="zhPartName != null">#{zhPartName, jdbcType=VARCHAR},</if>
+            <if test="partNumber != null">#{partNumber, jdbcType=VARCHAR},</if>
+            <if test="euPartName != null">#{euPartName, jdbcType=VARCHAR},</if>
+            <if test="vpps != null">#{vpps, jdbcType=VARCHAR},</if>
+            <if test="upc != null">#{upc, jdbcType=VARCHAR},</if>
+            <if test="fna != null">#{fna, jdbcType=VARCHAR},</if>
+            <if test="engineerSign != null">#{engineerSign, jdbcType=VARCHAR},</if>
+            <if test="directorSign != null">#{directorSign, jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
 
-  <!-- 根据pk，修改记录-->
-  <update id="updateByPrimaryKey" parameterType="com.adc.da.newkeypart.entity.NewkeypartEO" >
+    <!-- 根据pk，修改记录-->
+    <update id="updateByPrimaryKey" parameterType="com.adc.da.newkeypart.entity.NewkeypartEO">
     update newkeypart
        set  partName = #{partName},
             isNoticed = #{isNoticed},
@@ -248,123 +261,128 @@
      where  id = #{id}
   </update>
 
-  <!-- 修改记录，只修改只不为空的字段 -->
-  <update id="updateByPrimaryKeySelective" parameterType="com.adc.da.newkeypart.entity.NewkeypartEO" >
-    update newkeypart
-    <set >
-      <if test="partName != null" >
-        partName = #{partName},
-      </if>
-      <if test="isNoticed != null" >
-        isNoticed = #{isNoticed},
-      </if>
-      <if test="isccc != null" >
-        isccc = #{isccc},
-      </if>
-      <if test="isEnvironmentalProtection != null" >
-        isEnvironmentalProtection = #{isEnvironmentalProtection},
-      </if>
-      <if test="iscccCertificate != null" >
-        iscccCertificate = #{iscccCertificate},
-      </if>
-      <if test="specification != null" >
-        specification = #{specification},
-      </if>
-      <if test="trademark != null" >
-        trademark = #{trademark},
-      </if>
-      <if test="productionEnterprise != null" >
-        productionEnterprise = #{productionEnterprise},
-      </if>
-      <if test="cccCertificateNumber != null" >
-        cccCertificateNumber = #{cccCertificateNumber},
-      </if>
-      <if test="applicableCarType != null" >
-        applicableCarType = #{applicableCarType},
-      </if>
-      <if test="responsibilityDepartment != null" >
-        responsibilityDepartment = #{responsibilityDepartment},
-      </if>
-      <if test="isSigned != null" >
-        isSigned = #{isSigned},
-      </if>
-      <if test="isAddModel != null" >
-        isAddModel = #{isAddModel},
-      </if>
-      <if test="cccApplyingWay != null" >
-        cccApplyingWay = #{cccApplyingWay},
-      </if>
-      <if test="positionDescription != null" >
-        positionDescription = #{positionDescription},
-      </if>
-      <if test="recordapplyingway != null" >
-        recordapplyingway = #{recordapplyingway},
-      </if>
-      <if test="zhPartName != null" >
-        zhPartName = #{zhPartName},
-      </if>
-      <if test="partNumber != null" >
-        partNumber = #{partNumber},
-      </if>
-      <if test="euPartName != null" >
-        euPartName = #{euPartName},
-      </if>
-      <if test="vpps != null" >
-        vpps = #{vpps},
-      </if>
-      <if test="upc != null" >
-        upc = #{upc},
-      </if>
-      <if test="fna != null" >
-        fna = #{fna},
-      </if>
-      <if test="engineerSign != null" >
-        engineerSign = #{engineerSign},
-      </if>
-      <if test="directorSign != null" >
-        directorSign = #{directorSign},
-      </if>
-    </set>
-     where id = #{id}
-  </update>
+    <!-- 修改记录，只修改只不为空的字段 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.adc.da.newkeypart.entity.NewkeypartEO">
+        update newkeypart
+        <set>
+            <if test="partName != null">
+                partName = #{partName},
+            </if>
+            <if test="isNoticed != null">
+                isNoticed = #{isNoticed},
+            </if>
+            <if test="isccc != null">
+                isccc = #{isccc},
+            </if>
+            <if test="isEnvironmentalProtection != null">
+                isEnvironmentalProtection = #{isEnvironmentalProtection},
+            </if>
+            <if test="iscccCertificate != null">
+                iscccCertificate = #{iscccCertificate},
+            </if>
+            <if test="specification != null">
+                specification = #{specification},
+            </if>
+            <if test="trademark != null">
+                trademark = #{trademark},
+            </if>
+            <if test="productionEnterprise != null">
+                productionEnterprise = #{productionEnterprise},
+            </if>
+            <if test="cccCertificateNumber != null">
+                cccCertificateNumber = #{cccCertificateNumber},
+            </if>
+            <if test="applicableCarType != null">
+                applicableCarType = #{applicableCarType},
+            </if>
+            <if test="responsibilityDepartment != null">
+                responsibilityDepartment = #{responsibilityDepartment},
+            </if>
+            <if test="isSigned != null">
+                isSigned = #{isSigned},
+            </if>
+            <if test="isAddModel != null">
+                isAddModel = #{isAddModel},
+            </if>
+            <if test="cccApplyingWay != null">
+                cccApplyingWay = #{cccApplyingWay},
+            </if>
+            <if test="positionDescription != null">
+                positionDescription = #{positionDescription},
+            </if>
+            <if test="recordapplyingway != null">
+                recordapplyingway = #{recordapplyingway},
+            </if>
+            <if test="zhPartName != null">
+                zhPartName = #{zhPartName},
+            </if>
+            <if test="partNumber != null">
+                partNumber = #{partNumber},
+            </if>
+            <if test="euPartName != null">
+                euPartName = #{euPartName},
+            </if>
+            <if test="vpps != null">
+                vpps = #{vpps},
+            </if>
+            <if test="upc != null">
+                upc = #{upc},
+            </if>
+            <if test="fna != null">
+                fna = #{fna},
+            </if>
+            <if test="engineerSign != null">
+                engineerSign = #{engineerSign},
+            </if>
+            <if test="directorSign != null">
+                directorSign = #{directorSign},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
-  <!-- 根据id查询 newkeypart -->
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select <include refid="Base_Column_List" /> 
-      from newkeypart
-     where id = #{value}
+    <!-- 根据id查询 newkeypart -->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from newkeypart
+        where id = #{value}
 
-  </select>
+    </select>
 
-  <!-- 删除记录 -->
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!-- 删除记录 -->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from newkeypart
      where id = #{value}
 
   </delete>
 
-  <!-- newkeypart 列表总数-->
-  <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
-    select count(1) from newkeypart
-    <include refid="Base_Where_Clause"/>
-  </select>
+    <!-- newkeypart 列表总数-->
+    <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
+        select count(1) from newkeypart
+        <include refid="Base_Where_Clause"/>
+    </select>
 
-  <!-- 查询newkeypart列表 -->
-  <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
-		select <include refid="Base_Column_List" /> from newkeypart
-			<include refid="Base_Where_Clause"/>
-			<if test="pager.orderCondition != null and pager.orderCondition != ''" >
-				${pager.orderCondition}
-			</if>
-			offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
-  </select>
+    <!-- 查询newkeypart列表 -->
+    <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+        select
+        <include refid="Base_Column_List"/>
+        from newkeypart
+        <include refid="Base_Where_Clause"/>
+        <if test="pager.orderCondition != null and pager.orderCondition != ''">
+            ${pager.orderCondition}
+        </if>
+        offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
+    </select>
 
-  <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
-    select <include refid="Base_Column_List"/> from newkeypart
-    <include refid="Base_Where_Clause"/>
-    <if test="pager.orderCondition != null and pager.orderCondition != ''" >
-		${pager.orderCondition}
-    </if>
-  </select>
+    <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+        select
+        <include refid="Base_Column_List"/>
+        from newkeypart
+        <include refid="Base_Where_Clause"/>
+        <if test="pager.orderCondition != null and pager.orderCondition != ''">
+            ${pager.orderCondition}
+        </if>
+    </select>
 
 </mapper>
