@@ -2,6 +2,7 @@ package com.adc.da.newkeypart.entity;
 
 import com.adc.da.base.entity.BaseEntity;
 
+import java.io.Serializable;
 
 /**
  * <b>功能：</b>newkeypart NewkeypartEOEntity<br>
@@ -9,7 +10,7 @@ import com.adc.da.base.entity.BaseEntity;
  * <b>日期：</b> 2018-11-13 <br>
  * <b>版权所有：<b>版权归北京卡达克数据技术中心所有。<br>
  */
-public class NewkeypartEO extends BaseEntity {
+public class NewkeypartEO extends BaseEntity implements Serializable{
 
     private String id;
     private String partName;
