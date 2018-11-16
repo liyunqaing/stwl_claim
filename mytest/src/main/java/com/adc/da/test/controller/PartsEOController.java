@@ -38,6 +38,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
 * @Description:   _使用poi-ooxml完成Excel导入数据库
+ *                  spring.datasource.url = jdbc:sqlserver://localhost:1433;databaseName=test
+ *                  spring.datasource.username = sa
+ *                  spring.datasource.password = 12345
 * @Author:         yueben
 * @CreateDate:     2018/11/13 17:12
 */

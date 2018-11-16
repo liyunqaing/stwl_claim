@@ -36,6 +36,9 @@ import java.util.List;
 
 /**
 * @Description:   _使用adc-da内部组件完成Excel和pdf的导入导出
+ *                  spring.datasource.url = jdbc:sqlserver://localhost:1433;databaseName=test
+ *                  spring.datasource.username = sa
+ *                  spring.datasource.password = 12345
 * @Author:         yueben
 * @CreateDate:     2018/11/13 16:57
 */
@@ -139,7 +142,6 @@ public class Excel_Pdf_IO {
 //
 //        new PDFUtils().createPdfWithNewPage("adc_pdf2.pdf",pages,PageSize.A4);
 //        fileDowm(sos,"adc_pdf2.pdf");
-
     }
 
     private void fileDowm(ServletOutputStream sos,String path) throws IOException {
