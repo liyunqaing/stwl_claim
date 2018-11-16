@@ -25,6 +25,7 @@ import com.adc.da.excel.poi.excel.entity.result.ExcelVerifyHanlderErrorResult;
 import com.adc.da.newkeypart.dto.NewKeypartDto;
 import com.adc.da.util.exception.AdcDaBaseException;
 import com.adc.da.util.utils.*;
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
@@ -237,6 +238,7 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
     /**
      * 向redis里存值
      * 刘笑天
+     *
      * @return
      * @throws Exception
      */
@@ -254,9 +256,10 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
         if (list.size() != 0) {
             for (int i = 0; i < list.size(); i++) {
                 NewkeypartEO newkeypartEO = new NewkeypartEO();
-                newkeypartEO = newkeypartEOService.queryAll().get(i);
+//                newkeypartEO = newkeypartEOService.queryAll().get(i);
                 newkeypartEO = list.get(i);
                 jedis.lpush("list".getBytes(), serialize(newkeypartEO));//将对象序列化 然后添加到redis的list中
+//                jedis.lpush("list", JSON.toJSONString(newkeypartEO));//添加方法2 将对象转化为JSON字符串 未测试是否可行
 //            jedis.set("list".getBytes(),serialize(newkeypartEO));
             }
             return Result.success(newkeypartEOService.queryAll());
@@ -269,6 +272,7 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
     /**
      * 从redis里取值
      * 刘笑天
+     *
      * @return 取到的值
      * @throws Exception
      */
@@ -278,10 +282,13 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
         Jedis jedis = new Jedis("localhost");
 //        jedis.get("list").getBytes();
         List<byte[]> jlist = jedis.lrange("list".getBytes(), 0, -1);//将redis的list中的反序列化 即还原成对象
+//        List<String> list2= jedis.lrange("list",0,-1);//取到方法2中存放的值 未测试
         if (jlist.size() != 0) {
             List<NewkeypartEO> list = new ArrayList();
             for (int i = 0; i < jlist.size(); i++) {
                 NewkeypartEO newkeypartEO = (NewkeypartEO) unserialize(jlist.get(i));
+//                NewkeypartEO newkeypartEO1 = new NewkeypartEO();
+//                (NewkeypartEO) JSON.parseObject(list2.get(i),newkeypartEO1);//此处有问题
                 list.add(newkeypartEO);
             }
             return Result.success(list);
