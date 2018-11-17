@@ -19,6 +19,9 @@ import java.util.List;
 
 /**
 * @Description:   _多表查询
+ *                  spring.datasource.url = jdbc:sqlserver://localhost:1433;databaseName=test
+ *                  spring.datasource.username = sa
+ *                  spring.datasource.password = 12345
 * @Author:         yueben
 * @CreateDate:     2018/11/14 13:52
 */

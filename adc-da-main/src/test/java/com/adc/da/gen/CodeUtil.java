@@ -17,9 +17,9 @@ public class CodeUtil {
 
 
 
-        entityPackage = "checkData";
+        entityPackage = "newkeypart";
 
-        DbCodeGenerateFactory.codeGenerate("checkData", entityPackage);
+        DbCodeGenerateFactory.codeGenerate("newkeypart", entityPackage);
 //        DbCodeGenerateFactory.codeGenerate("TS_ROLE", entityPackage);
 //        DbCodeGenerateFactory.codeGenerate("TS_MENU", entityPackage);
 
