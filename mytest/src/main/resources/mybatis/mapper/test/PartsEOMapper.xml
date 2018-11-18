@@ -247,4 +247,8 @@
     </if>
   </select>
 
+    <select id="queryidByAid" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT a_par_id FROM a WHERE a_id = #{aid}
+    </select>
+
 </mapper>
