@@ -30,14 +30,14 @@ public class File_Form_Up {
     * @CreateDate:     2018/11/16 15:36
     */
     @PostMapping("/up_files")
-    public ResponseMessage upFiles(DemoEO user, MultipartFile photo, MultipartFile[] files) throws Exception{
+    public ResponseMessage upFiles(String username,String userpwd, MultipartFile photo, MultipartFile[] files) throws Exception{
         //获取项目根目录
         String classPath = ResourceUtils.getURL("classpath:").getPath();
         String path = classPath.substring(0,classPath.indexOf("stwl_claim")+10);
 
         //获取前端表单字段名并打印，方法接收的字段名要与表单的字段名对应上
-        System.out.println(user.getUername());
-        System.out.println(user.getPassword());
+        System.out.println(username);
+        System.out.println(userpwd);
         //将照片存放在项目的zzz/photo下
         outFile(photo,path+"/zzz/photo");
 
