@@ -3,7 +3,6 @@ package com.adc.da.user.controller;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +24,9 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 @RestController
 @RequestMapping("/${restPath}/user/user")
 @Api(description = "|UserEO|")
-public class UserEOController1 extends BaseController<UserEO>{
+public class UserEOController extends BaseController<UserEO>{
 
-    private static final Logger logger = LoggerFactory.getLogger(UserEOController1.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserEOController.class);
 
     @Autowired
     private UserEOService userEOService;
