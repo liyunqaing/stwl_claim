@@ -49,6 +49,7 @@
 		<module>stwl-claim-sys</module>
 		<module>stwl-claim-ssologin</module>
 		<module>mytest</module>
+		<module>adc-test</module>
 	</modules>
 
 	<repositories>
