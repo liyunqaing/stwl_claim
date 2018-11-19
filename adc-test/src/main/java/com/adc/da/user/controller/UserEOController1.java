@@ -25,9 +25,9 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 @RestController
 @RequestMapping("/${restPath}/user/user")
 @Api(description = "|UserEO|")
-public class UserEOController extends BaseController<UserEO>{
+public class UserEOController1 extends BaseController<UserEO>{
 
-    private static final Logger logger = LoggerFactory.getLogger(UserEOController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserEOController1.class);
 
     @Autowired
     private UserEOService userEOService;
