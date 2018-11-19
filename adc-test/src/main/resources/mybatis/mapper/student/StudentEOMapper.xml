@@ -81,7 +81,7 @@
     select s.XUEHAO,s.NAME,SCORES.SCORE from(select * from TS_STUDENT where classes=1 ) s join SCORES on(s.id=SCORES.SID) where SCORES.Score>=80
   </select>
   <!--统计每个班成绩大于60的人数-->
-  <select id="selectCount"resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+  <select id="selectCount" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
   select count(d.classes) from(select t.classes from TS_STUDENT t join SCORES s on(t.id=s.sid) where s.Score>79) d group by classes
   </select>
 </mapper>
