@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/${restPath}/redis")
 public class test {
 
-    @Autowired
-    private JedisUtil jedisUtil;
+//    @Autowired
+//    private JedisUtil jedisUtil;
 
     @GetMapping("/test01")
     public ResponseMessage demo01(){
