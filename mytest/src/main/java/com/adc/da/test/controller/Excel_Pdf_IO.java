@@ -12,7 +12,6 @@ import com.adc.da.test.service.PartsEOService;
 import com.adc.da.util.http.ResponseMessage;
 import com.adc.da.util.http.Result;
 import com.itextpdf.text.*;
-import com.itextpdf.text.log.SysoCounter;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -70,7 +69,7 @@ public class Excel_Pdf_IO {
         //创建导出对象
         ExportParams ep = new ExportParams();
         //设置导出对象为Excel2007
-        ep.setType(ExcelType.HSSF);
+        ep.setType(ExcelType.XSSF);
 
         List<DemoEO> demos = demoEOService.queryAll();
         ArrayList<DemoDto> demoDtos = new ArrayList<>();
@@ -80,7 +79,6 @@ public class Excel_Pdf_IO {
                 DemoDto dto = new DemoDto();
                 BeanUtils.copyProperties(de,dto);
                 demoDtos.add(dto);
-                System.out.println(de + "_" + dto);
             }
         }
         //生成Excel对象
