@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adc.da.checkData.dao.CheckdataEODao" >
+  <!-- Result Map-->
+  <resultMap id="BaseResultMap" type="com.adc.da.checkData.entity.CheckdataEO" >
+    <id column="id" property="id" />
+    <result column="address" property="address" />
+    <result column="organizationAddress_Producer" property="organizationaddressProducer" />
+    <result column="standardsAndRequirements" property="standardsAndRequirements" />
+    <result column="specifications" property="specifications" />
+    <result column="organizationName_Client" property="organizationnameClient" />
+    <result column="organizationAddress_Client" property="organizationaddressClient" />
+    <result column="organizationName_Producer" property="organizationnameProducer" />
+    <result column="institutionName" property="institutionName" />
+    <result column="institutionApprovalNO" property="institutionApprovalNO" />
+    <result column="validityPeriod" property="validityPeriod" />
+    <result column="businessScope" property="businessScope" />
+    <result column="agencyStatus" property="agencyStatus" />
+    <result column="firstDateOfCertification" property="firstDateOfCertification" />
+    <result column="productCategory" property="productCategory" />
+    <result column="nameAndUnitMain" property="nameAndUnitMain" />
+    <result column="unifiedCode_Client" property="unifiedcodeClient" />
+    <result column="unifiedCode_Producer" property="unifiedcodeProducer" />
+    <result column="nameAndUnitSecondary" property="nameAndUnitSecondary" />
+    <result column="certificateAnnexDownload" property="certificateAnnexDownload" />
+    <result column="informationReportDate" property="informationReportDate" />
+    <result column="certificateExpirationDate" property="certificateExpirationDate" />
+    <result column="certificateDate" property="certificateDate" />
+    <result column="certificateStatus" property="certificateStatus" />
+    <result column="certificateNO" property="certificateNO" />
+    <result column="phone" property="phone" />
+    <result column="changeDate" property="changeDate" />
+    <result column="del" property="del" />
+    <result column="url" property="url" />
+  </resultMap>
+
+  <!-- checkData table all fields -->
+  <sql id="Base_Column_List" >
+     id, address, organizationAddress_Producer, standardsAndRequirements, specifications, organizationName_Client, organizationAddress_Client, organizationName_Producer, institutionName, institutionApprovalNO, validityPeriod, businessScope, agencyStatus, firstDateOfCertification, productCategory, nameAndUnitMain, unifiedCode_Client, unifiedCode_Producer, nameAndUnitSecondary, certificateAnnexDownload, informationReportDate, certificateExpirationDate, certificateDate, certificateStatus, certificateNO, phone, changeDate, del, url
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="Base_Where_Clause">
+    where 1=1
+    <trim suffixOverrides="," >
+      <if test="id != null" >
+        and id ${idOperator} #{id}
+      </if>
+      <if test="address != null" >
+        and address ${addressOperator} #{address}
+      </if>
+      <if test="organizationaddressProducer != null" >
+        and organizationAddress_Producer ${organizationaddressProducerOperator} #{organizationaddressProducer}
+      </if>
+      <if test="standardsAndRequirements != null" >
+        and standardsAndRequirements ${standardsAndRequirementsOperator} #{standardsAndRequirements}
+      </if>
+      <if test="specifications != null" >
+        and specifications ${specificationsOperator} #{specifications}
+      </if>
+      <if test="organizationnameClient != null" >
+        and organizationName_Client ${organizationnameClientOperator} #{organizationnameClient}
+      </if>
+      <if test="organizationaddressClient != null" >
+        and organizationAddress_Client ${organizationaddressClientOperator} #{organizationaddressClient}
+      </if>
+      <if test="organizationnameProducer != null" >
+        and organizationName_Producer ${organizationnameProducerOperator} #{organizationnameProducer}
+      </if>
+      <if test="institutionName != null" >
+        and institutionName ${institutionNameOperator} #{institutionName}
+      </if>
+      <if test="institutionApprovalNO != null" >
+        and institutionApprovalNO ${institutionApprovalNOOperator} #{institutionApprovalNO}
+      </if>
+      <if test="validityPeriod != null" >
+        and validityPeriod ${validityPeriodOperator} #{validityPeriod}
+      </if>
+      <if test="businessScope != null" >
+        and businessScope ${businessScopeOperator} #{businessScope}
+      </if>
+      <if test="agencyStatus != null" >
+        and agencyStatus ${agencyStatusOperator} #{agencyStatus}
+      </if>
+      <if test="firstDateOfCertification != null" >
+        and firstDateOfCertification ${firstDateOfCertificationOperator} #{firstDateOfCertification}
+      </if>
+      <if test="productCategory != null" >
+        and productCategory ${productCategoryOperator} #{productCategory}
+      </if>
+      <if test="nameAndUnitMain != null" >
+        and nameAndUnitMain ${nameAndUnitMainOperator} #{nameAndUnitMain}
+      </if>
+      <if test="unifiedcodeClient != null" >
+        and unifiedCode_Client ${unifiedcodeClientOperator} #{unifiedcodeClient}
+      </if>
+      <if test="unifiedcodeProducer != null" >
+        and unifiedCode_Producer ${unifiedcodeProducerOperator} #{unifiedcodeProducer}
+      </if>
+      <if test="nameAndUnitSecondary != null" >
+        and nameAndUnitSecondary ${nameAndUnitSecondaryOperator} #{nameAndUnitSecondary}
+      </if>
+      <if test="certificateAnnexDownload != null" >
+        and certificateAnnexDownload ${certificateAnnexDownloadOperator} #{certificateAnnexDownload}
+      </if>
+      <if test="informationReportDate != null" >
+        and informationReportDate ${informationReportDateOperator} #{informationReportDate}
+      </if>
+      <if test="certificateExpirationDate != null" >
+        and certificateExpirationDate ${certificateExpirationDateOperator} #{certificateExpirationDate}
+      </if>
+      <if test="certificateDate != null" >
+        and certificateDate ${certificateDateOperator} #{certificateDate}
+      </if>
+      <if test="certificateStatus != null" >
+        and certificateStatus ${certificateStatusOperator} #{certificateStatus}
+      </if>
+      <if test="certificateNO != null" >
+        and certificateNO ${certificateNOOperator} #{certificateNO}
+      </if>
+      <if test="phone != null" >
+        and phone ${phoneOperator} #{phone}
+      </if>
+      <if test="changeDate != null" >
+        and changeDate ${changeDateOperator} #{changeDate}
+      </if>
+      <if test="del != null" >
+        and del ${delOperator} #{del}
+      </if>
+      <if test="url != null" >
+        and url ${urlOperator} #{url}
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 插入记录 -->
+  <insert id="insert" parameterType="com.adc.da.checkData.entity.CheckdataEO" >
+    <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+        SELECT SEQ_checkData.NEXTVAL FROM DUAL
+    </selectKey> -->
+    insert into checkData(<include refid="Base_Column_List" />)
+    values (#{id, jdbcType=VARCHAR}, #{address, jdbcType=VARCHAR}, #{organizationaddressProducer, jdbcType=VARCHAR}, #{standardsAndRequirements, jdbcType=VARCHAR}, #{specifications, jdbcType=VARCHAR}, #{organizationnameClient, jdbcType=VARCHAR}, #{organizationaddressClient, jdbcType=VARCHAR}, #{organizationnameProducer, jdbcType=VARCHAR}, #{institutionName, jdbcType=VARCHAR}, #{institutionApprovalNO, jdbcType=VARCHAR}, #{validityPeriod, jdbcType=VARCHAR}, #{businessScope, jdbcType=VARCHAR}, #{agencyStatus, jdbcType=VARCHAR}, #{firstDateOfCertification, jdbcType=VARCHAR}, #{productCategory, jdbcType=VARCHAR}, #{nameAndUnitMain, jdbcType=VARCHAR}, #{unifiedcodeClient, jdbcType=VARCHAR}, #{unifiedcodeProducer, jdbcType=VARCHAR}, #{nameAndUnitSecondary, jdbcType=VARCHAR}, #{certificateAnnexDownload, jdbcType=VARCHAR}, #{informationReportDate, jdbcType=VARCHAR}, #{certificateExpirationDate, jdbcType=VARCHAR}, #{certificateDate, jdbcType=VARCHAR}, #{certificateStatus, jdbcType=VARCHAR}, #{certificateNO, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, #{changeDate, jdbcType=VARCHAR}, #{del, jdbcType=VARCHAR}, #{url, jdbcType=VARCHAR})
+  </insert>
+
+  <!-- 动态插入记录 主键是序列 -->
+  <insert id="insertSelective" parameterType="com.adc.da.checkData.entity.CheckdataEO" >
+        <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+        SELECT SEQ_checkData.NEXTVAL FROM DUAL
+    </selectKey> -->
+        insert into checkData
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+                <if test="id != null" >id,</if>
+                <if test="address != null" >address,</if>
+                <if test="organizationaddressProducer != null" >organizationAddress_Producer,</if>
+                <if test="standardsAndRequirements != null" >standardsAndRequirements,</if>
+                <if test="specifications != null" >specifications,</if>
+                <if test="organizationnameClient != null" >organizationName_Client,</if>
+                <if test="organizationaddressClient != null" >organizationAddress_Client,</if>
+                <if test="organizationnameProducer != null" >organizationName_Producer,</if>
+                <if test="institutionName != null" >institutionName,</if>
+                <if test="institutionApprovalNO != null" >institutionApprovalNO,</if>
+                <if test="validityPeriod != null" >validityPeriod,</if>
+                <if test="businessScope != null" >businessScope,</if>
+                <if test="agencyStatus != null" >agencyStatus,</if>
+                <if test="firstDateOfCertification != null" >firstDateOfCertification,</if>
+                <if test="productCategory != null" >productCategory,</if>
+                <if test="nameAndUnitMain != null" >nameAndUnitMain,</if>
+                <if test="unifiedcodeClient != null" >unifiedCode_Client,</if>
+                <if test="unifiedcodeProducer != null" >unifiedCode_Producer,</if>
+                <if test="nameAndUnitSecondary != null" >nameAndUnitSecondary,</if>
+                <if test="certificateAnnexDownload != null" >certificateAnnexDownload,</if>
+                <if test="informationReportDate != null" >informationReportDate,</if>
+                <if test="certificateExpirationDate != null" >certificateExpirationDate,</if>
+                <if test="certificateDate != null" >certificateDate,</if>
+                <if test="certificateStatus != null" >certificateStatus,</if>
+                <if test="certificateNO != null" >certificateNO,</if>
+                <if test="phone != null" >phone,</if>
+                <if test="changeDate != null" >changeDate,</if>
+                <if test="del != null" >del,</if>
+                <if test="url != null" >url,</if>
+            </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+                <if test="id != null" >#{id, jdbcType=VARCHAR},</if>
+                <if test="address != null" >#{address, jdbcType=VARCHAR},</if>
+                <if test="organizationaddressProducer != null" >#{organizationaddressProducer, jdbcType=VARCHAR},</if>
+                <if test="standardsAndRequirements != null" >#{standardsAndRequirements, jdbcType=VARCHAR},</if>
+                <if test="specifications != null" >#{specifications, jdbcType=VARCHAR},</if>
+                <if test="organizationnameClient != null" >#{organizationnameClient, jdbcType=VARCHAR},</if>
+                <if test="organizationaddressClient != null" >#{organizationaddressClient, jdbcType=VARCHAR},</if>
+                <if test="organizationnameProducer != null" >#{organizationnameProducer, jdbcType=VARCHAR},</if>
+                <if test="institutionName != null" >#{institutionName, jdbcType=VARCHAR},</if>
+                <if test="institutionApprovalNO != null" >#{institutionApprovalNO, jdbcType=VARCHAR},</if>
+                <if test="validityPeriod != null" >#{validityPeriod, jdbcType=VARCHAR},</if>
+                <if test="businessScope != null" >#{businessScope, jdbcType=VARCHAR},</if>
+                <if test="agencyStatus != null" >#{agencyStatus, jdbcType=VARCHAR},</if>
+                <if test="firstDateOfCertification != null" >#{firstDateOfCertification, jdbcType=VARCHAR},</if>
+                <if test="productCategory != null" >#{productCategory, jdbcType=VARCHAR},</if>
+                <if test="nameAndUnitMain != null" >#{nameAndUnitMain, jdbcType=VARCHAR},</if>
+                <if test="unifiedcodeClient != null" >#{unifiedcodeClient, jdbcType=VARCHAR},</if>
+                <if test="unifiedcodeProducer != null" >#{unifiedcodeProducer, jdbcType=VARCHAR},</if>
+                <if test="nameAndUnitSecondary != null" >#{nameAndUnitSecondary, jdbcType=VARCHAR},</if>
+                <if test="certificateAnnexDownload != null" >#{certificateAnnexDownload, jdbcType=VARCHAR},</if>
+                <if test="informationReportDate != null" >#{informationReportDate, jdbcType=VARCHAR},</if>
+                <if test="certificateExpirationDate != null" >#{certificateExpirationDate, jdbcType=VARCHAR},</if>
+                <if test="certificateDate != null" >#{certificateDate, jdbcType=VARCHAR},</if>
+                <if test="certificateStatus != null" >#{certificateStatus, jdbcType=VARCHAR},</if>
+                <if test="certificateNO != null" >#{certificateNO, jdbcType=VARCHAR},</if>
+                <if test="phone != null" >#{phone, jdbcType=VARCHAR},</if>
+                <if test="changeDate != null" >#{changeDate, jdbcType=VARCHAR},</if>
+                <if test="del != null" >#{del, jdbcType=VARCHAR},</if>
+                <if test="url != null" >#{url, jdbcType=VARCHAR},</if>
+            </trim>
+  </insert>
+
+  <!-- 根据pk，修改记录-->
+  <update id="updateByPrimaryKey" parameterType="com.adc.da.checkData.entity.CheckdataEO" >
+    update checkData
+       set  address = #{address},
+            organizationAddress_Producer = #{organizationaddressProducer},
+            standardsAndRequirements = #{standardsAndRequirements},
+            specifications = #{specifications},
+            organizationName_Client = #{organizationnameClient},
+            organizationAddress_Client = #{organizationaddressClient},
+            organizationName_Producer = #{organizationnameProducer},
+            institutionName = #{institutionName},
+            institutionApprovalNO = #{institutionApprovalNO},
+            validityPeriod = #{validityPeriod},
+            businessScope = #{businessScope},
+            agencyStatus = #{agencyStatus},
+            firstDateOfCertification = #{firstDateOfCertification},
+            productCategory = #{productCategory},
+            nameAndUnitMain = #{nameAndUnitMain},
+            unifiedCode_Client = #{unifiedcodeClient},
+            unifiedCode_Producer = #{unifiedcodeProducer},
+            nameAndUnitSecondary = #{nameAndUnitSecondary},
+            certificateAnnexDownload = #{certificateAnnexDownload},
+            informationReportDate = #{informationReportDate},
+            certificateExpirationDate = #{certificateExpirationDate},
+            certificateDate = #{certificateDate},
+            certificateStatus = #{certificateStatus},
+            certificateNO = #{certificateNO},
+            phone = #{phone},
+            changeDate = #{changeDate},
+            del = #{del},
+            url = #{url}
+     where  id = #{id}
+  </update>
+
+  <!-- 修改记录，只修改只不为空的字段 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.adc.da.checkData.entity.CheckdataEO" >
+    update checkData
+    <set >
+      <if test="address != null" >
+        address = #{address},
+      </if>
+      <if test="organizationaddressProducer != null" >
+        organizationAddress_Producer = #{organizationaddressProducer},
+      </if>
+      <if test="standardsAndRequirements != null" >
+        standardsAndRequirements = #{standardsAndRequirements},
+      </if>
+      <if test="specifications != null" >
+        specifications = #{specifications},
+      </if>
+      <if test="organizationnameClient != null" >
+        organizationName_Client = #{organizationnameClient},
+      </if>
+      <if test="organizationaddressClient != null" >
+        organizationAddress_Client = #{organizationaddressClient},
+      </if>
+      <if test="organizationnameProducer != null" >
+        organizationName_Producer = #{organizationnameProducer},
+      </if>
+      <if test="institutionName != null" >
+        institutionName = #{institutionName},
+      </if>
+      <if test="institutionApprovalNO != null" >
+        institutionApprovalNO = #{institutionApprovalNO},
+      </if>
+      <if test="validityPeriod != null" >
+        validityPeriod = #{validityPeriod},
+      </if>
+      <if test="businessScope != null" >
+        businessScope = #{businessScope},
+      </if>
+      <if test="agencyStatus != null" >
+        agencyStatus = #{agencyStatus},
+      </if>
+      <if test="firstDateOfCertification != null" >
+        firstDateOfCertification = #{firstDateOfCertification},
+      </if>
+      <if test="productCategory != null" >
+        productCategory = #{productCategory},
+      </if>
+      <if test="nameAndUnitMain != null" >
+        nameAndUnitMain = #{nameAndUnitMain},
+      </if>
+      <if test="unifiedcodeClient != null" >
+        unifiedCode_Client = #{unifiedcodeClient},
+      </if>
+      <if test="unifiedcodeProducer != null" >
+        unifiedCode_Producer = #{unifiedcodeProducer},
+      </if>
+      <if test="nameAndUnitSecondary != null" >
+        nameAndUnitSecondary = #{nameAndUnitSecondary},
+      </if>
+      <if test="certificateAnnexDownload != null" >
+        certificateAnnexDownload = #{certificateAnnexDownload},
+      </if>
+      <if test="informationReportDate != null" >
+        informationReportDate = #{informationReportDate},
+      </if>
+      <if test="certificateExpirationDate != null" >
+        certificateExpirationDate = #{certificateExpirationDate},
+      </if>
+      <if test="certificateDate != null" >
+        certificateDate = #{certificateDate},
+      </if>
+      <if test="certificateStatus != null" >
+        certificateStatus = #{certificateStatus},
+      </if>
+      <if test="certificateNO != null" >
+        certificateNO = #{certificateNO},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone},
+      </if>
+      <if test="changeDate != null" >
+        changeDate = #{changeDate},
+      </if>
+      <if test="del != null" >
+        del = #{del},
+      </if>
+      <if test="url != null" >
+        url = #{url},
+      </if>
+    </set>
+     where id = #{id}
+  </update>
+
+  <!-- 根据id查询 checkData -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List" /> 
+      from checkData
+     where id = #{value}
+
+  </select>
+
+  <!-- 删除记录 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from checkData
+     where id = #{value}
+
+  </delete>
+
+  <!-- checkData 列表总数-->
+  <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
+    select count(1) from checkData
+    <include refid="Base_Where_Clause"/>
+  </select>
+
+  <!-- 查询checkData列表 -->
+  <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+		select <include refid="Base_Column_List" /> from checkData
+			<include refid="Base_Where_Clause"/>
+			<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+				${pager.orderCondition}
+			</if>
+			offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
+  </select>
+
+  <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+    select <include refid="Base_Column_List"/> from checkData
+    <include refid="Base_Where_Clause"/>
+    <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+		${pager.orderCondition}
+    </if>
+  </select>
+
+</mapper>

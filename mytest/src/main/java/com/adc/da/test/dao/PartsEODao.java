@@ -11,5 +11,6 @@ import com.adc.da.test.entity.PartsEO;
  * <b>版权所有：<b>版权归北京卡达克数据技术中心所有。<br>
  */
 public interface PartsEODao extends BaseDao<PartsEO> {
+    String queryidByAid(String aid);
 
 }

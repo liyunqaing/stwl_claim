@@ -13,17 +13,17 @@ public class CodeUtil {
 
     public static void main(String args[]) {
 
-        String entityPackage;
+  //      String entityPackage;
 
 
 
-        entityPackage = "checkData";
+//        entityPackage = "newkeypart";
 
-        DbCodeGenerateFactory.codeGenerate("checkData", entityPackage);
+//        DbCodeGenerateFactory.codeGenerate("newkeypart", entityPackage);
 //        DbCodeGenerateFactory.codeGenerate("TS_ROLE", entityPackage);
 //        DbCodeGenerateFactory.codeGenerate("TS_MENU", entityPackage);
 
-//        testOracle();
+        testOracle();
     }
 
 
@@ -36,9 +36,9 @@ public class CodeUtil {
         {
             Class.forName("oracle.jdbc.driver.OracleDriver");// 加载Oracle驱动程序
             System.out.println("开始尝试连接数据库！");
-            String url = "jdbc:oracle:" + "thin:@60.30.69.61:1521:ADC";// 127.0.0.1是本机地址，XE是精简版Oracle的默认数据库名
-            String user = "adcda01";// 用户名,系统默认的账户名
-            String password = "adcda01";// 你安装时选设置的密码
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=test";// 127.0.0.1是本机地址，XE是精简版Oracle的默认数据库名
+            String user = "sa";// 用户名,系统默认的账户名
+            String password = "12345";// 你安装时选设置的密码
             con = DriverManager.getConnection(url, user, password);// 获取连接
             System.out.println("连接成功！");
             String sql = "select * from TEST";// 预编译语句，“？”代表参数

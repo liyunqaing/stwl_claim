@@ -10,9 +10,10 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 //import com.codahale.metrics.CsvReporter;
-
+@EnableTransactionManagement
 @SpringBootApplication
 @ServletComponentScan
 @ComponentScan({"com.adc"})

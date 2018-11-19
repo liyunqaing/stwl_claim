@@ -164,4 +164,25 @@
         ORDER BY creat_time offset ${(page-1)*pageSize} rows fetch next ${pageSize} rows only
     </select>
 
+    <delete id="deleteAByaid" parameterType="java.lang.String" >
+        DELETE a WHERE a_id = #{id}
+    </delete>
+
+    <select id="queryidByAid" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT a_user_id  FROM a WHERE a_id = #{aid}
+    </select>
+
+    <insert id="insertAById">
+        INSERT INTO a
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="aid != null and aid !=''">a_id,</if>
+            <if test="uid != null and uid !=''">a_user_id,</if>
+            <if test="pid != null and pid !=''">a_par_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="aid != null and aid !=''">#{aid,jdbcType=VARCHAR},</if>
+            <if test="uid != null and uid !=''">#{uid,jdbcType=VARCHAR},</if>
+            <if test="pid != null and pid !=''">#{pid,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
 </mapper>

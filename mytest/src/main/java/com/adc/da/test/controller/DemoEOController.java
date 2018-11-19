@@ -34,6 +34,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
 * @Description:   _通过itextpdf完成pdf的导出
  *                 _poi完成Excel的导出
+ *                  spring.datasource.url = jdbc:sqlserver://localhost:1433;databaseName=test
+ *                  spring.datasource.username = sa
+ *                  spring.datasource.password = 12345
 * @Author:         yueben
 * @CreateDate:     2018/11/13 17:15
 */
@@ -96,8 +99,7 @@ public class DemoEOController extends BaseController<DemoEO>{
    @GetMapping("/excel")
     public void getExcel(HttpServletResponse response) throws Exception{
        //设置响应头部，声明文件为附件进行下载
-       String filename = new String("我的_Excel.xlsx".getBytes("gbk"),"utf-8");
-       filename = URLEncoder.encode(filename,"utf-8");
+       String filename = new String("我的_Excel.xlsx".getBytes(),"iso-8859-1");
        response.setHeader("Content-type", "application/pdf;charset=utf-8");
        response.setHeader("content-disposition", "attachment;filename="+filename);
 

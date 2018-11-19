@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="{CHARSET}">
+		<title></title>
+	</head>
+	<body>
+		<form id="form1">
+			姓名：<input type="text" 		id="username"	name="username"	/><br />
+			密码：<input type="password" 	id="userpwd" 	name="userpwd"	/><br />
+			头像：<input type="file" 		id="photo" 		name="photo"	/><br />
+			简历：<input type="file" 		id="pdf" 		name="files"		
+				multiple="multiple"/><br />
+		</form>
+		<!--<img id="photoshow" src="img/6751.jpg" alt="头像" 
+			style="width: 200px;height: 200px;" /><br />-->
+		<input type="button" value="保存" onclick="filesUp()" />
+	</body>
+	<script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+	<script>
+		//表单文件上传
+		function filesUp(){
+			//获取表单对象
+			let fd = new FormData($("#form1")[0]);
+			//上传
+			$.ajax({
+				type: "post",
+				url: "http://localhost:8085/api/test/File_Form_Up/up_files",
+				data: fd,
+				async: false,
+				cache: false,
+				processData: false,
+		    	contentType: false,
+		    	success : function(data){
+		    		console.log(data);
+		    	},
+		    	error : function(data){
+		    		console.log(data);
+		    	}
+			});
+		}
+		
+		//头像选择回显
+//		function photoShow(){
+//			let pho = $("#photo").file;
+//			let fr = new FileReader();
+//			fr.onload = function(){
+//				$("#photoshow").src = $("#photo").result;
+//			}
+//			
+//			fr.readAsDataURL(pho);
+//		}
+		
+	</script>
+</html>
