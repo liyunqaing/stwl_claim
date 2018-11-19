@@ -29,11 +29,11 @@
 			<version>2.2.43</version>
 		</dependency>
 		<!-- 系统管理组件 -->
- 		<dependency>
- 			<groupId>com.adc</groupId>
- 			<artifactId>adc-da-sys</artifactId>
- 			<version>2.2.2</version>
- 		</dependency>
+ 		<!--<dependency>-->
+ 			<!--<groupId>com.adc</groupId>-->
+ 			<!--<artifactId>adc-da-sys</artifactId>-->
+ 			<!--<version>2.2.2</version>-->
+ 		<!--</dependency>-->
 		<dependency>
 			<groupId>com.adc</groupId>
 			<artifactId>stwl-claim-sys</artifactId>
