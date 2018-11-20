@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adc.da.fyxTest.dao.EstEODao" >
+  <!-- Result Map-->
+  <resultMap id="BaseResultMap" type="com.adc.da.fyxTest.entity.EstEO" >
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="age" property="age" />
+  </resultMap>
+
+  <!-- Test table all fields -->
+  <sql id="Base_Column_List" >
+     id, name, age
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="Base_Where_Clause">
+    where 1=1
+    <trim suffixOverrides="," >
+      <if test="id != null" >
+        and id ${idOperator} #{id}
+      </if>
+      <if test="name != null" >
+        and name ${nameOperator} #{name}
+      </if>
+      <if test="age != null" >
+        and age ${ageOperator} #{age}
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 插入记录 -->
+  <insert id="insert" parameterType="com.adc.da.fyxTest.entity.EstEO" >
+    <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+        SELECT SEQ_Test.NEXTVAL FROM DUAL
+    </selectKey> -->
+    insert into Test(<include refid="Base_Column_List" />)
+    values (#{id, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{age, jdbcType=VARCHAR})
+  </insert>
+
+  <!-- 动态插入记录 主键是序列 -->
+  <insert id="insertSelective" parameterType="com.adc.da.fyxTest.entity.EstEO" >
+        <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+        SELECT SEQ_Test.NEXTVAL FROM DUAL
+    </selectKey> -->
+        insert into Test
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+                <if test="id != null" >id,</if>
+                <if test="name != null" >name,</if>
+                <if test="age != null" >age,</if>
+            </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+                <if test="id != null" >#{id, jdbcType=VARCHAR},</if>
+                <if test="name != null" >#{name, jdbcType=VARCHAR},</if>
+                <if test="age != null" >#{age, jdbcType=VARCHAR},</if>
+            </trim>
+  </insert>
+
+  <!-- 根据pk，修改记录-->
+  <update id="updateByPrimaryKey" parameterType="com.adc.da.fyxTest.entity.EstEO" >
+    update Test
+       set  name = #{name},
+            age = #{age}
+     where  id = #{id}
+  </update>
+
+  <!-- 修改记录，只修改只不为空的字段 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.adc.da.fyxTest.entity.EstEO" >
+    update Test
+    <set >
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="age != null" >
+        age = #{age},
+      </if>
+    </set>
+     where id = #{id}
+  </update>
+
+  <!-- 根据id查询 Test -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List" /> 
+      from Test
+     where id = #{value}
+
+  </select>
+
+  <!-- 删除记录 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from Test
+     where id = #{value}
+
+  </delete>
+
+  <!-- Test 列表总数-->
+  <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
+    select count(1) from Test
+    <include refid="Base_Where_Clause"/>
+  </select>
+
+  <!-- 查询Test列表 -->
+  <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+		select <include refid="Base_Column_List" /> from Test
+			<include refid="Base_Where_Clause"/>
+			<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+				${pager.orderCondition}
+			</if>
+			offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
+  </select>
+
+  <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+    select <include refid="Base_Column_List"/> from Test
+    <include refid="Base_Where_Clause"/>
+    <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+		${pager.orderCondition}
+    </if>
+  </select>
+    <insert id="batchInsert">
+    INSERT INTO TEST(ID,NAME,AGE)
+    <foreach collection="levelList" item="param" separator=" union all ">
+        SELECT
+        #{param.ID,jdbcType=VARCHAR},
+        #{param.NAME,jdbcType=VARCHAR},
+        #{param.AGE,jdbcType=VARCHAR}
+    </foreach>
+    </insert>
+</mapper>
