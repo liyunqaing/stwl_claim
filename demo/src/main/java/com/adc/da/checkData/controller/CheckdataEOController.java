@@ -93,7 +93,7 @@ public class CheckdataEOController extends BaseController<CheckdataEO> {
     /**
      * 测试证书校验接口|模拟解析得到数据并解析存入数据库
      * 刘笑天
-     *
+     * 20181119
      * @return
      * @throws Exception
      */
