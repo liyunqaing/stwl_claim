@@ -238,7 +238,7 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
     /**
      * 向redis里存值
      * 刘笑天
-     *
+     * 20181115
      * @return
      * @throws Exception
      */
@@ -246,9 +246,9 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
     @PostMapping("/testAdd2Redis")
     public ResponseMessage testAdd2Redis() throws Exception {
 //        官方网站写法 初始化jedis
-//        JedisUtil jedisUtil = JedisUtil.getInstance();
-//        jedisUtil.getJedis();
-//        jedisUtil.getPool();
+        JedisUtil jedisUtil = JedisUtil.getInstance();
+        jedisUtil.getJedis();
+        jedisUtil.getPool();
         Jedis jedis = new Jedis("localhost");
         jedis.lpop("list".getBytes());//首先清空之前list里的内容
         List<NewkeypartEO> list = newkeypartEOService.queryAll();//操作数据库 得到数据
@@ -272,7 +272,7 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
     /**
      * 从redis里取值
      * 刘笑天
-     *
+     * 20181115
      * @return 取到的值
      * @throws Exception
      */

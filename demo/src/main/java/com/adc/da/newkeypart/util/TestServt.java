@@ -26,7 +26,7 @@ import static com.sun.webkit.network.URLs.newURL;
  */
 public class TestServt {
     @Autowired
-    private static CheckdataEOService checkdataEOService;
+    private CheckdataEOService checkdataEOService;
     public static void main(String[] args) throws Exception {
 //        // 服务地址
 //        URL url = new URL("http://localhost:8080/verification/rest/certificate");
@@ -49,20 +49,20 @@ public class TestServt {
 //            strResponse += strLine;
 //        }
         //模拟得到的数据
-        String simulateStrResponse = "[{\"address\":\"123\",\"id\":\"0\",\"organizationAddress_Producer\":\"123\",\"standardsAndRequirements\":\"123\",\"specifications\":\"123\",\"organizationName_Client\":\"123\",\"organizationAddress_Client\":\"123\",\"organizationName_Producer\":\"123\",\"institutionName\":\"123\",\"institutionApprovalNO\":\"123\",\"validityPeriod\":\"123\",\"businessScope\":\"123\",\"agencyStatus\":\"123\",\"firstDateOfCertification\":\"123\",\"productCategory\":\"123\",\"nameAndUnitMain\":\"123\",\"unifiedCode_Client\":\"123\",\"unifiedCode_Producer\":\"123\",\"nameAndUnitSecondary\":\"123\",\"certificateAnnexDownload\":\"123\",\"informationReportDate\":\"123\",\"certificateExpirationDate\":\"123\",\"certificateDate\":\"123\",\"certificateStatus\":\"无效\",\"certificateNO\":\"2012011109533586\",\"phone\":\"123\",\"changeDate\":\"123\",\"del\":\"网站查询\",\"url\":\"123\"}]";
-        JSONArray jsonArray = JSONArray.parseArray(simulateStrResponse);
-        List<CheckdataEO> list = new ArrayList();
-        if (!jsonArray.isEmpty()) {
-            for (int i = 0; i < jsonArray.size(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                CheckdataEO checkdataEO = jsonObject.toJavaObject(CheckdataEO.class);
-                list.add(checkdataEO);
-            }
-        }
-        CheckdataEO checkdataEO = list.get(0);
-        System.out.println(checkdataEO.getCertificateNO());
-//        System.out.println(list.get(0).getAddress());
-        checkdataEOService.insertSelective(checkdataEO);
+//        String simulateStrResponse = "[{\"address\":\"123\",\"id\":\"0\",\"organizationAddress_Producer\":\"123\",\"standardsAndRequirements\":\"123\",\"specifications\":\"123\",\"organizationName_Client\":\"123\",\"organizationAddress_Client\":\"123\",\"organizationName_Producer\":\"123\",\"institutionName\":\"123\",\"institutionApprovalNO\":\"123\",\"validityPeriod\":\"123\",\"businessScope\":\"123\",\"agencyStatus\":\"123\",\"firstDateOfCertification\":\"123\",\"productCategory\":\"123\",\"nameAndUnitMain\":\"123\",\"unifiedCode_Client\":\"123\",\"unifiedCode_Producer\":\"123\",\"nameAndUnitSecondary\":\"123\",\"certificateAnnexDownload\":\"123\",\"informationReportDate\":\"123\",\"certificateExpirationDate\":\"123\",\"certificateDate\":\"123\",\"certificateStatus\":\"无效\",\"certificateNO\":\"2012011109533586\",\"phone\":\"123\",\"changeDate\":\"123\",\"del\":\"网站查询\",\"url\":\"123\"}]";
+//        JSONArray jsonArray = JSONArray.parseArray(simulateStrResponse);
+//        List<CheckdataEO> list = new ArrayList();
+//        if (!jsonArray.isEmpty()) {
+//            for (int i = 0; i < jsonArray.size(); i++) {
+//                JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                CheckdataEO checkdataEO = jsonObject.toJavaObject(CheckdataEO.class);
+//                list.add(checkdataEO);
+//            }
+//        }
+//        CheckdataEO checkdataEO = list.get(0);
+//        System.out.println(checkdataEO.getCertificateNO());
+////        System.out.println(list.get(0).getAddress());
+//        checkdataEOService.insertSelective(checkdataEO);
 
     }
 }
