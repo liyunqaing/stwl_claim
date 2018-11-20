@@ -255,11 +255,11 @@
 			<artifactId>mytest</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		<dependency>
-			<groupId>com.adc</groupId>
-			<artifactId>adc-test</artifactId>
-			<version>1.0.0</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.adc</groupId>-->
+			<!--<artifactId>adc-test</artifactId>-->
+			<!--<version>1.0.0</version>-->
+		<!--</dependency>-->
 
 	</dependencies>
 	<build>
