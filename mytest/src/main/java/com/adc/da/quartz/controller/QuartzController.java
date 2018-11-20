@@ -58,7 +58,7 @@ public class QuartzController {
         scheduler.rescheduleJob(taskTrigger.getKey(),trigger);
 
 
-        return Result.success("task_1");
+        return Result.success("task_1的触发时间:");
     }
 
     @GetMapping("/job/job_1")
