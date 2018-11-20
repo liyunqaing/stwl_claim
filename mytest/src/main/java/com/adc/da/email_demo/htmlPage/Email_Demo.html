@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>邮件发送</title>
+	</head>
+	<body>
+		<form id="email">
+			<div align="center" style="margin: 50px 0 0 0;">
+				<div>
+					<span >收件人：</span>
+					<input type="text" placeholder="填写收件人信息" 
+						class="email" style="width: 200px;" name="toEmail"/>
+				</div>
+				<br />
+				<div>
+					<span>标&nbsp;题：</span>
+					<input type="text" placeholder="填写邮件标题" 
+						class="email" style="width: 200px;" name="emailTitle"/>
+				</div>
+				<div>
+					<span>附&nbsp;件：</span>
+					<input type="file" placeholder="填写邮件标题" 
+						class="email" style="width: 200px;" name="emailFile"/>
+				</div>
+				<br />
+				<div>
+					<div align="center"><span>正&nbsp;文：</span></div>
+					<textarea placeholder="请输入邮件正文" 
+						class="email" style="width: 270px;height: 80px;" name="emailBody"></textarea>
+				</div>
+				
+			</div>
+		</form>
+		<br />
+		<div align="center">
+			<button onclick="emailSend()">发送</button>&nbsp;&nbsp;
+			<button onclick="emailReset()">重置</button>
+		</div>
+	</body>
+	
+	<script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+	<script>
+		function emailSend(){
+			let fd = new FormData($("#email")[0]);
+			
+			$.ajax({
+				type:"post",
+				url:"http://localhost:8085/api/email/send",
+				data: fd,
+				async: false,
+				cache: false,
+				processData: false,
+		    	contentType: false,
+				success: function(data){
+					alert(data.data);
+					console.log(data);
+				}
+			});
+		}
+		
+		function emailReset(){
+			$(".email").val("");
+		}
+	</script>
+</html>
