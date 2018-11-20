@@ -37,8 +37,8 @@ public class QuartzConfigration {
         jobBean.setGroup("task");
 
         //将要执行的方法放入任务里
-        jobBean.setTargetObject(task);
-        jobBean.setTargetMethod("task1");  //task中的方法名
+        jobBean.setTargetObject(task);     //将Task类添加到任务里
+        jobBean.setTargetMethod("task1");  //task类中的方法名
 
         return jobBean;
 
