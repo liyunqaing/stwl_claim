@@ -167,11 +167,11 @@
         </dependency>
 
         <!--定时器-->
-        <dependency>
-            <groupId>com.adc</groupId>
-            <artifactId>adc-da-quartz</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.adc</groupId>-->
+            <!--<artifactId>adc-da-quartz</artifactId>-->
+            <!--<version>1.0.0</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
