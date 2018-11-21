@@ -8,10 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.adc.da.efiles.entity.EfilesEO;
 import com.adc.da.efiles.service.EfilesEOService;
@@ -22,10 +19,16 @@ import com.adc.da.excel.poi.excel.entity.ImportParams;
 import com.adc.da.excel.poi.excel.entity.enums.ExcelType;
 import com.adc.da.excel.poi.excel.entity.result.ExcelImportResult;
 import com.adc.da.excel.poi.excel.entity.result.ExcelVerifyHanlderErrorResult;
+import com.adc.da.file.controller.FileUploadRestController;
+import com.adc.da.file.entity.FileEO;
+import com.adc.da.file.service.FileEOService;
+import com.adc.da.file.store.IFileStore;
 import com.adc.da.newkeypart.dto.NewKeypartDto;
 import com.adc.da.util.exception.AdcDaBaseException;
 import com.adc.da.util.utils.*;
+import com.adc.da.util.utils.UUID;
 import com.alibaba.fastjson.JSON;
+import com.sun.istack.internal.NotNull;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
@@ -45,8 +48,10 @@ import com.adc.da.util.http.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.Jedis;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
@@ -61,9 +66,19 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
 
     @Autowired
     private EfilesEOService efilesEOService;
+    @Autowired
+    private IFileStore iFileStore;
+    @Autowired
+    private FileEOService fileEOService;
+    // 上传文件类型允许白名单
+    private List<String> whiteUrls;
 
-    //    @Autowired
-    private JedisUtil jedisUtil;
+    @PostConstruct
+    public void init() {
+        // 读取文件
+        String path = FileUploadRestController.class.getResource("/").getFile();
+        whiteUrls = FileUtil.readAsStringList(path + "white/uploadWhite.txt");
+    }
 
     @ApiOperation(value = "|NewkeypartEO|分页查询")
     @GetMapping("/page")
@@ -134,7 +149,8 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
         }
 
         // 获取文件输入流
-//        InputStream is1 = iFileStore.loadFile(efilesEO.getSavePath());//官方文档写法 iFileStore无法识别
+        //官方文档写法 iFileStore无法识别（已解决 需要引入以来并注入IFileStore）
+//        InputStream is1 = iFileStore.loadFile(efilesEO.getSavePath());
         File initialFile = new File(efilesEO.getSavePath());
         InputStream is = FileUtils.openInputStream(initialFile);
         // 导入参数设置，默认即可
@@ -328,5 +344,93 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
         } else {
             return Result.error("缓存中没有数据");
         }
+    }
+
+    /**
+     * 文件下载
+     * 刘笑天 20181121
+     * @param response
+     * @param fileId
+     * @param fileName
+     * @throws Exception
+     */
+    @ApiOperation(value = "|FileEO|下载")
+    @GetMapping("/{fileId}/download")
+// @RequiresPermissions("sys:file:download")
+    public void downFile(HttpServletResponse response, @NotNull @PathVariable("fileId") String fileId,
+            String fileName) throws Exception {
+        if (StringUtils.isEmpty(fileId)) {
+            throw new AdcDaBaseException("FileId不能为空");
+        }
+
+        FileEO sysFileEO = fileEOService.selectByPrimaryKey(fileId);
+        if (sysFileEO == null) {
+            throw new AdcDaBaseException("FileId[" + fileId + "]不存在");
+        }
+
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            if (StringUtils.isEmpty(fileName)) {
+                fileName = sysFileEO.getFileName() + "." + sysFileEO.getFileType();
+            }
+
+            response.setHeader("Content-Disposition", "attachment; filename=" + Encodes.urlEncode(fileName));
+            response.setContentType(sysFileEO.getContentType());
+            is = iFileStore.loadFile(sysFileEO.getSavePath());
+            os = response.getOutputStream();
+            IOUtils.copy(is, os);
+            os.flush();
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+            throw new AdcDaBaseException("下载文件失败，请重试");
+        } finally {
+            IOUtils.closeQuietly(is);
+            IOUtils.closeQuietly(os);
+        }
+    }
+
+    /**
+     * 文件上传
+     * 刘笑天 20181121
+     * @param filePath 指定文件上传路径，空则在根路径
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "|FileEO|上传")
+    @PostMapping("/upload")
+// @RequiresPermissions("sys:file:upload")
+    public ResponseMessage<FileEO> upload(String filePath, String userId, @RequestParam("file") MultipartFile file) throws Exception {
+        Long starttime = System.currentTimeMillis();
+        FileEO fileEO;
+        InputStream is = null;
+        try {
+            String fileExtension = FileUtil.getFileExtension(file.getOriginalFilename());
+            if (!whiteUrls.contains(fileExtension)) {
+                logger.error("上传文件类型不允许，请重试");
+                return Result.error("r0071", "上传文件类型不允许，请重试");
+            }
+
+            is = file.getInputStream();
+            String path = iFileStore.storeFile(is, fileExtension, filePath);
+
+            fileEO = new FileEO();
+            fileEO.setFileId(UUID.randomUUID());
+            fileEO.setFileName(FileUtil.getFileName(file.getOriginalFilename()));
+            fileEO.setFileType(fileExtension);
+            fileEO.setContentType(file.getContentType());
+            fileEO.setSavePath(path);
+            fileEO.setCreateTime(new Date());
+            fileEO.setUserId(userId);
+            fileEOService.insertSelective(fileEO);
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+            return Result.error("r0072", "文件存储失败，请重试");
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
+        Long endtime = System.currentTimeMillis();
+        System.out.println(endtime - starttime + "ms");
+        return Result.success(fileEO);
     }
 }
