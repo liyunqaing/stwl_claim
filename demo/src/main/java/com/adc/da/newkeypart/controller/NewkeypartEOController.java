@@ -113,9 +113,9 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
     }
 
     /**
-     * 上传excel数据到数据库
+     * 上传excel（固定某个excel）数据到数据库
      * 刘笑天
-     *
+     * 20181121 增加了批量insert83条以上数据的控制
      * @param fileId
      * @return
      * @throws Exception
@@ -185,8 +185,41 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
             eo.setId(UUID.randomUUID());
             datasEO.add(eo);
         }
+        //循环批量插入数据库 begin
+        //初始化subList的startindex
+        int startIndex = 0;
+        //初始化subList的endindex
+        int endIndex = 83;
+        //循环insert的次数 以83条/次 为单位插入量
+        int insertTimes = datasEO.size() / 83;
+        //不能被83整除 得到list剩下的内容
+        int restData = datasEO.size() % 83;
+        //为余数部分添加一次insert次数
+        if (restData != 0) {
+            insertTimes++;
+        }
+        //insert开始
+        for (int i = 1; i <= insertTimes; i++) {
+            if (restData != 0 && i == insertTimes) {
+                endIndex += restData;
+                newkeypartEOService.batchInsert(datasEO.subList(startIndex, endIndex));
+            } else {
+                newkeypartEOService.batchInsert(datasEO.subList(startIndex, endIndex));
+                startIndex += 83;
+                if (endIndex == datas.size() - restData) {
+                    continue;
+                }
+                endIndex += 83;
+            }
+        }
+        //insert结束
+        //循环批量出入数据库 end
 
-        newkeypartEOService.batchInsert(datasEO);
+        /*//循环单条插入数据库 begin
+        for (int i = 0; i < datasEO.size(); i++) {
+            newkeypartEOService.insertSelective(datasEO.get(i));
+        }
+        //循环单条插入数据库 end*/
 
         return Result.success();
     }
@@ -194,7 +227,7 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
     /**
      * 导出数据到excel
      * 刘笑天
-     *
+     * 20181115
      * @param response
      * @throws Exception
      */
