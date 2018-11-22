@@ -24,6 +24,7 @@ import com.adc.da.file.entity.FileEO;
 import com.adc.da.file.service.FileEOService;
 import com.adc.da.file.store.IFileStore;
 import com.adc.da.newkeypart.dto.NewKeypartDto;
+import com.adc.da.notify.service.NotifyService;
 import com.adc.da.pdf.PDFUtils;
 import com.adc.da.util.exception.AdcDaBaseException;
 import com.adc.da.util.utils.*;
@@ -59,6 +60,7 @@ import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.Jedis;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
@@ -77,9 +79,10 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
     private IFileStore iFileStore;
     @Autowired
     private FileEOService fileEOService;
+    @Autowired
+    private NotifyService notifyService;
     // 上传文件类型允许白名单
     private List<String> whiteUrls;
-
     @PostConstruct
     public void init() {
         // 读取文件
@@ -99,7 +102,8 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
     @GetMapping("")
     @RequiresPermissions("newkeypart:newkeypart:list")
     public ResponseMessage<List<NewkeypartEO>> list(NewkeypartEOPage page) throws Exception {
-        return Result.success(newkeypartEOService.queryByList(page));
+        newkeypartEOService.queryByList(page);
+        return Result.success();
     }
 
     @ApiOperation(value = "|NewkeypartEO|详情")
@@ -303,10 +307,10 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
     public ResponseMessage testAdd2Redis() throws Exception {
 //        官方网站写法 初始化jedis
         JedisUtil jedisUtil = JedisUtil.getInstance();
-        jedisUtil.getJedis();
         jedisUtil.getPool();
-        Jedis jedis = new Jedis("localhost");
-        jedis.lpop("list".getBytes());//首先清空之前list里的内容
+        Jedis jedis = jedisUtil.getJedis();
+//        Jedis jedis = new Jedis("localhost");
+        jedis.del("list".getBytes());//首先清空之前list里的内容
         List<NewkeypartEO> list = newkeypartEOService.queryAll();//操作数据库 得到数据
         //得到数据后缓存到redis中
         if (list.size() != 0) {
@@ -318,7 +322,7 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
 //                jedis.lpush("list", JSON.toJSONString(newkeypartEO));//添加方法2 将对象转化为JSON字符串 未测试是否可行
 //            jedis.set("list".getBytes(),serialize(newkeypartEO));
             }
-            return Result.success(newkeypartEOService.queryAll());
+            return Result.success();
         } else {
             return Result.error("数据库没有数据");
         }
@@ -347,7 +351,7 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
 //                (NewkeypartEO) JSON.parseObject(list2.get(i),newkeypartEO1);//此处有问题
                 list.add(newkeypartEO);
             }
-            return Result.success(list);
+            return Result.success("","从缓存中取值成功！");
         } else {
             return Result.error("缓存中没有数据");
         }
@@ -452,7 +456,7 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
     @PostMapping("/testExportPDF")
     public ResponseMessage testExprotPDF() throws Exception {
         //获取对象
-        NewkeypartEO newkeypartEO = newkeypartEOService.selectByPrimaryKey("0001598e00d24e34835b6a5fdc7ab0f9");
+        NewkeypartEO newkeypartEO = newkeypartEOService.selectByPrimaryKey("00179b5952e44607af15e7a6c6771a68");
 
         //用list记录pdf输入顺序
         List<Element> pdfList = new ArrayList();
@@ -511,6 +515,27 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
 //            return Result.error("文件被占用，请关闭文件后重新尝试！");
 //        }
         new PDFUtils().createPdf("path/filename.pdf", pdfList);
+        return Result.success();
+    }
+
+    @ApiOperation(value = "|发送邮件测试|")
+    @PostMapping("/sendEmail")
+    public ResponseMessage<Object> sendEmail(MultipartFile multipartFile,@RequestParam String toEmail,@RequestParam String emailTitle,@RequestParam String content, HttpServletResponse response, HttpServletRequest request) throws IOException{
+//        String toEmail=request.getParameter("toEmail");
+//        String emailTitle=request.getParameter("emailTitle");
+//        String content=request.getParameter("content");
+        File file = new File("E:\\files\\heros.xlsx");
+        if(toEmail!=null) {
+            try {
+                //发送普通邮件
+//                notifyService.sendEmail(toEmail,emailTitle, content);
+                //发送带附件邮件
+                notifyService.sendMultiEmail(toEmail,emailTitle, content,file);
+            }catch (Exception e) {
+                e.printStackTrace();
+                return Result.error("对方邮件地址是-》" + toEmail + " 内容是-》 " + content);
+            }
+        }
         return Result.success();
     }
 }
