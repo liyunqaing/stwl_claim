@@ -24,6 +24,12 @@
 	</properties>
 
 	<dependencies>
+		<!--pdf生成-->
+		<dependency>
+			<groupId>com.adc</groupId>
+			<artifactId>adc-da-pdf</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 		<!-- 文件上传和下载 -->
 		<dependency>
 			<groupId>com.adc</groupId>

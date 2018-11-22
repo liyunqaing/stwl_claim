@@ -24,10 +24,17 @@ import com.adc.da.file.entity.FileEO;
 import com.adc.da.file.service.FileEOService;
 import com.adc.da.file.store.IFileStore;
 import com.adc.da.newkeypart.dto.NewKeypartDto;
+import com.adc.da.pdf.PDFUtils;
 import com.adc.da.util.exception.AdcDaBaseException;
 import com.adc.da.util.utils.*;
 import com.adc.da.util.utils.UUID;
 import com.alibaba.fastjson.JSON;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.sun.istack.internal.NotNull;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -432,5 +439,78 @@ public class NewkeypartEOController extends BaseController<NewkeypartEO> {
         Long endtime = System.currentTimeMillis();
         System.out.println(endtime - starttime + "ms");
         return Result.success(fileEO);
+    }
+
+    /**
+     * 测试生成pdf
+     * 刘笑天 201811122
+     *
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "|测试生成pdf|")
+    @PostMapping("/testExportPDF")
+    public ResponseMessage testExprotPDF() throws Exception {
+        //获取对象
+        NewkeypartEO newkeypartEO = newkeypartEOService.selectByPrimaryKey("0001598e00d24e34835b6a5fdc7ab0f9");
+
+        //用list记录pdf输入顺序
+        List<Element> pdfList = new ArrayList();
+        //设置标题
+        Paragraph title = new Paragraph("CN180C关键零部件控制清单2018.09", PDFUtils.createfontCN(30));
+        //居中显示
+        title.setAlignment(Element.ALIGN_CENTER);
+
+        //pdf添加标题
+        pdfList.add(title);
+        //一个每行三列的表
+        PdfPTable pdfPTable = new PdfPTable(3);
+
+        //第一行：标题
+        PdfPCell pdfPCell = new PdfPCell(new Paragraph("零部件名称", PDFUtils.createfontCN(20)));
+        //设置单元格边框 0f表示无边框
+        pdfPCell.setBorderWidth(0f);
+        //设置单元格内容位置：居中
+        pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        pdfPTable.addCell(pdfPCell);
+
+        pdfPTable.addCell(new Paragraph("公告", PDFUtils.FONTCN));
+        pdfPTable.addCell(new Paragraph("3C", PDFUtils.FONTCN));
+        //第二行：对应参数
+        pdfPTable.addCell(new Paragraph(newkeypartEO.getPartName(), PDFUtils.FONTCN));
+        pdfPTable.addCell(new Paragraph(newkeypartEO.getIsNoticed(), PDFUtils.FONTCN));
+        pdfPTable.addCell(new Paragraph(newkeypartEO.getIsccc(), PDFUtils.FONTCN));
+        //第三行：标题
+        pdfPTable.addCell(new Paragraph("零部件名称", PDFUtils.FONTCN));
+        pdfPTable.addCell(new Paragraph("公告", PDFUtils.FONTCN));
+        pdfPTable.addCell(new Paragraph("3C", PDFUtils.FONTCN));
+        //第四行：对应参数
+        pdfPTable.addCell(new Paragraph(newkeypartEO.getPartName(), PDFUtils.FONTCN));
+        pdfPTable.addCell(new Paragraph(newkeypartEO.getIsNoticed(), PDFUtils.FONTCN));
+        pdfPTable.addCell(new Paragraph(newkeypartEO.getIsccc(), PDFUtils.FONTCN));
+        //表前距
+        pdfPTable.setSpacingBefore(50f);
+        //添加表
+        pdfList.add(pdfPTable);
+
+        //插入图片
+        Image image = Image.getInstance("E:\\files\\meow.gif");
+        image.scaleToFit(PageSize.A5.rotate());
+        //设置图片绝对位置 坐标轴原点位于pdf页面左下角
+        image.setAbsolutePosition(300, 550);
+        //设置图片绝对大小
+        image.scaleAbsolute(100f, 100f);
+        //添加图片
+        pdfList.add(image);
+
+        //生成PDF 位于项目目录根目录下path文件夹内
+        File file = new File("path/filename.pdf");
+        file.getParentFile().mkdirs();
+//        //非组件自带 20181121刘笑天添加 用于提示文件是否被占用
+//        if (!file.renameTo(file)) {
+//            return Result.error("文件被占用，请关闭文件后重新尝试！");
+//        }
+        new PDFUtils().createPdf("path/filename.pdf", pdfList);
+        return Result.success();
     }
 }
