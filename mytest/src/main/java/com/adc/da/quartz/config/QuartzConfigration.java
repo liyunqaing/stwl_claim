@@ -58,7 +58,7 @@ public class QuartzConfigration {
         trigger.setJobDetail(jobTask1.getObject());
 
         //设置执行周期
-        trigger.setCronExpression("0/6 * * * * ?");     //每六秒执行一次
+        trigger.setCronExpression("0 0/1 * * * ?");     //每六秒执行一次
 
         //设置触发器名称
         trigger.setName("taskTrigger");
