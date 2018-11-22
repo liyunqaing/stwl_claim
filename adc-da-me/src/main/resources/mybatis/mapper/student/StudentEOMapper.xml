@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adc.da.student.dao.StudentEODao" >
+  <!-- Result Map-->
+  <resultMap id="BaseResultMap" type="com.adc.da.student.entity.StudentEO" >
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="xuehao" property="xuehao" />
+    <result column="classes" property="classes" />
+  </resultMap>
+
+  <!-- TS_STUDENT table all fields -->
+  <sql id="Base_Column_List" >
+     id, name, xuehao, classes
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="Base_Where_Clause">
+    where 1=1
+    <trim suffixOverrides="," >
+      <if test="id != null" >
+        and id ${idOperator} #{id}
+      </if>
+      <if test="name != null" >
+        and name ${nameOperator} #{name}
+      </if>
+      <if test="xuehao != null" >
+        and xuehao ${xuehaoOperator} #{xuehao}
+      </if>
+      <if test="classes != null" >
+        and classes ${classesOperator} #{classes}
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 插入记录 -->
+  <insert id="insert" parameterType="com.adc.da.student.entity.StudentEO" >
+    <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+        SELECT SEQ_TS_STUDENT.NEXTVAL FROM DUAL
+    </selectKey> -->
+    insert into TS_STUDENT(<include refid="Base_Column_List" />)
+    values (#{id, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{xuehao, jdbcType=INTEGER}, #{classes, jdbcType=INTEGER})
+  </insert>
+
+  <!-- 动态插入记录 主键是序列 -->
+  <insert id="insertSelective" parameterType="com.adc.da.student.entity.StudentEO" >
+        <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">
+        SELECT SEQ_TS_STUDENT.NEXTVAL FROM DUAL
+    </selectKey> -->
+        insert into TS_STUDENT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+                <if test="id != null" >id,</if>
+                <if test="name != null" >name,</if>
+                <if test="xuehao != null" >xuehao,</if>
+                <if test="classes != null" >classes,</if>
+            </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+                <if test="id != null" >#{id, jdbcType=VARCHAR},</if>
+                <if test="name != null" >#{name, jdbcType=VARCHAR},</if>
+                <if test="xuehao != null" >#{xuehao, jdbcType=INTEGER},</if>
+                <if test="classes != null" >#{classes, jdbcType=INTEGER},</if>
+            </trim>
+  </insert>
+
+  <!-- 根据pk，修改记录-->
+  <update id="updateByPrimaryKey" parameterType="com.adc.da.student.entity.StudentEO" >
+    update TS_STUDENT
+       set  name = #{name},
+            xuehao = #{xuehao},
+            classes = #{classes}
+     where  id = #{id}
+  </update>
+
+  <!-- 修改记录，只修改只不为空的字段 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.adc.da.student.entity.StudentEO" >
+    update TS_STUDENT
+    <set >
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="xuehao != null" >
+        xuehao = #{xuehao},
+      </if>
+      <if test="classes != null" >
+        classes = #{classes},
+      </if>
+    </set>
+     where id = #{id}
+  </update>
+
+  <!-- 根据id查询 TS_STUDENT -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List" /> 
+      from TS_STUDENT
+     where id = #{value}
+
+  </select>
+
+  <!-- 删除记录 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TS_STUDENT
+     where id = #{value}
+
+  </delete>
+
+  <!-- TS_STUDENT 列表总数-->
+  <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
+    select count(1) from TS_STUDENT
+    <include refid="Base_Where_Clause"/>
+  </select>
+
+  <!-- 查询TS_STUDENT列表 -->
+  <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+	select <include refid="Base_Column_List" /> from
+		(select tmp_tb.* , rownum rn from
+			(select <include refid="Base_Column_List" /> from TS_STUDENT
+			 <include refid="Base_Where_Clause"/>
+			 <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+			 	${pager.orderCondition}
+			 </if>
+			) tmp_tb where rownum &lt;= ${pager.endIndex})
+			where rn &gt;= ${pager.startIndex}
+  </select>
+
+  <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+    select <include refid="Base_Column_List"/> from TS_STUDENT
+    <include refid="Base_Where_Clause"/>
+    <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+       ${pager.orderCondition}
+    </if>
+  </select>
+
+
+    <!--通过TS_STUDENT表跟SCORES表查询学生的学号，姓名及成绩-->
+    <select id="stuScore" resultMap="BaseResultMap" parameterType="com.adc.da.student.vo.StudentVO">
+    select t.id,t.NAME,s.SCORE from TS_STUDENT t join SCORES s on(t.id=s.sid)
+  </select>
+
+    <!--查询1班成绩大于80的学生-->
+    <select id="osStudent" resultMap="BaseResultMap" parameterType="com.adc.da.student.vo.StudentVO">
+    select s.XUEHAO,s.NAME,SCORES.SCORE from(select * from TS_STUDENT where classes=1 ) s join SCORES on(s.id=SCORES.SID) where SCORES.Score>=80
+  </select>
+
+</mapper>

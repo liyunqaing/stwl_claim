@@ -254,7 +254,7 @@
 
 		<dependency>
 			<groupId>com.adc</groupId>
-			<artifactId>mytest</artifactId>
+			<artifactId>adc-da-me</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<!--<dependency>-->
