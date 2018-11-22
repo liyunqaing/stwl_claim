@@ -24,7 +24,7 @@ public class ExcelController {
     @Autowired
     private excelService excelServices;
 
-    @ApiOperation(value = "无验证的Excel导入")
+    @ApiOperation(value = "Excel导入")
     @PostMapping("/excelImport")
     public ResponseMessage ExcelImport(@RequestParam("file") MultipartFile file) throws Exception{
         InputStream is = file.getInputStream();
