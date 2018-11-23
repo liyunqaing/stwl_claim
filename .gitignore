@@ -8,13 +8,13 @@ target/
 .project
 .settings
 .springBeans
-.properties
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+*.properties
 
 ### NetBeans ###
 nbproject/private/
