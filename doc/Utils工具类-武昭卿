@@ -1,0 +1,440 @@
+          Utils工具类
+BeanMapper：
+        /**
+        * 构造新的destinationClass实例对象，通过source对象中的字段内容
+        * 映射到destinationClass实例对象中，并返回新的destinationClass实例对象。
+        */
+        public <T> T map(Object source, Class<T> destinationClass)
+        /**
+        * 基于Dozer转换Collection中对象的类型.
+        */
+        public <T> List<T> mapList(Collection sourceList, Class<T> destinationClass)     /**
+        * 基于Dozer将对象A的值拷贝到对象B中.
+        */
+        public void copy(Object source, Object destinationObject)
+
+
+CollectionUtils：
+        /**
+         * 判断集合非空返回true，否则false
+         */
+        public static boolean isNotEmpty(Collection collection)
+
+        /**
+        * 判断集合为空返回true，否则false
+        */
+        public static boolean isEmpty(Collection collection)
+        /**
+        * 判断Map集合非空返回true，否则false
+        */
+        public static boolean isNotEmpty(Map map)
+        /**
+        * 判断Map集合为空返回true，否则false
+        */
+        public static boolean isEmpty(Map collection)
+
+
+DataSourceUtils：
+        /**
+        * 环境配置
+        */
+        public static DataSource createDruidDataSource(Environment env)
+DateUtils：
+
+        /**
+        * 获取当前时间
+        */
+        public static DateFormat getDateFormat(String formatStr)
+        /**
+        * 显示时间toString()
+        */
+        public static String dateToString(Date date, String dateFormatStr)
+        /**
+        * 将字符串转换为时间
+        */
+        public static Date stringToDate(String dateTimeStr, String dateFormatStr)
+
+Digests：
+        /**
+        *加密处理
+        */
+        public static byte[] sha1(byte[] input)
+
+Encodes：
+        /**
+        * 字节数组（byte[]）转为十六进制（Hex）字符串
+        */
+        public static String encodeHex(byte[] input)
+
+        /**
+         * 十六进制字符串（Hex）转字节数字（byte[]）
+        */
+        public static byte[] decodeHex(String input)
+
+        /**
+         * 字节数组（byte[]）转为64为可见字符
+        */
+        public static String encodeBase64(byte[] input)
+
+       /**
+       * 字节数组（byte[]）转为64为可见字符地址
+       */
+        public static String encodeUrlSafeBase64(byte[] input)
+
+Exceptions：
+
+       /**
+       * 异常处理
+       */
+       public static RuntimeException unchecked(Exception e)
+
+FileUtil:
+       /**
+       * 复制文件
+       */
+       public static void copyFile(String src, String target)
+       /**
+       * 复制文件
+       */
+        public static List<String> readAsStringList(String fileName)
+       /**
+        * 读取文件
+       */
+       public static byte[] readFile(File file)
+       /**
+       * 创建文件
+       */
+       public static File mkdir(String folderPath)
+      /**
+       * 删除文件
+      */
+      public static void delFolder(String folderPath)
+       /**
+        * 复制所有文件
+       */
+       public static boolean delAllFile(String path) throws Exception
+       /**
+       * 删除目录
+       */
+       public static boolean deleteDirectory(String dirName)
+
+
+GsonUtil:
+     /**
+         * 创建GSON
+         */
+        public static Gson getGson()
+        /**
+         * 将对象转化为字符串
+         */
+        public static String toJson(Object obj)
+        /**
+         * 将对象转化为字符串(泛型实现)
+         */
+        public static <T> String t2Json(T t)
+        /**
+         * 将字符转化为对象
+         */
+        public static <T> T json2T(String jsonString, Class<T> clazz)
+        /**
+         * 将字符串数组转化为对象集合
+         */
+        public static <T> List<T> json2Collection(String jsonStr, Type type)
+        /**
+         * 将字符串数组转化为对象集合
+         */
+        public static <T> T fromJson(String jsonStr, Type type)
+        /**
+         * 将字符串数组转化为对象集合
+         */
+        public static <T> T fromJson(String jsonStr, Class<T> clazz)
+
+
+ IOUtils:
+         /**
+             * 读取全部字节
+             */
+            public static byte[] readFully(InputStream is)
+
+
+ IpUtil:
+        /**
+             * 获取ip地址
+             */
+            public static String getIpAddr(HttpServletRequest request)
+
+ MapUtils:
+         /**
+              * javaBean转换成Map集合
+
+              */
+             public static Map java2Map(Object javaBean)
+             /**
+              * Map集合转换成javaBean
+
+              */
+             public static <T> T map2Java(T javaBean, Map map)
+             /**
+              * javaBean转换成List集合
+
+              */
+             public static <T> List<T> map2Java(T javaBean, List<Map> mapList)
+
+             /**
+              *Map集合是否为空，空输出null，否则输出其值
+              */
+             public static final <E> E get(Map map, Object key, E defaultValue)
+
+ ObjectUtils:
+              /**
+                  * 将对象序列化
+                  */
+                 public static <T extends Serializable> T cloneSerializable(T obj)
+                 /**
+                  * 获取每个类
+                  */
+                 public static <T> T clone(T obj)
+                 /**
+                  * 集合序列化
+                  */
+                 public static <T extends Serializable> List<T> cloneSerializable(Collection<T> objList)
+
+
+ PasswordUtils:
+                /**
+                    * 密码加密
+                    */
+                   public static String encryptPassword(String plainPassword)
+
+
+ PersistenceUtils:
+                 /**
+                     * 将所需数据以参数的形式传入
+                     */
+                    public static String fillParams(String hql, Object... params)
+
+
+ RandomUtils:
+                 /**
+                      * 随机生成指定长度的字符串
+                      */
+                     public static final String randomString(int length)
+
+                 /**
+                   * 生成验证码
+                   */
+                   public static Color randomColor(int fc, int bc)
+                   /**
+                 /**
+                    *彩票中奖码生成器
+                     */
+                    public static int nextInt(int bound)
+
+
+ Reflections:
+                  /**
+                      * 反射工具类.
+                      * 提供调用getter方法, 访问私有变量, 调用私有方法, 获取泛型类型Class, 被AOP过的真实类等工具函数.
+                      */
+                     public static Object invokeGetter(Object obj, String propertyName)
+                     /**
+                      * 反射工具类.
+                      * 提供调用setter方法, 访问私有变量, 调用私有方法, 获取泛型类型Class, 被AOP过的真实类等工具函数.
+                      */
+                     public static void invokeSetter(Object obj, String propertyName, Object value)
+
+                     /**
+                      * 取出object对象中的propertyName属性的值
+                      */
+                     public static Object getFieldValue(Object obj, String fieldName)
+                     /**
+                      * 读取文件的类型
+                      */
+                     public static Class getFiledType(Class clazz, String filedName)
+                     /**
+                      * 直接设置对象属性值, 无视private/protected修饰符, 不经过setter函数.
+                      */
+                     public static void setFieldValue(Object obj, String fieldName, Object value)
+
+                     /**
+                      *
+                      * 直接调用对象方法, 无视private/protected修饰符.
+                      * 用于一次性调用的情况，否则应使用getAccessibleMethod()函数获得Method后反复调用.
+                      */
+                     public static Object invokeMethod(Object obj, String methodName, Class<?>[] parameterTypes, Object[] args)
+                     /**
+                      * 直接调用对象方法, 无视private/protected修饰符，
+                      * 用于一次性调用的情况，否则应使用getAccessibleMethodByName()函数获得Method后反复调用.
+                      * 只匹配函数名，如果有多个同名函数调用第一个。
+                      */
+                     public static Object invokeMethodByName(Object obj, String methodName, Object[] args)
+                     /**
+                      * 循环向上转型, 获取对象的DeclaredField, 并强制设置为可访问.
+                      * 如向上转型到Object仍无法找到, 返回null.
+                      */
+                     public static Field getAccessibleField(Object obj, String fieldName)
+                 /**
+                  * 循环向上转型, 获取对象的DeclaredMethod,并强制设置为可访问.
+                  * 如向上转型到Object仍无法找到, 返回null.
+                  * 匹配函数名+参数类型。
+                  */
+                     public static Method getAccessibleMethod(Object obj, String methodName, Class... parameterTypes)
+                 /**
+                  * 循环向上转型, 获取对象的DeclaredMethod,并强制设置为可访问.
+                  * 如向上转型到Object仍无法找到, 返回null.
+                  * 只匹配函数名。
+                  */
+                    public static Method getAccessibleMethodByName(Object obj, String methodName)
+                     /**
+                      * 改变private/protected的成员变量为public，尽量不调用实际改动的语句，避免JDK的SecurityManager抱怨。
+                      */
+                     public static void makeAccessible(Method method)
+                 /**
+                  * 通过反射, 获得Class定义中声明的泛型参数的类型, 注意泛型必须定义在父类处
+                  * 如无法找到, 返回Object.class.
+                  */
+                     public static Class getClassGenricType(Class clazz, int index)
+                     /**
+                      * 将反射时的checked exception转换为unchecked exception.
+                      */
+                     public static RuntimeException convertReflectionExceptionToUnchecked(Exception e)
+
+
+
+ RenderUtil:
+                   /**
+                       * 返回json数据格式的数据
+                       */
+                      public static void renderJson(ServletResponse response, Object jsonObject)
+
+
+
+ RequestUtils:
+                    /**
+                        * 获取客户端ip
+                        */
+                       public static String getClientIp(HttpServletRequest request)
+                       /**
+                        * 获取用户id
+                        */
+                       public static String getLoginUserId(HttpServletRequest request)
+                       /**
+                        * 获取角色id
+                        */
+                       public static String getLoginRoleId(HttpServletRequest request)
+
+
+ RSAUtils:
+                     /**
+                         * 生成并返回RSA密钥对。
+                         */
+                        public static synchronized KeyPair generateKeyPair(String sessionId)
+                        /**
+                         * 返回生成/读取的密钥对文件的路径。
+                         */
+                        public static String getRSAPairFilePath(String sessionId)
+                        /**
+                         * 若需要创建新的密钥对文件，则返回 {@code true}，否则 {@code false}。
+                         */
+                        private static boolean isCreateKeyPairFile(String sessionId)
+                        /**
+                         * 将指定的RSA密钥对以文件形式保存。
+                         */
+                        private static void saveKeyPair(KeyPair keyPair, String sessionId)
+                        /**
+                         * 返回RSA密钥对。
+                         */
+                        public static KeyPair getKeyPair(String sessionId)
+                        /**
+                         * 同步读出保存的密钥对
+                         */
+                        private static KeyPair readKeyPair(String sessionId)
+                    /**
+                     * 根据给定的系数和专用指数构造一个RSA专用的公钥对象。
+                     */
+
+                        public static RSAPublicKey generateRSAPublicKey(byte[] modulus, byte[] publicExponent)
+                    /**
+                     * 根据给定的系数和专用指数构造一个RSA专用的私钥对象。
+                     */
+
+                        public static RSAPrivateKey generateRSAPrivateKey(byte[] modulus, byte[] privateExponent)
+                    /**
+                     * 根据给定的16进制系数和专用指数字符串构造一个RSA专用的私钥对象。
+                     */
+
+                        public static RSAPrivateKey getRSAPrivateKey(String hexModulus, String hexPrivateExponent)
+                    /**
+                     * 根据给定的16进制系数和专用指数字符串构造一个RSA专用的公钥对象。
+                     */
+
+                        public static RSAPublicKey getRSAPublidKey(String hexModulus, String hexPublicExponent)
+                        /**
+                         * 使用指定的公钥加密数据。
+                         */
+                        public static byte[] encrypt(PublicKey publicKey, byte[] data) throws Exception
+                        /**
+                         * 使用指定的私钥解密数据。
+                         */
+                        public static byte[] decrypt(PrivateKey privateKey, byte[] data) throws Exception
+                    /**
+                     * 使用给定的公钥加密给定的字符串。
+                     * 若 {@code publicKey} 为 {@code null}，或者 {@code plaintext} 为 {@code null} 则返回 {@code
+                     * null}。
+                     */
+
+                        public static String encryptString(PublicKey publicKey, String plaintext)
+                    /**
+                     * 使用默认的公钥加密给定的字符串。
+                     * 若{@code plaintext} 为 {@code null} 则返回 {@code null}。
+                     */
+
+                        public static String encryptString(String plaintext, String sessionId)
+                    /**
+                     * 使用给定的私钥解密给定的字符串。
+                     * 若私钥为 {@code null}，或者 {@code encrypttext} 为 {@code null}或空字符串则返回 {@code null}。
+                     * 私钥不匹配时，返回 {@code null}。
+                     */
+                        public static String decryptString(PrivateKey privateKey, String encrypttext)
+                    /**
+                     * 使用默认的私钥解密给定的字符串。
+                     * 若{@code encrypttext} 为 {@code null}或空字符串则返回 {@code null}。
+                     * 私钥不匹配时，返回 {@code null}。
+                     */
+                        public static String decryptString(String encrypttext, String sessionId)
+                        /**
+                         * 使用默认的私钥解密由JS加密（使用此类提供的公钥加密）的字符串。
+                         */
+                        public static String decryptStringByJs(String encrypttext, String sessionId)
+                        /** 返回已初始化的默认的公钥。*/
+                        public static RSAPublicKey getDefaultPublicKey(String sessionId)
+                        /** 返回已初始化的默认的私钥。*/
+                        public static RSAPrivateKey getDefaultPrivateKey(String sessionId)
+
+
+
+ SpringContextHolder:
+                      /**
+                          * 获取泛型
+                          */
+                         public static <T> T getBean(Class<T> clazz)
+                         /**
+                          * 获取ApplicationContext工具类
+                          */
+                         public static ApplicationContext getApplicationContext()
+
+
+ StringUtils:
+                         /**
+                           * 将集合转变成字符串
+                           */
+                          public static String listToString(List<String> stringList)
+                          /**
+                           * 将字符串变成集合
+                           */
+                          public static List<String> stringToList(String string)
+
+                          /**
+                           * 将字符串转换成int类型的集合
+                           */
+                          public static List<Integer> stringToIntList(String string)

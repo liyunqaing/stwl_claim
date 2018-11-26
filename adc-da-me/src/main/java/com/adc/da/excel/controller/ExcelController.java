@@ -24,6 +24,12 @@ public class ExcelController {
     @Autowired
     private excelService excelServices;
 
+    /**
+     * Excel文件导入
+     * @param file
+     * @return
+     * @throws Exception
+     */
     @ApiOperation(value = "Excel导入")
     @PostMapping("/excelImport")
     public ResponseMessage ExcelImport(@RequestParam("file") MultipartFile file) throws Exception{

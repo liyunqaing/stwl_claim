@@ -1,0 +1,25 @@
+1.自动生成包以及单表的CURD
+url：adc-da-me
+CURD位置：com.adc.da.scores.controller.ScoresEOControllerl;  com.adc.da.student.controller.StudentEOController
+2.多表查询
+url：com.adc.da.student.controller.StudentEOController
+方法：
+ public ResponseMessage stuSCore()
+ public ResponseMessage osStudent()
+方法所需配置文件位置：resources.student.StudentEoMapper.xml
+3.excel表格导入
+url：com.adc.da.excel.controller.ExcelController
+方法：
+ public ResponseMessage ExcelImport(@RequestParam("file") MultipartFile file)
+4.excel表格导出
+url: com.adc.da.excelexport.controller.ExcelExportController
+方法：
+ public ResponseMessage ExcelExport(HttpServletResponse response)
+5.生成pdf文件
+rul: com.adc.da.excelexport.controller.PdfExportController
+方法：
+public ResponseMessage ExcelExport(HttpServletResponse response)
+6.邮件发送
+url: com.adc.da.receiveMail.controller.receiveMail
+方法：
+ public ResponseMessage<Object> sendEmail(HttpServletResponse response, HttpServletRequest request)
