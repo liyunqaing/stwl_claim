@@ -30,6 +30,7 @@ import io.swagger.annotations.Api;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.Response;
 
 /**
 * @Description:   _通过itextpdf完成pdf的导出
@@ -155,5 +156,28 @@ public class DemoEOController extends BaseController<DemoEO>{
     public ResponseMessage<PageInfo<DemoEO>> fuzzyQuery(DemoEOPage page) throws Exception{
         List<DemoEO> demoEOS = demoEOService.fuzzyQuery(page);
         return Result.success(getPageInfo(page.getPager(),demoEOS));
+    }
+
+    /**
+    * @Description:   _测试插入一千条数据耗费时间
+    * @Author:         yueben
+    * @CreateDate:     2018/11/21 13:44
+    */
+    @GetMapping("/test1000time")
+    public ResponseMessage test1000time() throws Exception{
+        DemoEO demo = new DemoEO();
+        int n=0;
+        //获取启动时间
+        long start = System.currentTimeMillis();
+        for(int i=0 ; i<1000 ; i++){
+            demo.setId(i + "");
+            demo.setUername(i + "");
+            demo.setPassword(i + "");
+            n += demoEOService.insertSelective(demo);
+        }
+        //获取总耗时
+        long time = System.currentTimeMillis() - start;
+
+        return Result.success("插入了：" + n + "条数据，耗时" + time + "毫秒");
     }
 }

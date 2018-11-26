@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
  * @ClassName SerializeUtil
  * @Description 序列化对象工具类
  * 核心思想就是将对象序列化为2进制 使其可以被redis存储
- * @Author 网上copy的
+ * @Author 网上copy的 刘笑天
  * @DaTe 2018/11/15 0015 15:13
  */
 public class SerializeUtil {
