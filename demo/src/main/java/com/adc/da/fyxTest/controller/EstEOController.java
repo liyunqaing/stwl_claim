@@ -2,11 +2,14 @@ package com.adc.da.fyxTest.controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
 import com.adc.da.excel.poi.excel.entity.ImportParams;
+import com.adc.da.fyxTest.util.ExcelToPicture;
+import com.adc.da.fyxTest.util.MemoryTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/${restPath}/fyxTest/est")
@@ -89,5 +94,36 @@ public class EstEOController extends BaseController<EstEO>{
         estEOService.ExcelImport(is,params);
         return Result.success();
     }
+    /**
+     * @Description: xls上传导出图片
+     * @Param: [file, request]
+     * @return: com.adc.da.util.http.ResponseMessage<java.util.Map<java.lang.String,java.lang.String>>
+     * @Author: cuiyuxin
+     * @Date: 2018/11/14
+     */
+    @ApiOperation(value = "|ImageUpload|xls上传使用缓存测试 ")
+    @PostMapping("XlsUploadTime")
+    public ResponseMessage<Map<String,String>> XlsUploadTime(@RequestParam(value = "file") MultipartFile file,HttpServletRequest request) throws IOException {
+        estEOService.XlsuploadTime(file,request);
+        return Result.success(null);
+    }
+    /**
+     * @Description: 文件上传使用时间大小测试
+     * @Param: [file, request]
+     * @return: com.adc.da.util.http.ResponseMessage<java.util.Map<java.lang.String,java.lang.String>>
+     * @Author: cuiyuxin
+     * @Date: 2018/11/14
+     */
+    @ApiOperation(value = "|ImageUpload|文件上传使用时间大小测试 ")
+    @PostMapping("/FileUploadSize")
+    public ResponseMessage<Map<String,String>> FileUploadSize(@RequestParam(value = "file") MultipartFile file,HttpServletRequest request) throws IOException {
+        estEOService.FileuploadSize(file,request);
+        return Result.success(null);
+    }
+
+
+
+
+
 
 }

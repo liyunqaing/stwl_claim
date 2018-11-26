@@ -2,6 +2,9 @@ package com.adc.da.fyxTest.service;
 
 import com.adc.da.excel.poi.excel.ExcelImportUtil;
 import com.adc.da.excel.poi.excel.entity.ImportParams;
+import com.adc.da.fyxTest.util.ExcelToPicture;
+import com.adc.da.fyxTest.util.FileUpload;
+import com.adc.da.fyxTest.util.MemoryTest;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.adc.da.base.service.BaseService;
 import com.adc.da.fyxTest.dao.EstEODao;
 import com.adc.da.fyxTest.entity.EstEO;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -57,5 +63,30 @@ public class EstEOService extends BaseService<EstEO, String> {
             }
         }
     }
-
+    /**
+     * @Description: xls导出图片时间测试
+     * @Param: [path]
+     * @return: void
+     * @Author: cuiyuxin
+     * @Date: 2018/11/14
+     */
+    public void XlsuploadTime(MultipartFile file, HttpServletRequest request) throws IOException {
+        MemoryTest mt=new MemoryTest();
+        mt.start();
+        ExcelToPicture etp=new ExcelToPicture("D:\\img\\pic");
+        etp.excelToPicture(file,request);
+        mt.end();
+        mt.show();
+    }
+    /**
+     * @Description: 文件上传使用时间大小测试   使用文件上传组件测试时间
+     * @Param: [path]
+     * @return: void
+     * @Author: cuiyuxin
+     * @Date: 2018/11/14
+     */
+    public void FileuploadSize(MultipartFile file,HttpServletRequest request) throws IOException {
+        FileUpload etp=new FileUpload("pic");
+        etp.FileUploadFIle(file,request);
+    }
 }
