@@ -2,14 +2,11 @@ package com.adc.da.excelexport.controller;
 
 
 import com.adc.da.excelexport.dao.ExcelExportDao;
-import com.adc.da.excelexport.entity.ExcelExportEO;
 import com.adc.da.pdf.PDFUtils;
 import com.adc.da.util.http.ResponseMessage;
 import com.adc.da.util.http.Result;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPTable;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,50 +30,37 @@ public class PdfExportController {
     @Autowired(required = false)
     private ExcelExportDao dao;
 
+    /**
+     *生成pdf文件
+     */
     @ApiOperation(value = "导出pdf")
     @GetMapping("/pdfExport")
     @SuppressWarnings("unchecked")
     public ResponseMessage ExcelExport(HttpServletResponse response) throws Exception {
-//             List<ExcelExportEO> pdflsit = dao.exportExcel();
-//        File file = new File("C:/Users/0.0/Desktop/example.pdf");
-//        file.getParentFile().mkdirs();
-//        String path = "C:/Users/0.0/Desktop/example.pdf";
-////        new PDFUtils().createPdf(path,pdflsit);
-//        FileOutputStream a = new FileOutputStream("C:/Users/0.0/Desktop/.txt");
-//        new PDFUtils().createPdf(a, pdflsit);
+        List<Element> pdfList = new ArrayList<>();
+        pdfList.add(new Paragraph(dao.exportExcel().toString(),PDFUtils.FONTCN));
+        //若输入有中文，需要指定生成字体为PDFUtils.FONTCN
+        pdfList.add(new Paragraph("测试文本字体大小55",PDFUtils.createfontCN(55)));
+        //调整字体大小为55
+        pdfList.add(new Paragraph("测试文本字体大小44",PDFUtils.createfontCN(44)));
+        pdfList.add(new Paragraph("testcase_1"));
+        //纯英文可以不指定字体，大小32磅
+        PdfPTable table = new PdfPTable(3); //规定列数为3
+        table.addCell("hi");
+        table.addCell("hi");
+        table.addCell("hi");               //每三个为一行
 
+        table.addCell("hi");
+        table.addCell("hi");
+        table.addCell("hi");               //第二行
 
-//        try {
-//            List<ExcelExportEO> pdfLsit = dao.exportExcel();
-//            List<List<ExcelExportEO>> list = new ArrayList<>();
-//            list.add(pdfLsit);
-//            String fileName = "example.pdf";
-//            StringBuilder pathBuilder = new StringBuilder();
-//            pathBuilder.append("/PDF/example.pdf"); //生成一个用于导出的pdf，覆盖原有的example
-//            File file = new File(pathBuilder.toString());
-//            file.getParentFile().mkdirs();
-//            new PDFUtils().createPdf(pathBuilder.toString(),pdfLsit);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-/**
- * itextpdf
- */
-//        Document document = new Document();
-//        try {
-//            List<ExcelExportEO> pdflsit = dao.exportExcel();
-//            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:/Users/0.0/Desktop/example.pdf"));
-//            document.open();
-//            document.add(new Paragraph(pdflsit.toString()));
-//            document.close();
-//            writer.close();
-//        } catch (DocumentException e) {
-//            e.printStackTrace();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
+        table.addCell("hi");               //这行不满足三个不会显示
+        table.addCell("hi");
+        table.addCell("hi");
+        pdfList.add(table);
+        File file = new File("path/example.pdf");
+        file.getParentFile().mkdirs();
+        new PDFUtils().createPdf("path/example.pdf", pdfList);
         return Result.success();
     }
 }
