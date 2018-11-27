@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adc.da.scoresqlserver.dao.ScoresEODao" >
+  <!-- Result Map-->
+  <resultMap id="BaseResultMap" type="com.adc.da.scoresqlserver.entity.ScoresEO" >
+    <result column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="score" property="score" />
+  </resultMap>
+
+  <!-- scores table all fields -->
+  <sql id="Base_Column_List" >
+     id, name, score
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="Base_Where_Clause">
+    where 1=1
+    <trim suffixOverrides="," >
+      <if test="id != null" >
+        and id ${idOperator} #{id}
+      </if>
+      <if test="name != null" >
+        and name ${nameOperator} #{name}
+      </if>
+      <if test="score != null" >
+        and score ${scoreOperator} #{score}
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 插入记录 -->
+  <insert id="insert" parameterType="com.adc.da.scoresqlserver.entity.ScoresEO" >
+    insert into scores(<include refid="Base_Column_List" />)
+    values (#{id, jdbcType=INTEGER}, #{name, jdbcType=VARCHAR}, #{score, jdbcType=INTEGER})
+  </insert>
+
+  <!-- 动态插入记录 主键是序列 -->
+  <insert id="insertSelective" parameterType="com.adc.da.scoresqlserver.entity.ScoresEO" >
+        insert into scores
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+                <if test="id != null" >id,</if>
+                <if test="name != null" >name,</if>
+                <if test="score != null" >score,</if>
+            </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+                <if test="id != null" >#{id, jdbcType=INTEGER},</if>
+                <if test="name != null" >#{name, jdbcType=VARCHAR},</if>
+                <if test="score != null" >#{score, jdbcType=INTEGER},</if>
+            </trim>
+  </insert>
+
+  <!-- scores 列表总数-->
+  <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
+    select count(1) from scores
+    <include refid="Base_Where_Clause"/>
+  </select>
+
+  <!-- 查询scores列表 -->
+  <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+		select <include refid="Base_Column_List" /> from scores
+			<include refid="Base_Where_Clause"/>
+			<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+				${pager.orderCondition}
+			</if>
+			offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
+  </select>
+
+  <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+    select <include refid="Base_Column_List"/> from scores
+    <include refid="Base_Where_Clause"/>
+    <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+		${pager.orderCondition}
+    </if>
+  </select>
+
+</mapper>

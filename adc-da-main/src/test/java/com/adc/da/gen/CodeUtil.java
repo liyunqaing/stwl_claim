@@ -17,9 +17,9 @@ public class CodeUtil {
 
 
 
-        entityPackage = "fyxTest";
+        entityPackage = "stusqlserver";
 
-       DbCodeGenerateFactory.codeGenerate("Test", entityPackage);
+       DbCodeGenerateFactory.codeGenerate("student", entityPackage);
 //        DbCodeGenerateFactory.codeGenerate("TS_ROLE", entityPackage);
 //        DbCodeGenerateFactory.codeGenerate("TS_MENU", entityPackage);
 
@@ -38,10 +38,10 @@ public class CodeUtil {
             System.out.println("开始尝试连接数据库！");
             String url = "jdbc:sqlserver://localhost:1433;databaseName=test";// 127.0.0.1是本机地址，XE是精简版Oracle的默认数据库名
             String user = "sa";// 用户名,系统默认的账户名
-            String password = "12345";// 你安装时选设置的密码
+            String password = "123456";// 你安装时选设置的密码
             con = DriverManager.getConnection(url, user, password);// 获取连接
             System.out.println("连接成功！");
-            String sql = "select * from TEST";// 预编译语句，“？”代表参数
+            String sql = "select * from student";// 预编译语句，“？”代表参数
             pre = con.prepareStatement(sql);// 实例化预编译语句
             result = pre.executeQuery();// 执行查询，注意括号中不需要再加参数
             while (result.next())

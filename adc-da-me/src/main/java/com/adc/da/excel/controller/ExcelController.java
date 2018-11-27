@@ -17,10 +17,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 
+/**
+ *
+ */
 @RestController
 @RequestMapping("/${restPath}/student/student")
 @Api(description = "|StudentEO|")
 public class ExcelController {
+    /**
+     *
+     */
     @Autowired
     private excelService excelServices;
 
@@ -32,10 +38,10 @@ public class ExcelController {
      */
     @ApiOperation(value = "Excel导入")
     @PostMapping("/excelImport")
-    public ResponseMessage ExcelImport(@RequestParam("file") MultipartFile file) throws Exception{
+    public ResponseMessage ExcelImport(@RequestParam("file") MultipartFile file) throws Exception {
         InputStream is = file.getInputStream();
         ImportParams params = new ImportParams();
-        excelServices.ExcelImport(is,params);
+        excelServices.ExcelImport(is, params);
         return Result.success();
     }
 

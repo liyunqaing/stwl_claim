@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adc.da.stusqlserver.dao.StudentEODao" >
+  <!-- Result Map-->
+  <resultMap id="BaseResultMap" type="com.adc.da.stusqlserver.entity.StudentEO" >
+    <result column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="sex" property="sex" />
+  </resultMap>
+
+  <!-- student table all fields -->
+  <sql id="Base_Column_List" >
+     id, name, sex
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="Base_Where_Clause">
+    where 1=1
+    <trim suffixOverrides="," >
+      <if test="id != null" >
+        and id ${idOperator} #{id}
+      </if>
+      <if test="name != null" >
+        and name ${nameOperator} #{name}
+      </if>
+      <if test="sex != null" >
+        and sex ${sexOperator} #{sex}
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 插入记录 -->
+  <insert id="insert" parameterType="com.adc.da.stusqlserver.entity.StudentEO" >
+    insert into student(<include refid="Base_Column_List" />)
+    values (#{id, jdbcType=INTEGER}, #{name, jdbcType=VARCHAR}, #{sex, jdbcType=VARCHAR})
+  </insert>
+
+  <!-- 动态插入记录 主键是序列 -->
+  <insert id="insertSelective" parameterType="com.adc.da.stusqlserver.entity.StudentEO" >
+        insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+                <if test="id != null" >id,</if>
+                <if test="name != null" >name,</if>
+                <if test="sex != null" >sex,</if>
+            </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+                <if test="id != null" >#{id, jdbcType=INTEGER},</if>
+                <if test="name != null" >#{name, jdbcType=VARCHAR},</if>
+                <if test="sex != null" >#{sex, jdbcType=VARCHAR},</if>
+            </trim>
+  </insert>
+
+  <!-- student 列表总数-->
+  <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
+    select count(1) from student
+    <include refid="Base_Where_Clause"/>
+  </select>
+
+  <!-- 查询student列表 -->
+  <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+		select <include refid="Base_Column_List" /> from student
+			<include refid="Base_Where_Clause"/>
+			<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+				${pager.orderCondition}
+			</if>
+			offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
+  </select>
+
+  <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+    select <include refid="Base_Column_List"/> from student
+    <include refid="Base_Where_Clause"/>
+    <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+		${pager.orderCondition}
+    </if>
+  </select>
+<select id="allinsert" resultMap="BaseResultMap" parameterType="com.adc.da.stusqlserver.entity.studentEto">
+select s.id,s.name,s.sex,c.score from student s join scores c on(s.id=c.id)
+</select>
+</mapper>

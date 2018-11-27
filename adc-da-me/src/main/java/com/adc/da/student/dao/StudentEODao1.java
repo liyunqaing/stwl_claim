@@ -16,7 +16,7 @@ import java.util.List;
  * <b>版权所有：<b>版权归北京卡达克数据技术中心所有。<br>
  */
 @Mapper
-public interface StudentEODao extends BaseDao<StudentEO> {
+public interface StudentEODao1 extends BaseDao<StudentEO> {
 
     //通过TS_STUDENT表跟SCORES表查询学生的学号，姓名及成绩
     List<StudentVO> stuScore();

@@ -3,8 +3,6 @@ package com.adc.da.student.controller;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 import java.util.List;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.adc.da.base.web.BaseController;
 import com.adc.da.student.entity.StudentEO;
 import com.adc.da.student.page.StudentEOPage;
-import com.adc.da.student.service.StudentEOService;
+import com.adc.da.student.service.StudentEOService1;
 
 import com.adc.da.util.http.ResponseMessage;
 import com.adc.da.util.http.Result;
@@ -25,22 +23,25 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 @RestController
 @RequestMapping("/${restPath}/student/student")
 @Api(description = "|StudentEO|")
-public class StudentEOController extends BaseController<StudentEO>{
+public class StudentEOController1 extends BaseController<StudentEO> {
 
-    private static final Logger logger = LoggerFactory.getLogger(StudentEOController.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(StudentEOController1.class);
+    /**
+     *
+     */
     @Autowired
-    private StudentEOService studentEOService;
-
-	@ApiOperation(value = "|StudentEO|分页查询")
+    private StudentEOService1 studentEOService;
+    /**
+     *
+     */
+    @ApiOperation(value = "|StudentEO|分页查询")
     @GetMapping("/page")
     @RequiresPermissions("student:student:page")
     public ResponseMessage<PageInfo<StudentEO>> page(StudentEOPage page) throws Exception {
         List<StudentEO> rows = studentEOService.queryByPage(page);
         return Result.success(getPageInfo(page.getPager(), rows));
     }
-
-	@ApiOperation(value = "|StudentEO|查询")
+    @ApiOperation(value = "|StudentEO|查询")
     @GetMapping("")
     @RequiresPermissions("student:student:list")
     public ResponseMessage<List<StudentEO>> list(StudentEOPage page) throws Exception {
