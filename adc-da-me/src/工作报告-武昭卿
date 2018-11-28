@@ -1,0 +1,19 @@
+文件位置：adc-da-me
+XML配置文件位置：resources.mybatis.mapper.stusqlserver.StudentEOMapper.xml
+
+1普通多表查询
+url：com.adc.da.stusqlserver.controller.StudentEOController
+方法名： public ResponseMessage stuSCore()
+2.查询某id的name的前几个字
+url：com.adc.da.stusqlserver.controller.StudentEOController
+方法名：  public ResponseMessage selectOne(int id)
+3.查询共有多少条数据
+url：com.adc.da.stusqlserver.controller.StudentEOController
+方法名：   public ResponseMessage selectAll()
+4.截取字符串
+url：com.adc.da.stusqlserver.controller.StudentEOController
+方法名：   public ResponseMessage subString(int id)
+5.返回指定字符串中指定子字符串出现的起始位置。如果未找到就返回 0
+url：com.adc.da.stusqlserver.controller.StudentEOController
+方法名：   public ResponseMessage charIndex(String str,int id)
+

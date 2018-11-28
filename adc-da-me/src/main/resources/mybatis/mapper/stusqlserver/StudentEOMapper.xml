@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.adc.da.stusqlserver.dao.StudentEODao" >
-  <!-- Result Map-->
+  <!-- Result Map  StudentEO -->
   <resultMap id="BaseResultMap" type="com.adc.da.stusqlserver.entity.StudentEO" >
     <result column="id" property="id" />
     <result column="name" property="name" />
     <result column="sex" property="sex" />
   </resultMap>
+
+<!--SelectAll-->
+<resultMap id="selectAlla" type="com.adc.da.stusqlserver.entity.SelectAll">
+  <result column="aaa" property="aaa"  />
+</resultMap>
+<!--SelectOneEO-->
+  <resultMap id="SelectOneEOa" type="com.adc.da.stusqlserver.entity.SelectOneEO">
+    <result column="name" property="name"  />
+  </resultMap>
+
+
+
 
   <!-- student table all fields -->
   <sql id="Base_Column_List" >
@@ -73,7 +85,28 @@
 		${pager.orderCondition}
     </if>
   </select>
+  <!--查询左边2个字符-->
+  <select id="selectOne" resultMap="SelectOneEOa" parameterType="com.adc.da.stusqlserver.entity.SelectOneEO">
+
+    select LEFT(student.name,2) as name from student where student.id=#{id}
+  </select>
+  <!--  多表查询-->
 <select id="allinsert" resultMap="BaseResultMap" parameterType="com.adc.da.stusqlserver.entity.studentEto">
 select s.id,s.name,s.sex,c.score from student s join scores c on(s.id=c.id)
 </select>
+<!-- select substring(student.name,1,2) from student where student.id=#{id};-->
+  <!-- student 列表总数-->
+<select id="selectAll" resultMap="selectAlla" parameterType="com.adc.da.stusqlserver.entity.SelectAll" >
+
+  select count(id) as aaa from student
+</select>
+  <!-- 截取字符串-->
+  <select id="subString" resultMap="SelectOneEOa" parameterType="com.adc.da.stusqlserver.entity.SelectOneEO">
+   select substring(student.name,1,2) as name from student where student.id=#{id};
+  </select>
+
+  <!-- 查询指定字符串-->
+  <select id="charIndex" resultMap="selectAlla" >
+   select charindex(#{str},name) as aaa from student where id = #{id}
+  </select>
 </mapper>

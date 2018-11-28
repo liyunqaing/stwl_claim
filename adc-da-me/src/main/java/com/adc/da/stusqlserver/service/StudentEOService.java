@@ -1,5 +1,6 @@
 package com.adc.da.stusqlserver.service;
 
+import com.adc.da.stusqlserver.entity.SelectOneEO;
 import com.adc.da.stusqlserver.entity.studentEto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +36,22 @@ public class StudentEOService extends BaseService<StudentEO, Void> {
     public StudentEODao getDao() {
         return dao;
     }
-     public  List<studentEto> allinsert(){
+     public  List<studentEto> allinsert() {
         return dao.allinsert();
+    }
+
+    public  Object selectOne(int id) {
+        return dao.selectOne(id);
+    }
+    public Object selectAll() {
+        return dao.selectAll();
+    }
+
+    public Object subString(int id){
+        return dao.subString(id);
+    }
+    public Object charIndex(String str,int id){
+        return dao.charIndex(str,id);
     }
 
 }
