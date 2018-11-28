@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adc.da.elk.dao.UusersEODao" >
+  <!-- Result Map-->
+  <resultMap id="BaseResultMap" type="com.adc.da.elk.entity.UusersEO" >
+    <id column="uuid" property="uuid" />
+    <result column="uuname" property="uuname" />
+    <result column="uupassword" property="uupassword" />
+  </resultMap>
+
+  <!-- UUSERS table all fields -->
+  <sql id="Base_Column_List" >
+     uuid, uuname, uupassword
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="Base_Where_Clause">
+    where 1=1
+    <trim suffixOverrides="," >
+      <if test="uuid != null" >
+        and uuid ${uuidOperator} #{uuid}
+      </if>
+      <if test="uuname != null" >
+        and uuname ${uunameOperator} #{uuname}
+      </if>
+      <if test="uupassword != null" >
+        and uupassword ${uupasswordOperator} #{uupassword}
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 插入记录 -->
+  <insert id="insert" parameterType="com.adc.da.elk.entity.UusersEO" >
+    <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="uuid">
+        SELECT SEQ_UUSERS.NEXTVAL FROM DUAL
+    </selectKey> -->
+    insert into UUSERS(<include refid="Base_Column_List" />)
+    values (#{uuid, jdbcType=VARCHAR}, #{uuname, jdbcType=VARCHAR}, #{uupassword, jdbcType=VARCHAR})
+  </insert>
+
+  <!-- 动态插入记录 主键是序列 -->
+  <insert id="insertSelective" parameterType="com.adc.da.elk.entity.UusersEO" >
+        <!-- <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="uuid">
+        SELECT SEQ_UUSERS.NEXTVAL FROM DUAL
+    </selectKey> -->
+        insert into UUSERS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+                <if test="uuid != null" >uuid,</if>
+                <if test="uuname != null" >uuname,</if>
+                <if test="uupassword != null" >uupassword,</if>
+            </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+                <if test="uuid != null" >#{uuid, jdbcType=VARCHAR},</if>
+                <if test="uuname != null" >#{uuname, jdbcType=VARCHAR},</if>
+                <if test="uupassword != null" >#{uupassword, jdbcType=VARCHAR},</if>
+            </trim>
+  </insert>
+
+  <!-- 根据pk，修改记录-->
+  <update id="updateByPrimaryKey" parameterType="com.adc.da.elk.entity.UusersEO" >
+    update UUSERS
+       set  uuname = #{uuname},
+            uupassword = #{uupassword}
+     where  uuid = #{uuid}
+  </update>
+
+  <!-- 修改记录，只修改只不为空的字段 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.adc.da.elk.entity.UusersEO" >
+    update UUSERS
+    <set >
+      <if test="uuname != null" >
+        uuname = #{uuname},
+      </if>
+      <if test="uupassword != null" >
+        uupassword = #{uupassword},
+      </if>
+    </set>
+     where uuid = #{uuid}
+  </update>
+
+  <!-- 根据id查询 UUSERS -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List" /> 
+      from UUSERS
+     where uuid = #{value}
+
+  </select>
+
+  <!-- 删除记录 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from UUSERS
+     where uuid = #{value}
+
+  </delete>
+
+  <!-- UUSERS 列表总数-->
+  <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
+    select count(1) from UUSERS
+    <include refid="Base_Where_Clause"/>
+  </select>
+
+  <!-- 查询UUSERS列表 -->
+  <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+		select <include refid="Base_Column_List" /> from UUSERS
+			<include refid="Base_Where_Clause"/>
+			<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+				${pager.orderCondition}
+			</if>
+			offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
+  </select>
+
+  <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+    select <include refid="Base_Column_List"/> from UUSERS
+    <include refid="Base_Where_Clause"/>
+    <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+		${pager.orderCondition}
+    </if>
+  </select>
+
+</mapper>

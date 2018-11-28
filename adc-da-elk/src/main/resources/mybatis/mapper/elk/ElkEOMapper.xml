@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adc.da.elk.dao.ElkEODao" >
+  <!-- Result Map-->
+  <resultMap id="BaseResultMap" type="com.adc.da.elk.entity.ElkEO" >
+    <id column="eid" property="eid" />
+    <result column="ename" property="ename" />
+    <result column="epwd" property="epwd" />
+  </resultMap>
+
+  <!-- ELK table all fields -->
+  <sql id="Base_Column_List" >
+     eid, ename, epwd
+  </sql>
+
+  <!-- 查询条件 -->
+  <sql id="Base_Where_Clause">
+    where 1=1
+    <trim suffixOverrides="," >
+      <if test="eid != null" >
+        and eid ${eidOperator} #{eid}
+      </if>
+      <if test="ename != null" >
+        and ename ${enameOperator} #{ename}
+      </if>
+      <if test="epwd != null" >
+        and epwd ${epwdOperator} #{epwd}
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 插入记录 -->
+  <insert id="insert" parameterType="com.adc.da.elk.entity.ElkEO" >
+    <!-- <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="eid">
+        SELECT SEQ_ELK.NEXTVAL FROM DUAL
+    </selectKey> -->
+    insert into ELK(<include refid="Base_Column_List" />)
+    values (#{eid, jdbcType=INTEGER}, #{ename, jdbcType=VARCHAR}, #{epwd, jdbcType=VARCHAR})
+  </insert>
+
+  <!-- 动态插入记录 主键是序列 -->
+  <insert id="insertSelective" parameterType="com.adc.da.elk.entity.ElkEO" >
+        <!-- <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="eid">
+        SELECT SEQ_ELK.NEXTVAL FROM DUAL
+    </selectKey> -->
+        insert into ELK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+                <if test="eid != null" >eid,</if>
+                <if test="ename != null" >ename,</if>
+                <if test="epwd != null" >epwd,</if>
+            </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+                <if test="eid != null" >#{eid, jdbcType=INTEGER},</if>
+                <if test="ename != null" >#{ename, jdbcType=VARCHAR},</if>
+                <if test="epwd != null" >#{epwd, jdbcType=VARCHAR},</if>
+            </trim>
+  </insert>
+
+  <!-- 根据pk，修改记录-->
+  <update id="updateByPrimaryKey" parameterType="com.adc.da.elk.entity.ElkEO" >
+    update ELK
+       set  ename = #{ename},
+            epwd = #{epwd}
+     where  eid = #{eid}
+  </update>
+
+  <!-- 修改记录，只修改只不为空的字段 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.adc.da.elk.entity.ElkEO" >
+    update ELK
+    <set >
+      <if test="ename != null" >
+        ename = #{ename},
+      </if>
+      <if test="epwd != null" >
+        epwd = #{epwd},
+      </if>
+    </set>
+     where eid = #{eid}
+  </update>
+
+  <!-- 根据id查询 ELK -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select <include refid="Base_Column_List" /> 
+      from ELK
+     where eid = #{value}
+
+  </select>
+
+  <!-- 删除记录 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ELK
+     where eid = #{value}
+
+  </delete>
+
+  <!-- ELK 列表总数-->
+  <select id="queryByCount" resultType="java.lang.Integer" parameterType="com.adc.da.base.page.BasePage">
+    select count(1) from ELK
+    <include refid="Base_Where_Clause"/>
+  </select>
+
+  <!-- 查询ELK列表 -->
+  <select id="queryByPage" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+		select <include refid="Base_Column_List" /> from ELK
+			<include refid="Base_Where_Clause"/>
+			<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+				${pager.orderCondition}
+			</if>
+			offset ${pager.pageOffset} rows fetch next ${pager.pageSize} rows only
+  </select>
+
+  <select id="queryByList" resultMap="BaseResultMap" parameterType="com.adc.da.base.page.BasePage">
+    select <include refid="Base_Column_List"/> from ELK
+    <include refid="Base_Where_Clause"/>
+    <if test="pager.orderCondition != null and pager.orderCondition != ''" >
+		${pager.orderCondition}
+    </if>
+  </select>
+
+</mapper>

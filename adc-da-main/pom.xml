@@ -257,11 +257,11 @@
 			<artifactId>adc-da-me</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>com.adc</groupId>-->
-			<!--<artifactId>adc-test</artifactId>-->
-			<!--<version>1.0.0</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>com.adc</groupId>
+			<artifactId>adc-da-elk</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.adc</groupId>
