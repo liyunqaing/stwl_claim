@@ -13,6 +13,7 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,51 +139,35 @@ public class UusersEOController extends BaseController<UusersEO> {
         return Result.success();
     }
 
-    /*@ApiOperation(value = "|UusersEO|分页查询")
-    @GetMapping("/page")
-    @RequiresPermissions("elk:uusers:page")
-    public ResponseMessage<PageInfo<UusersEO>> page(UusersEOPage page) throws Exception {
-        List<UusersEO> rows = uusersEOService.queryByPage(page);
-        return Result.success(getPageInfo(page.getPager(), rows));
-    }
+    /**
+     * @Description:  通过uusers表跟userage表查询用户id，用户名和年龄
+     * @Param:
+     * @return:
+     * @Author: elk_wangchengxin
+     * @Date:  2018/11/28
+     */
 
-	@ApiOperation(value = "|UusersEO|查询")
-    @GetMapping("")
-    @RequiresPermissions("elk:uusers:list")
-    public ResponseMessage<List<UusersEO>> list(UusersEOPage page) throws Exception {
-        return Result.success(uusersEOService.queryByList(page));
-	}
+   /*@ApiOperation(value = "|elkVO1|多表查询1")
+   @GetMapping("/searchUusers")
+   @RequiresPermissions("user:user:userList")
+   public ResponseMessage userAge() throws Exception {
+       return Result.success(uusersEOService.userAge());
+   }*/
 
-    @ApiOperation(value = "|UusersEO|详情")
-    @GetMapping("/{uuid}")
-    @RequiresPermissions("elk:uusers:get")
-    public ResponseMessage<UusersEO> find(@PathVariable String uuid) throws Exception {
-        return Result.success(uusersEOService.selectByPrimaryKey(uuid));
-    }
+   /**
+    * @Description:  查询id尾数为4或者6 的年龄超过25岁的用户的信息
+    * @Param:
+    * @return:
+    * @Author: elk_wangchengxin
+    * @Date:  2018/11/28
+   */
 
-    @ApiOperation(value = "|UusersEO|新增")
-    @PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE)
-    @RequiresPermissions("elk:uusers:save")
-    public ResponseMessage<UusersEO> create(@RequestBody UusersEO uusersEO) throws Exception {
-        uusersEOService.insertSelective(uusersEO);
-        return Result.success(uusersEO);
-    }
-
-    @ApiOperation(value = "|UusersEO|修改")
-    @PutMapping(consumes = APPLICATION_JSON_UTF8_VALUE)
-    @RequiresPermissions("elk:uusers:update")
-    public ResponseMessage<UusersEO> update(@RequestBody UusersEO uusersEO) throws Exception {
-        uusersEOService.updateByPrimaryKeySelective(uusersEO);
-        return Result.success(uusersEO);
-    }
-
-    @ApiOperation(value = "|UusersEO|删除")
-    @DeleteMapping("/{uuid}")
-    @RequiresPermissions("elk:uusers:delete")
-    public ResponseMessage delete(@PathVariable String uuid) throws Exception {
-        uusersEOService.deleteByPrimaryKey(uuid);
-        logger.info("delete from UUSERS where uuid = {}", uuid);
-        return Result.success();
+    /*@ApiOperation(value = "|elkVO2|多表查询2")
+    @GetMapping("/searchAge")
+    @RequiresPermissions("user:user:ageList")
+    public ResponseMessage age() throws Exception {
+        return Result.success(uusersEOService.age());
     }*/
+
 
 }

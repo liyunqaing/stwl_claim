@@ -1,5 +1,6 @@
 package com.adc.da.elk.service;
 
+import com.adc.da.elk.vo.elkVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.adc.da.base.service.BaseService;
 import com.adc.da.elk.dao.UusersEODao;
 import com.adc.da.elk.entity.UusersEO;
+
+import java.util.List;
 
 
 /**
@@ -27,10 +30,34 @@ public class UusersEOService extends BaseService<UusersEO, String> {
     private static final Logger logger = LoggerFactory.getLogger(UusersEOService.class);
 
     @Autowired
-    private UusersEODao dao;
+    private static UusersEODao dao;
 
     public UusersEODao getDao() {
         return dao;
     }
 
+
+    /**
+     * @Description:
+     * @Param:
+     * @return:
+     * @Author: elk_wangchengxin
+     * @Date:
+    */
+
+    public List<elkVO> userAge() {
+        return dao.userAge();
+    }
+
+    /**
+     * @Description:
+     * @Param:
+     * @return:
+     * @Author: elk_wangchengxin
+     * @Date:
+    */
+
+    public List<elkVO> age(){
+        return dao.age();
+    }
 }

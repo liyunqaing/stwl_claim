@@ -2,6 +2,10 @@ package com.adc.da.elk.dao;
 
 import com.adc.da.base.dao.BaseDao;
 import com.adc.da.elk.entity.UusersEO;
+import com.adc.da.elk.vo.elkVO;
+
+import java.util.List;
+
 /**
  *
  * <br>
@@ -11,5 +15,9 @@ import com.adc.da.elk.entity.UusersEO;
  * <b>版权所有：<b>版权归北京卡达克数据技术中心所有。<br>
  */
 public interface UusersEODao extends BaseDao<UusersEO> {
+
+    List<elkVO> userAge();
+
+    List<elkVO> age();
 
 }

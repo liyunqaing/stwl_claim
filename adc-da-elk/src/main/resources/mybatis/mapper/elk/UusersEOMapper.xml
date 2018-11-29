@@ -117,4 +117,14 @@
     </if>
   </select>
 
+    <select id="userAge" resultMap="BaseResultMap" resultType="com.adc.da.elk.vo.elkVO">
+    select u.uuid,u.uuname,a.age from uusers u join userAge a on(u.uuid=a.uuid)
+  </select>
+
+    <!--查询id以4或者6结尾的年龄大于25的用户-->
+    <select id="age" resultMap="BaseResultMap" resultType="com.adc.da.elk.vo.elkVO">
+    select u.uuid,u.uuname,userAge.age from(select * from uusers where uusers.uuid like '%4' or uusers.uuid like '%6') u
+    join userAge on (u.uuid = userAge.uuid) where userAge.age >25
+  </select>
+
 </mapper>
