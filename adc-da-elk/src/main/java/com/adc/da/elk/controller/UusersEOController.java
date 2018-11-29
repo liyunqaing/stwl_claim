@@ -3,6 +3,7 @@ package com.adc.da.elk.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.adc.da.pdf.PDFPage;
@@ -16,7 +17,9 @@ import com.itextpdf.text.pdf.PdfPTable;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import com.adc.da.base.web.BaseController;
@@ -37,6 +40,45 @@ public class UusersEOController extends BaseController<UusersEO> {
 
     @Autowired
     private UusersEOService uusersEOService;
+
+   /* @Autowired
+    private AmqpTemplate rabbitTemplate;
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = "helloQueue", durable = "true"),
+            exchange = @Exchange(value = "adc-exchange", ignoreDeclarationExceptions = "true"),
+            key = "cdf-key"))
+*/
+    /**
+     * @Description:  RabbitMq接收消息
+     * @Param:
+     * @return:
+     * @Author: elk_wangchengxin
+     * @Date:  2018-11-29
+    */
+
+    /*@ApiOperation(value = "|RabbitMq接收消息|")
+    @GetMapping("/ReceiverHello")
+    public void receiverHello(String hello) {
+        System.out.println("hello Receiver : " + hello);
+    }*/
+
+
+    /**
+     * @Description:  RabbitMq发送消息
+     * @Param:
+     * @return:
+     * @Author: elk_wangchengxin
+     * @Date:  2018-11-29
+    */
+
+   /* @ApiOperation(value = "|RabbitMq发送消息|")
+    @GetMapping("/sendHi")
+    public void sendHi() {
+        String sendMsg = "Hi " + new Date();
+        System.out.println("sendHi : " + sendMsg);
+        this.rabbitTemplate.convertAndSend("adc-exchange", "adc-key", sendMsg);
+    }*/
 
     /**
      * @Description:  组件测试：PDF文件导出
